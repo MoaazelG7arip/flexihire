@@ -5,7 +5,7 @@ import { CanActivateAuth, CanActivateAuthChild, CanActivateMain, CanActivateMain
 
 
 export const routes: Routes = [
-    {path: '', redirectTo: 'auth', pathMatch: 'full'},
+    {path: '', redirectTo: 'auth/welcome', pathMatch: 'full'},
     {path: 'auth', loadComponent: ()=> import('./auth/auth.component').then(m=>m.AuthComponent),
         canActivate:[CanActivateAuth], canActivateChild: [CanActivateAuthChild]
         ,children:[
