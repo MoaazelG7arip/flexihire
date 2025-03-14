@@ -1,1 +1,113 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body{
+  /* font-family: "Space Grotesk", sans-serif; */
+  font-family: "Inter", sans-serif;
+
+}
+app-loader{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+app-notification[role = alert] >div{
+    background-color: #f35c5c;
+}
+app-notification[role = update] >div{
+    background-color: #5468ff;
+}
+app-notification[role = success] >div{
+    background-color: #38b2ac;
+}
+
+.form-box {
+    background: url("./../public/photo/BG.png") no-repeat;
+    background-size: cover;
+}
+
+
+/* form input */
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"]
+ {
+    box-sizing: border-box;
+    width: 100%;
+    height: calc(3em + 2px);
+    margin: 0 0 1em;
+    padding: 1em;
+    border: 1px solid #ccc;
+    border-radius: .5em;
+    background: #fff;
+    resize: none;
+    outline: none;
+    -webkit-border-radius: .5em;
+    -moz-border-radius: .5em;
+    -ms-border-radius: .5em;
+    -o-border-radius: .5em;
+}
+  input[type="text"][required]:focus,
+  input[type="email"][required]:focus,
+  input[type="password"][required]:focus,
+  input[type="number"][required]:focus {
+    border-color: #00bafa;
+  }
+  input[type="text"][required]:focus + label[placeholder]:before,
+  input[type="email"][required]:focus + label[placeholder]:before,
+  input[type="password"][required]:focus + label[placeholder]:before,
+  input[type="number"][required]:focus + label[placeholder]:before {
+    color: #00bafa;
+  }
+  input[type="text"][required]:focus + label[placeholder]:before,
+  input[type="text"][required]:valid + label[placeholder]:before,
+  input[type="email"][required]:focus + label[placeholder]:before,
+  input[type="email"][required]:valid + label[placeholder]:before,
+  input[type="password"][required]:focus + label[placeholder]:before,
+  input[type="password"][required]:valid + label[placeholder]:before,
+  input[type="number"][required]:focus + label[placeholder]:before,
+  input[type="number"][required]:valid + label[placeholder]:before {
+    transition-duration: 0.2s;
+    transform: translate(0, -1.5em) scale(0.9, 0.9);
+  }
+  input[type="text"][required]:invalid + label[placeholder][alt]:before,
+  input[type="email"][required]:invalid + label[placeholder][alt]:before,
+  input[type="password"][required]:invalid + label[placeholder][alt]:before,
+  input[type="number"][required]:invalid + label[placeholder][alt]:before {
+    content: attr(alt);
+  }
+  input[type="text"][required] + label[placeholder],
+  input[type="email"][required] + label[placeholder],
+  input[type="password"][required] + label[placeholder],
+  input[type="number"][required] + label[placeholder] {
+    display: block;
+    pointer-events: none;
+    line-height: 1.25em;
+    margin-top: calc(-3em - 2px);
+    margin-bottom: calc((3em - 1em) + 2px);
+  }
+  input[type="text"][required] + label[placeholder]:before,
+  input[type="email"][required] + label[placeholder]:before,
+  input[type="password"][required] + label[placeholder]:before,
+  input[type="number"][required] + label[placeholder]:before {
+    content: attr(placeholder);
+    display: inline-block;
+    margin: 0 calc(1em + 2px);
+    padding: 0 2px;
+    color: #898989;
+    white-space: nowrap;
+    transition: 0.3s ease-in-out;
+    background-image: linear-gradient(to bottom, #fff, #fff);
+    background-size: 100% 5px;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  

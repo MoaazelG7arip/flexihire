@@ -1,0 +1,9 @@
+<div class="body">
+
+    @if (notification.isFound) {
+        <app-notification [attr.role]="notification.status">{{notification.message}}</app-notification>
+    }
+
+    <router-outlet></router-outlet>
+
+</div>

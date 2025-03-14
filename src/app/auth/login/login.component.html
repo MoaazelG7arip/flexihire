@@ -1,0 +1,83 @@
+
+
+<div class="f-page w-full flex h-screen gap-[5vw]">
+  <div class="media overflow-hidden h-full absolute top-0 left-0 w-full sm:w-[35vw] sm:relative -z-10 sm:z-10">
+    <video src="video/vecteezy_happy-child-back-to-school_37210123.mp4" autoplay muted loop 
+    class="w-full h-full relative object-cover"></video>
+  </div>
+  <div class="meta overflow-auto bg-white bg-opacity-50 sm:bg-none sm:bg-opacity-0 w-full sm:w-[60vw]">
+    <div class="container pt-16">
+      <h1 class="font-bold text-2xl mb-6">Login</h1>
+      <form
+        [formGroup]="loginForm"
+        (ngSubmit)="onSubmit()"
+        class="space-y-3 grid grid-cols-2 gap-x-5"
+      >
+      @if (loading) {
+        <app-loader></app-loader>
+        } @else {
+        <!-- Email Field -->
+        <div class="col-span-2">
+          <input id="email" type="text" formControlName="email" required="" />
+          <label alt="Email" placeholder="Email"></label>
+          <div
+            *ngIf="
+              loginForm.get('email')?.invalid &&
+              loginForm.get('email')?.touched
+            "
+            class="text-sm text-red-600 mt-1"
+          >
+            Please enter a valid email.
+          </div>
+        </div>
+
+        <!-- Password Field -->
+        <div class="col-span-2">
+          <input
+            id="password"
+            type="password"
+            formControlName="password"
+            required=""
+          />
+          <label alt="Password" placeholder="Password"></label>
+          <div
+            *ngIf="loginForm.get('password')?.errors?.['required'] && loginForm.get('password')?.touched"
+            class="text-sm text-red-600 mt-1"
+          >
+            Password is required.
+          </div>
+          <div
+            *ngIf="!loginForm.get('password')?.errors?.['required'] &&
+              loginForm.get('password')?.touched &&
+              loginForm.get('password')?.errors?.['minlength']"
+            class="text-sm text-violet-600 mt-1 font-bold"
+          >
+            Password must be at least 8 Characters
+          </div>
+        <button type="button" class="text-violet-600 font-bold" (click)="goToForgetPassword()">Forget Password?</button>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="col-span-2">
+            <button
+              type="submit"
+              [disabled]="loginForm.invalid"
+              class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm 
+              font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2
+            focus:ring-indigo-500 disabled:bg-gray-300 disabled:cursor-not-allowed"
+            >
+              Login
+            </button>
+          </div>
+        }
+      </form>
+      <p>
+        don't have an account?
+        <button class="text-violet-600 underline" (click)="goToRegisterPage()">
+          register
+        </button>
+      </p>
+    </div>
+  </div>
+</div>
+

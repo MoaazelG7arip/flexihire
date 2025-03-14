@@ -1,0 +1,27 @@
+
+div{
+    right: 10rem;
+    top: 3rem;
+    animation: fadeIn .5s ease-in-out, fadeOut .5s 3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    0%{
+        opacity: 0;
+        top: 0;
+    }
+    100%{
+        opacity: 1;
+        top: 3rem;
+    }
+}
+@keyframes fadeOut {
+    0%{
+        opacity: 1;
+        top: 3rem;
+    }
+    100%{
+        opacity: 0;
+        top: 0;
+    }
+}
