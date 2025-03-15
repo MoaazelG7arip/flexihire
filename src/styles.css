@@ -37,7 +37,7 @@ app-notification[role = success] >div{
 input[type="text"],
 input[type="email"],
 input[type="password"],
-input[type="number"]
+input[type="number"],select
  {
     box-sizing: border-box;
     width: 100%;

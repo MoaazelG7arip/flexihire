@@ -20,7 +20,35 @@ import { ProgressBarComponent } from "../../shared/progress-bar/progress-bar.com
 })
 export class AccountComponent {
 
-
+  governorates: string[] = [
+    'Cairo',
+    'Alexandria',
+    'Giza',
+    'Sharkia',
+    'Dakahlia',
+    'Red Sea',
+    'Beheira',
+    'Fayoum',
+    'Gharbia',
+    'Ismailia',
+    'Menofia',
+    'Minya',
+    'Qaliubiya',
+    'New Valley',
+    'Suez',
+    'Aswan',
+    'Assiut',
+    'Beni Suef',
+    'Port Said',
+    'Damietta',
+    'South Sinai',
+    'Kafr El Sheikh',
+    'Matrouh',
+    'Luxor',
+    'Qena',
+    'North Sinai',
+    'Sohag'
+  ];
 
   user= null;
   image_url = null;
@@ -126,11 +154,11 @@ export class AccountComponent {
           console.log('Upload successful:', res)
           this.loading = false;
           
-          const user = localStorage.getItem('user');
+          const user = sessionStorage.getItem('user');
           if(user){
             const userData = JSON.parse(user);
             userData.user.background_url = res['background_url'];
-            localStorage.setItem('user', JSON.stringify(userData));
+            sessionStorage.setItem('user', JSON.stringify(userData));
             this.authService.user.next(userData);
           }
           this.notification = {
@@ -175,11 +203,11 @@ export class AccountComponent {
           console.log('Upload successful:', res)
           this.loading = false;
           
-          const user = localStorage.getItem('user');
+          const user = sessionStorage.getItem('user');
           if(user){
             const userData = JSON.parse(user);
             userData.user.image_url = res['image_url'];
-            localStorage.setItem('user', JSON.stringify(userData));
+            sessionStorage.setItem('user', JSON.stringify(userData));
             this.authService.user.next(userData);
           }
           this.notification = {
@@ -219,12 +247,12 @@ export class AccountComponent {
         console.log('Name updated successfully:', res)
 
                   
-        const user = localStorage.getItem('user');
+        const user = sessionStorage.getItem('user');
         if(user){
           const userData = JSON.parse(user);
           userData.user.first_name = res['first_name'];
           userData.user.last_name = res['last_name'];
-          localStorage.setItem('user', JSON.stringify(userData));
+          sessionStorage.setItem('user', JSON.stringify(userData));
           this.authService.user.next(userData);
         }
 
@@ -260,11 +288,11 @@ export class AccountComponent {
         this.loading = false;
         console.log('Name updated successfully:', res)
 
-        const user = localStorage.getItem('user');
+        const user = sessionStorage.getItem('user');
         if(user){
           const userData = JSON.parse(user);
           userData.user.description = res['description'];
-          localStorage.setItem('user', JSON.stringify(userData));
+          sessionStorage.setItem('user', JSON.stringify(userData));
           this.authService.user.next(userData);
         }
 
@@ -300,11 +328,11 @@ export class AccountComponent {
         this.loading = false;
         console.log('Location updated successfully:', res)
 
-        const user = localStorage.getItem('user');
+        const user = sessionStorage.getItem('user');
         if(user){
           const userData = JSON.parse(user);
           userData.user.location = res['location'];
-          localStorage.setItem('user', JSON.stringify(userData));
+          sessionStorage.setItem('user', JSON.stringify(userData));
           this.authService.user.next(userData);
         }
 
@@ -383,11 +411,11 @@ export class AccountComponent {
           console.log('Upload successful:', res)
           this.loading = false;
           
-          const user = localStorage.getItem('user');
+          const user = sessionStorage.getItem('user');
           if(user){
             const userData = JSON.parse(user);
             userData.user.cv = res['cv'];
-            localStorage.setItem('user', JSON.stringify(userData));
+            sessionStorage.setItem('user', JSON.stringify(userData));
             this.authService.user.next(userData);
           }
           this.notification = {
@@ -467,12 +495,12 @@ export class AccountComponent {
       next: (res) => {
         this.loading = false;
         console.log('Skills and job updated successfully:', res)
-        const user = localStorage.getItem('user');
+        const user = sessionStorage.getItem('user');
         if(user){
           const userData = JSON.parse(user);
           userData.user.job = res['user']['jobs'][0];
           userData.user.skills = res['user']['skills'];
-          localStorage.setItem('user', JSON.stringify(userData));
+          sessionStorage.setItem('user', JSON.stringify(userData));
           this.authService.user.next(userData);
           console.log(this.selectedSkills)
         }

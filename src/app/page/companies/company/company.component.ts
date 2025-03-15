@@ -1,12 +1,13 @@
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { LoaderComponent } from "../../../shared/loader/loader.component";
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-company',
   standalone: true,
-  imports: [LoaderComponent],
+  imports: [CommonModule, LoaderComponent, RouterLink],
   templateUrl: './company.component.html',
   styleUrl: './company.component.css'
 })
@@ -16,6 +17,8 @@ export class CompanyComponent {
   authService: AuthService = inject(AuthService);
   company = null;
   loading = false;
+  mainUser = false;
+
 
   ngOnInit(): void {
     // Get the ID from the route parameters
@@ -27,6 +30,10 @@ export class CompanyComponent {
         this.loading = false;
         console.log(res);
         this.company = res['company'];
+        let theUser = JSON.parse(sessionStorage.getItem('user'));
+        if(theUser['user'].id == id){
+          this.mainUser = true;
+        }
       },
       error: (error) => {
         this.loading = false;

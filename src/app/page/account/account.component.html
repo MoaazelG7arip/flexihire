@@ -97,22 +97,24 @@
                         <input type="text" id="title" name="description" [(ngModel)]="description" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
                     </div>
                     <div class="col-span-1 text-center sm:text-start">
-                        <button type="submit" [disabled]="!description" >Update</button>
+                        <button type="submit" [disabled]="!description">Update</button>
                     </div>
                 </form>
-                @if(role == "company"){
                 <!-- Update profile Location -->
                  <h2 class="mt-10 font-bold mb-3">Update Your Location</h2>
                 <form (ngSubmit)="onUpdateLocation()" class="grid grid-cols-1 sm:grid-cols-5 sm:gap-x-10 items-center sm:border sm:rounded-lg sm:p-10">
                     <div class="col-span-1 sm:col-span-4">
-                        <label for="location" class="block text-sm font-medium text-gray-700">Location</label>
-                        <input type="text" id="location" name="description" [(ngModel)]="location" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
-                    </div>
+                        <label for="location" class="block text-sm font-medium text-gray-700">Location</label>                        
+                        <select id="location" name="location" [(ngModel)]="location"  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
+                          <option *ngFor="let governorate of governorates" [value]="governorate">
+                            {{ governorate }}
+                          </option>
+                        </select>
+                  </div>
                     <div class="col-span-1 text-center sm:text-start">
                         <button type="submit" [disabled]="!location" >Update</button>
                     </div>
                 </form>
-              }
                 @if(!addInfo){
                 <!-- Update profile password -->
                 <h2 class="mt-10 font-bold mb-3">Update Profile Password</h2>

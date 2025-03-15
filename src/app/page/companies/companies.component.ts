@@ -17,6 +17,9 @@ export class CompaniesComponent {
   authService: AuthService = inject(AuthService);
   companies = [];
   loading = false;
+  locationChange = false;
+  userLocation;
+  list;
   ngOnInit(): void {
     this.loading = true;
     this.authService.onGetcompanies().subscribe({
@@ -24,13 +27,31 @@ export class CompaniesComponent {
         this.loading = false;
         console.log(res);
         this.companies = res['data'];
+
+ 
+        this.userLocation = JSON.parse(sessionStorage.getItem('user')).user.location;
+        console.log(this.userLocation);
+        this.list = 0;
+        this.companies.forEach(company =>{
+          if(company.location == this.userLocation){
+            this.list++;
+            console.log('done')
+          }
+        })
+        console.log(this.list)
       },
       error: (error) => {
         this.loading = false;
         console.log(error);
       }
     })
-    
+
+
+  }
+
+  onLocationChange(){
+    console.log('Location changed');
+    this.locationChange = !this.locationChange;
   }
 
 

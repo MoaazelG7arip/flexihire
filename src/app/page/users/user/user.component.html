@@ -1,6 +1,81 @@
 @if(loading) {
     <app-loader class="mt-32"></app-loader>
 } @else {
-<p>user works!</p>
-<p>{{user?.first_name}}</p>
+
+    <div class="min-h-screen bg-gray-100 flex items-center justify-center p-6">
+        <!-- Profile Card -->
+        <div class="w-full max-w-4xl bg-white rounded-lg shadow-2xl overflow-hidden">
+          <!-- Background Image -->
+          @if(user?.background_url){
+            <div
+              class="w-full h-64 bg-cover bg-center"
+              [ngStyle]="{'background-image': 'url(' + user?.background_url + ')'}"
+            ></div>
+        } @else {
+            <div
+            class="w-full h-48 bg-cover bg-center"
+            [ngStyle]="{'background-image': 'url(photo/white-2172682_1920.jpg)'}"
+            ></div>
+         }
+          <!-- Profile Content -->
+          <div class="p-6">
+            <!-- Profile Image -->
+            <div class="flex justify-center -mt-20">
+              <img class="w-32 h-32 rounded-full border-4 border-white shadow-lg" [src]="user?.image_url || 'photo/user.png'" alt="Profile Image">
+            </div>
+      
+            <!-- Name and Job Title -->
+            <div class="text-center mt-4">
+              <h1 class="text-3xl font-bold text-gray-900">{{user?.first_name + " "+ user?.last_name || 'no name provided'}}</h1>
+              <p class="text-lg text-gray-600">{{user?.job?.name || 'no job title provided'}}</p>
+            </div>
+      
+            <!-- Description -->
+            <div class="mt-6 text-center text-gray-700">
+              <p>
+                {{user?.description || 'No description provided'}}
+              </p>
+            </div>
+      
+            <!-- Location -->
+            <div class="mt-4 text-center text-gray-600">
+              <p>📍 {{user?.location || 'no location provided'}}</p>
+            </div>
+      
+            <!-- Skills -->
+            <div class="mt-6">
+              <h2 class="text-xl font-semibold text-gray-900">Skills</h2>
+              @if(user.skills.length > 0){
+              <div class="flex flex-wrap gap-2 mt-2">
+                  @for(skill of user.skills; track $index){
+                      <div class="px-4 py-2 bg-blue-100 text-white rounded-full flex items-center gap-2" [ngStyle]="{'background-color': getRandomColor()}">
+                          <img [src]="skill.icon" class="w-8 h-8 rounded" alt="">
+                          <span>{{skill.name}}</span>
+                      </div>
+                  }
+                </div>
+              } @else {
+                <p>No skills provided</p>
+              }
+            </div>
+      
+            <!-- Uploaded CV -->
+            <div class="mt-6">
+              <h2 class="text-xl font-semibold text-gray-900">Uploaded CV</h2>
+              <div class="mt-2">
+                @if(user?.cv){
+                    <a [href]="user?.cv" class="text-blue-600 hover:underline">Download CV (PDF)</a>
+                } @else {
+                    <p>No CV uploaded</p>
+                }
+              </div>
+            </div>
+          </div>
+          @if(mainUser){
+            <button class="bg-teal-700 hover:bg-teal-900 p-3 m-3 rounded-md text-white" routerLink="/page/account">update Account</button>
+          } @else {
+            <button class="bg-teal-700 hover:bg-teal-900 p-3 m-3 rounded-md text-white">Get Contact</button>
+          }
+        </div>
+      </div>
 }

@@ -5,10 +5,33 @@
  @if(loading){
     <app-loader class="mt-32"></app-loader>
  }@else {
+
+
+  <div class="flex items-center gap-x-3 relative mt-10 ml-10">
+    <label for="hs-basic-with-description" class="text-sm text-gray-500">All Locations</label>
+    <label for="hs-basic-with-description" class="relative inline-block w-11 h-6 cursor-pointer">
+      <input type="checkbox" id="hs-basic-with-description" class="peer sr-only" (change)="onLocationChange()">
+      <span class="absolute inset-0 bg-gray-200 rounded-full transition-colors duration-200 ease-in-out peer-checked:bg-blue-600 peer-disabled:opacity-50 peer-disabled:pointer-events-none"></span>
+      <span class="absolute top-1/2 start-0.5 -translate-y-1/2 size-5 bg-white rounded-full shadow-xs transition-transform duration-200 ease-in-out peer-checked:translate-x-full"></span>
+    </label>
+    <label for="hs-basic-with-description" class="text-sm text-gray-500 ">On Your Location</label>
+  </div>
+
+
+
 <div class="container max-w-full">
-    <div *ngFor="let company of companies" 
-    class="flex flex-col items-center w-full bg-white rounded-lg overflow-hidden shadow-lg my-16 cursor-pointer"
-    [routerLink]="company.id">
+  @if(!list && locationChange){
+    <h1 class="my-10 text-4xl">There Is No Companies In Your Location</h1>
+  }
+  @for(company of companies; track $index){
+
+    
+    @if(!locationChange || (company.location == userLocation ) ){
+
+      <div
+      class="flex flex-col items-center w-full bg-white rounded-lg overflow-hidden shadow-lg my-16 cursor-pointer"
+      [routerLink]="company.id">
+
       <!-- Background Image -->
        @if(company.background_url){
            <div
@@ -51,6 +74,11 @@
           {{ company.description }}
         </p>
       </div>
+
     </div>
+    }
+
+  }
   </div>
+
 }
