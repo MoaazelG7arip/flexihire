@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { ProgressBarComponent } from "../../shared/progress-bar/progress-bar.component";
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../../services/auth.service';
 import { RouterLink } from '@angular/router';
 import { LoaderComponent } from "../../shared/loader/loader.component";
+import { InformationService } from '../../services/information.service';
 
 @Component({
   selector: 'app-users',
@@ -15,13 +15,13 @@ import { LoaderComponent } from "../../shared/loader/loader.component";
 export class UsersComponent {
 
 
-  authService: AuthService = inject(AuthService);
+  informationService: InformationService = inject(InformationService);
   users = [];
   loading: boolean = false;
   
     ngOnInit(): void {
       this.loading = true;
-      this.authService.onGetusers().subscribe({
+      this.informationService.onGetusers().subscribe({
         next: (res) => {
           this.loading = false;
           console.log(res);

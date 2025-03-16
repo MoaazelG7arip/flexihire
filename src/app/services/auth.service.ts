@@ -44,19 +44,5 @@ export class AuthService {
     console.log(data);
     return this.http.post(this.baseApi + '/reset-password', data);
   }
-  onGetUsers(){
-    return this.http.get(this.baseApi + '/users');
-  }
-  onGetcompanies(){
-    return this.http.get(this.baseApi + '/companies');
-  }
-  onGetCompanyById(id){
-    return this.http.get(this.baseApi + '/company/' + id);
-  }
-  onGetusers(){
-    return this.http.get(this.baseApi + '/users');
-  }
-  onGetUserById(id){
-    return this.http.get(this.baseApi + '/user/' + id);
-  }
+  
 }

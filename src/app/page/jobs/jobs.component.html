@@ -1,0 +1,46 @@
+<div class="page bg-gray-200 overflow-hidden">
+
+    <div class="container max-w-full text-center sm:text-start">
+        @for(job of jobs; track $index){
+  
+        <!-- job content box -->
+        <div class="bg-white p-8 m-4 rounded-sm shadow-lg space-y-3 sm:space-y-1.5">
+            <!-- company logo -->
+            <figure class="float-none sm:float-end items-end inline-block">
+                @if (job.user.image_url) {
+                    <img
+                      [src]="job.user.image_url"
+                      alt="{{ job.user.first_name }} {{ job.user.last_name }}"
+                      class="w-24 h-24 rounded-full"
+                    />
+                    }
+                    @else {
+                        <img src="photo/user.png" alt="Profile Picture" class="w-24 h-24 rounded-full">
+                    }            </figure>
+            <!-- title  -->
+            <h1 class="text-xl font-bold text-teal-600">{{job.title}}</h1>
+            <!-- name of company and location -->
+            <div>
+                <span class="font-bold">{{job.user.first_name +' '+ job.user.last_name}} - </span>
+                <span class="text-gray-700">{{job.location}}</span>
+            </div>
+            <!-- date -->
+            <p class="text-gray-500">Job posted : {{job.date_posted}}</p>
+            <!-- type -->
+            <div class="space-x-3">
+                <span class="bg-gray-300 p-1 rounded">Full Time</span>
+                <span class="bg-gray-300 p-1 rounded">Hybrid</span>
+            </div>
+            <!-- description -->
+            <div class="text-gray-500 font-semibold text-justify">
+                {{job.description}}            
+            </div>
+            <!-- skills required -->
+            <div>
+                {{job.skills}}
+            </div>
+        </div>
+        
+        }
+    </div>
+</div>

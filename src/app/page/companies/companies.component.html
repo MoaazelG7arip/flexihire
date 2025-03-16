@@ -6,6 +6,7 @@
     <app-loader class="mt-32"></app-loader>
  }@else {
 
+<div class="bg-gray-100 overflow-hidden min-h-screen">
 
   <div class="flex items-center gap-x-3 relative mt-10 ml-10">
     <label for="hs-basic-with-description" class="text-sm text-gray-500">All Locations</label>
@@ -29,11 +30,11 @@
     @if(!locationChange || (company.location == userLocation ) ){
 
       <div
-      class="flex flex-col items-center w-full bg-white rounded-lg overflow-hidden shadow-lg my-16 cursor-pointer"
+      class="flex flex-col items-center w-full bg-white rounded-lg shadow-lg my-16 cursor-pointer"
       [routerLink]="company.id">
 
       <!-- Background Image -->
-       @if(company.background_url){
+       <!-- @if(company.background_url){
            <div
              class="w-full h-48 bg-cover bg-center"
              [ngStyle]="{'background-image': 'url(' + company.background_url + ')'}"
@@ -43,7 +44,7 @@
            class="w-full h-48 bg-cover bg-center"
            [ngStyle]="{'background-image': 'url(photo/white-2172682_1920.jpg)'}"
            ></div>
-        }
+        } -->
   
       <!-- company Content -->
       <div class="w-full md:w-2/3 p-6 flex flex-col items-center md:items-start">
@@ -80,5 +81,6 @@
 
   }
   </div>
+</div>
 
 }

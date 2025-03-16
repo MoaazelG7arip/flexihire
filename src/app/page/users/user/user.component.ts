@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { AuthService } from '../../../services/auth.service';
 import { LoaderComponent } from "../../../shared/loader/loader.component";
-import { AsyncPipe, CommonModule } from '@angular/common';
+import { CommonModule } from '@angular/common';
+import { InformationService } from '../../../services/information.service';
 
 @Component({
   selector: 'app-user',
@@ -16,7 +16,7 @@ export class UserComponent {
 
   
     route: ActivatedRoute = inject(ActivatedRoute);
-    authService: AuthService = inject(AuthService);
+    informationService: InformationService = inject(InformationService);
     user;
     loading = false;
     mainUser = false;
@@ -26,7 +26,7 @@ export class UserComponent {
       const id = +this.route.snapshot.paramMap.get('id')!;
       this.loading = true;
       // Fetch the company details (replace with actual API call or service)
-      this.authService.onGetUserById(id).subscribe({
+      this.informationService.onGetUserById(id).subscribe({
         next: (res) => {
           this.loading = false;
           console.log(res);

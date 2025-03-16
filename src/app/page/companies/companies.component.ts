@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
 import { ProgressBarComponent } from "../../shared/progress-bar/progress-bar.component";
 import { RouterLink } from '@angular/router';
 import { LoaderComponent } from "../../shared/loader/loader.component";
+import { InformationService } from '../../services/information.service';
 
 @Component({
   selector: 'app-companies',
@@ -14,7 +14,7 @@ import { LoaderComponent } from "../../shared/loader/loader.component";
 })
 export class CompaniesComponent {
 
-  authService: AuthService = inject(AuthService);
+  informationService: InformationService = inject(InformationService);
   companies = [];
   loading = false;
   locationChange = false;
@@ -22,7 +22,7 @@ export class CompaniesComponent {
   list;
   ngOnInit(): void {
     this.loading = true;
-    this.authService.onGetcompanies().subscribe({
+    this.informationService.onGetcompanies().subscribe({
       next: (res) => {
         this.loading = false;
         console.log(res);

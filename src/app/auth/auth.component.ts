@@ -59,7 +59,7 @@ export class AuthComponent implements OnInit {
         sessionStorage.setItem('user', JSON.stringify(res));
         sessionStorage.setItem('addInfo', 'true');
         // routing to home page
-        this.router.navigate(['/page/account']);
+        this.router.navigate(['/page/jobs']);
         // end
         this.notification = {
           isFound: true,
@@ -97,7 +97,7 @@ export class AuthComponent implements OnInit {
         sessionStorage.setItem('user', JSON.stringify(res));
         // routing to home page
          
-        this.router.navigate(['/page/account']);
+        this.router.navigate(['/page/jobs']);
         // end
         this.notification = {
           isFound: true,
