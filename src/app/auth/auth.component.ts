@@ -59,7 +59,7 @@ export class AuthComponent implements OnInit {
         sessionStorage.setItem('user', JSON.stringify(res));
         sessionStorage.setItem('addInfo', 'true');
         // routing to home page
-        this.router.navigate(['/page/jobs']);
+        this.router.navigate(['/page/account']);
         // end
         this.notification = {
           isFound: true,

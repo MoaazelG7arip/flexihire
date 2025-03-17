@@ -1,12 +1,34 @@
-<div class="page bg-gray-200 overflow-hidden">
 
+<app-progress-bar></app-progress-bar>
+
+<div class="page bg-gray-100 min-h-screen overflow-hidden ">
+
+    @if(loading){
+        <app-loader class="mt-32"></app-loader>
+    } @else {
+
+        <div class="flex items-center gap-x-3 relative mt-10 ml-10">
+            <label for="hs-basic-with-description" class="text-sm text-gray-500">All Locations</label>
+            <label for="hs-basic-with-description" class="relative inline-block w-11 h-6 cursor-pointer">
+              <input type="checkbox" id="hs-basic-with-description" class="peer sr-only" (change)="onLocationChange()">
+              <span class="absolute inset-0 bg-gray-200 rounded-full transition-colors duration-200 ease-in-out peer-checked:bg-blue-600 peer-disabled:opacity-50 peer-disabled:pointer-events-none"></span>
+              <span class="absolute top-1/2 start-0.5 -translate-y-1/2 size-5 bg-white rounded-full shadow-xs transition-transform duration-200 ease-in-out peer-checked:translate-x-full"></span>
+            </label>
+            <label for="hs-basic-with-description" class="text-sm text-gray-500 ">On Your Location</label>
+          </div>
     <div class="container max-w-full text-center sm:text-start">
-        @for(job of jobs; track $index){
+
+        @if(paginatedJobs.length <= 0 && locationChange){
+            <h1 class="my-10 text-4xl">There Is No Jobs In Your Location</h1>
+          }
+
+        <!-- @for(job of jobs; track $index){ -->
+        @for(job of paginatedJobs[currentPage]; track $index){
   
         <!-- job content box -->
         <div class="bg-white p-8 m-4 rounded-sm shadow-lg space-y-3 sm:space-y-1.5">
             <!-- company logo -->
-            <figure class="float-none sm:float-end items-end inline-block">
+            <figure class="float-none sm:float-end items-end inline-block cursor-pointer" [routerLink]="'/page/companies/'+ job.user.id">
                 @if (job.user.image_url) {
                     <img
                       [src]="job.user.image_url"
@@ -16,16 +38,17 @@
                     }
                     @else {
                         <img src="photo/user.png" alt="Profile Picture" class="w-24 h-24 rounded-full">
-                    }            </figure>
+                }       
+            </figure>
             <!-- title  -->
-            <h1 class="text-xl font-bold text-teal-600">{{job.title}}</h1>
+            <h1 class="text-xl font-bold text-teal-600 hover:underline cursor-pointer" [routerLink]="'/page/jobs/'+ job.id">{{job.title}}</h1>
             <!-- name of company and location -->
             <div>
-                <span class="font-bold">{{job.user.first_name +' '+ job.user.last_name}} - </span>
+                <span class="font-bold cursor-pointer" [routerLink]="'/page/companies/'+ job.user.id">{{job.user.first_name +' '+ job.user.last_name}} - </span>
                 <span class="text-gray-700">{{job.location}}</span>
             </div>
             <!-- date -->
-            <p class="text-gray-500">Job posted : {{job.date_posted}}</p>
+            <p class="text-gray-500">posted on: {{job.date_posted}}</p>
             <!-- type -->
             <div class="space-x-3">
                 <span class="bg-gray-300 p-1 rounded">Full Time</span>
@@ -42,5 +65,17 @@
         </div>
         
         }
+
+        @if(paginatedJobs.length > 0){
+
+        <div class="pagination-controls mx-auto w-fit">
+            <button (click)="previousPage()" [disabled]="currentPage === 0"  class="bg-gray-400 text-white py-1 px-2 m-1 rounded text-2xl cursor-pointer hover:bg-gray-600 disabled:bg-gray-900 disabled:cursor-not-allowed">&lt;</button>
+            @for (item of paginatedJobs; track $index) {
+                <button (click)="goToPage($index)" [disabled]="currentPage === $index" class="bg-gray-400 text-black py-1 px-2 m-1 rounded text-2xl cursor-pointer hover:bg-gray-600 disabled:bg-teal-700 disabled:text-white disabled:cursor-auto">{{ $index + 1 }}</button>
+            }     
+            <button (click)="nextPage()" [disabled]="currentPage === paginatedJobs.length - 1" class="bg-gray-400 text-white py-1 px-2 m-1 rounded text-2xl cursor-pointer hover:bg-gray-600 disabled:bg-gray-900 disabled:cursor-not-allowed">&gt;</button>
+          </div>
+        }
     </div>
+    }
 </div>

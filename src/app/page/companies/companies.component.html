@@ -21,13 +21,13 @@
 
 
 <div class="container max-w-full">
-  @if(!list && locationChange){
+  @if(paginatedCompanies.length <= 0 && locationChange){
     <h1 class="my-10 text-4xl">There Is No Companies In Your Location</h1>
   }
-  @for(company of companies; track $index){
+  @for(company of paginatedCompanies[currentPage]; track $index){
 
     
-    @if(!locationChange || (company.location == userLocation ) ){
+    <!-- @if(!locationChange || (company.location == userLocation ) ){ -->
 
       <div
       class="flex flex-col items-center w-full bg-white rounded-lg shadow-lg my-16 cursor-pointer"
@@ -61,7 +61,7 @@
         }
   
         <!-- company Name -->
-        <h2 class="mt-4 text-2xl font-bold text-gray-800">
+        <h2 class="mt-4 text-2xl font-bold text-teal-600">
           {{ company.first_name }} {{ company.last_name }}
         </h2>
   
@@ -77,10 +77,22 @@
       </div>
 
     </div>
-    }
+    <!-- } -->
 
   }
+
+  @if(paginatedCompanies.length > 0){
+  <div class="pagination-controls mx-auto w-fit">
+    <button (click)="previousPage()" [disabled]="currentPage === 0"  class="bg-gray-400 text-white py-1 px-2 m-1 rounded text-2xl cursor-pointer hover:bg-gray-600 disabled:bg-gray-900 disabled:cursor-not-allowed">&lt;</button>
+    @for (item of paginatedCompanies; track $index) {
+        <button (click)="goToPage($index)" [disabled]="currentPage === $index" class="bg-gray-400 text-black py-1 px-2 m-1 rounded text-2xl cursor-pointer hover:bg-gray-600 disabled:bg-teal-700 disabled:text-white disabled:cursor-auto">{{ $index + 1 }}</button>
+    }     
+    <button (click)="nextPage()" [disabled]="currentPage === paginatedCompanies.length - 1" class="bg-gray-400 text-white py-1 px-2 m-1 rounded text-2xl cursor-pointer hover:bg-gray-600 disabled:bg-gray-900 disabled:cursor-not-allowed">&gt;</button>
   </div>
+  }
 </div>
+
+</div>
+
 
 }

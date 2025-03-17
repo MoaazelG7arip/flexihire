@@ -1,1 +1,93 @@
-<p>job works!</p>
+<div class="page min-h-screen bg-gray-200 overflow-hidden">
+    <div class="container max-w-full">
+    <div class="grid grid-cols-1 md:grid-cols-6 gap-10 my-10">
+        <!-- job details -->
+        <div class="grid col-span-1 md:col-span-4 gap-10">
+            <div class="border bg-white border-gray-400/50 p-5">
+                <!-- company logo -->
+                <figure class="float-none sm:float-end items-end inline-block cursor-pointer" [routerLink]="'/page/companies/'+ job.user.id">
+                    @if (job.user.image_url) {
+                        <img
+                        [src]="job.user.image_url"
+                        alt="{{ job.user.first_name }} {{ job.user.last_name }}"
+                        class="w-24 h-24 rounded-full"
+                        />
+                        }
+                        @else {
+                            <img src="photo/user.png" alt="Profile Picture" class="w-24 h-24 rounded-full">
+                    }       
+                </figure>
+                <!-- job title -->
+                <h1 class="text-teal-600 font-bold text-2xl">{{job.title}}</h1>
+                <!-- type -->
+                <div class="space-x-3 my-3">
+                    <span class="bg-gray-200 p-1 rounded-sm">Internship</span>
+                    <span class="bg-gray-200 p-1 rounded-sm">Remote</span>
+                </div>
+                <!-- company and Location-->
+                <div>
+                    <span class="font-bold text-blue-700">{{job.user.first_name +' '+ job.user.last_name}} - </span>
+                    <span class="text-gray-600">{{job.location}}</span>
+                </div>
+                <!-- date posted -->
+                <div class="text-gray-500 text-sm my-3">
+                    <span>Posted on: {{job.date_posted}}</span>
+                </div>
+                <!-- apply -->
+                <div>
+                    <button class="bg-blue-600 hover:bg-blue-800 text-white px-5 py-2 rounded-sm">Apply To Job</button>
+                </div>
+            </div>
+            <div class="border bg-white border-gray-400/50 p-5">
+                <!-- job description -->
+                <div>
+                    <h1 class="font-bold">Job Description</h1>
+                    <div class="text-gray-600 my-3">
+                        {{job.description}}
+                    </div>
+                </div>
+                <!-- skills required -->
+                <div>
+                    <h1 class="font-bold">Skills Required</h1>
+                    <div class="text-gray-600 my-3">
+                        {{job.skills}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- company details -->
+        <div class="grid col-span-1 md:col-span-2 gap-10 h-full">
+            <div class="border bg-white border-gray-400/50 p-5 h-full">
+                <div class="h-full">
+                    <!-- company background -->
+                    @if(job?.user.background_url){
+                        <div
+                        class="w-full h-48 md:h-full bg-cover bg-center"
+                        [ngStyle]="{'background-image': 'url(' + job.user?.background_url + ')'}"
+                        ></div>
+                    } @else {
+                        <div
+                        class="w-full h-48 md:h-full bg-cover bg-center"
+                        [ngStyle]="{'background-image': 'url(photo/white-2172682_1920.jpg)'}"
+                        ></div>
+                    }
+                </div>
+            </div>
+            <div class="border bg-white border-gray-400/50 p-5 h-full">
+                <div class="h-full">
+                    <!-- company name -->
+                    <h1 class="font-bold">About {{job.user.first_name +' '+ job.user.last_name}}</h1>
+                    <!-- company location  -->
+                    <div class="text-gray-600">{{job.user.location}}</div>
+                    <!-- company description -->
+                    <div class="text-gray-600 my-3">
+                        {{job.user.description}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+</div>
