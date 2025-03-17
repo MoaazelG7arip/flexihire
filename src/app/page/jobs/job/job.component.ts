@@ -2,11 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { InformationService } from '../../../services/information.service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { LoaderComponent } from "../../../shared/loader/loader.component";
 
 @Component({
   selector: 'app-job',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, LoaderComponent],
   templateUrl: './job.component.html',
   styleUrl: './job.component.css'
 })
