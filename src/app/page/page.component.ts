@@ -4,11 +4,12 @@ import { FooterComponent } from "./footer/footer.component";
 import { RouterOutlet } from '@angular/router';
 import { LoaderComponent } from "../shared/loader/loader.component";
 import { NotificationComponent } from "../shared/notification/notification.component";
+import { ChatBotComponent } from "./chat-bot/chat-bot.component";
 
 @Component({
   selector: 'app-page',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, FooterComponent, LoaderComponent, NotificationComponent],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent, LoaderComponent, NotificationComponent, ChatBotComponent],
   templateUrl: './page.component.html',
   styleUrl: './page.component.css'
 })
