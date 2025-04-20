@@ -56,27 +56,30 @@
                 </div>
                 <!-- skills required -->
                 <div>
-                    <h1 class="font-bold">Skills Required</h1>
-                    <div class="text-gray-600 my-3">
-                        {{job.skills}}
+                    <h2 class="font-bold">skills required</h2>
+                    <div class="flex flex-wrap">
+                        @for(skill of job.skills; track $index){
+        
+                            <span class="p-2 m-2 border border-teal-400 rounded-lg bg-gray-50 hover:bg-gray-200"> {{skill}} </span>
+                        }
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- company details -->
-        <div class="grid col-span-1 md:col-span-2 gap-10 h-full">
-            <div class="border bg-white border-gray-400/50 p-5 h-full">
+        <div class="grid col-span-1 md:col-span-2 gap-10 h-fit">
+            <div class="border bg-white border-gray-400/50 p-5 h-60">
                 <div class="h-full">
                     <!-- company background -->
                     @if(job?.user.background_url){
                         <div
-                        class="w-full h-48 md:h-full bg-cover bg-center"
+                        class="w-full  max-h-48 md:h-full bg-cover bg-center"
                         [ngStyle]="{'background-image': 'url(' + job.user?.background_url + ')'}"
                         ></div>
                     } @else {
                         <div
-                        class="w-full h-48 md:h-full bg-cover bg-center"
+                        class="w-full h-48 max-h-48 md:h-full bg-cover bg-center"
                         [ngStyle]="{'background-image': 'url(photo/white-2172682_1920.jpg)'}"
                         ></div>
                     }

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ProgressBarComponent } from "../../shared/progress-bar/progress-bar.component";
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { LoaderComponent } from "../../shared/loader/loader.component";
 import { InformationService } from '../../services/information.service';
 
@@ -16,23 +16,42 @@ export class CompaniesComponent {
 
   informationService: InformationService = inject(InformationService);
   companies = [];
+  paginationLinks= [];
   loading = false;
   locationChange = false;
   userLocation;
   list;
+  routeSubscription: any;
 
-  paginatedCompanies: any[][] = []; // Array of arrays for paginated jobs
-  currentPage = 0; // Current page index
-  itemsPerPage = 10; // Number of jobs per page
+
+  route: ActivatedRoute = inject(ActivatedRoute);
+  router: Router = inject(Router);
+
 
   ngOnInit(): void {
+
+    this.routeSubscription = this.route.queryParamMap.subscribe(queryMap => {
+      let page = +queryMap.get('page');
+      console.log(page);
+      if(page == 0){ page = 1 }
+      console.log(page);
+      this.fetchCompanyDetails(page);
+    });
+
+
+
+
+  }
+
+  fetchCompanyDetails(page){
     this.loading = true;
-    this.informationService.onGetcompanies().subscribe({
+    this.informationService.onGetCompanyByUrl(page).subscribe({
       next: (res) => {
         this.loading = false;
         console.log(res);
-        this.companies = res['data'];
-        this.paginateCompanies(this.companies);
+        this.companies = res['data']['data'];
+        this.paginationLinks = res['data']['links'];
+        // this.paginateCompanies(this.companies);
 
  
         this.userLocation = JSON.parse(sessionStorage.getItem('user')).user.location;
@@ -52,8 +71,8 @@ export class CompaniesComponent {
       }
     })
 
-
   }
+  
 
   onLocationChange(){
     console.log('Location changed');
@@ -65,41 +84,35 @@ export class CompaniesComponent {
           filteredCompanies.push(company);
         }
       })
-      this.paginateCompanies(filteredCompanies);
-      this.goToPage(0);
+
     } else {
-      this.paginateCompanies(this.companies);
-      this.goToPage(0);
+
     }
   }
 
 
-  paginateCompanies(companies): void {
-    this.paginatedCompanies = [];
-    for (let i = 0; i < companies.length; i += this.itemsPerPage) {
-      this.paginatedCompanies.push(companies.slice(i, i + this.itemsPerPage));
-    }
-  }
 
-  // Navigate to the next page
-  nextPage(): void {
-    if (this.currentPage < this.paginatedCompanies.length - 1) {
-      this.currentPage++;
+  goToPage(label, url){
+
+    if(url != null){
       window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to the top of the page
+      let pageLabel = +this.route.snapshot.queryParamMap.get('page');
+      if(pageLabel == 0){ pageLabel = 1 }
+
+      if (label == 'Next &raquo;') {
+
+        this.router.navigate(['/page/companies'], { queryParams: { page: ++pageLabel } });
+
+      } else if( label == '&laquo; Previous') {
+
+        this.router.navigate(['/page/companies'], { queryParams: { page: --pageLabel } });
+
+      } else {
+        this.router.navigate(['/page/companies'], { queryParams: { page: label } });
+      }
     }
+
   }
 
-  // Navigate to the previous page
-  previousPage(): void {
-    if (this.currentPage > 0) {
-      this.currentPage--;
-      window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to the top of the page
-    }
-  }
-
-  goToPage(page: number): void {
-    this.currentPage = page;
-    window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to the top of the page
-  }
 
 }

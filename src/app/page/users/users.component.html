@@ -10,7 +10,7 @@
   <div class="container max-w-full py-10">
 
 
-    <div *ngFor="let user of paginatedUsers[currentPage]" 
+    <div *ngFor="let user of users" 
     class="flex flex-col items-center w-full bg-white rounded-lg shadow-lg my-16 cursor-pointer"
     [routerLink]="user.id">
       <!-- Background Image -->
@@ -58,11 +58,12 @@
     </div>
 
     <div class="pagination-controls mx-auto w-fit">
-      <button (click)="previousPage()" [disabled]="currentPage === 0"  class="bg-gray-400 text-white py-1 px-2 m-1 rounded text-2xl cursor-pointer hover:bg-gray-600 disabled:bg-gray-900 disabled:cursor-not-allowed">&lt;</button>
-      @for (item of paginatedUsers; track $index) {
-          <button (click)="goToPage($index)" [disabled]="currentPage === $index" class="bg-gray-400 text-black py-1 px-2 m-1 rounded text-2xl cursor-pointer hover:bg-gray-600 disabled:bg-teal-700 disabled:text-white disabled:cursor-auto">{{ $index + 1 }}</button>
+      @for (item of paginationLinks; track $index) {
+          <button
+          (click)="goToPage(item.label, item.url)"
+          [disabled]="item.active"
+          class="bg-gray-400 text-black py-1 px-2 m-1 rounded text-2xl cursor-pointer hover:bg-gray-600 disabled:bg-teal-700 disabled:text-white disabled:cursor-auto" [innerHTML]="item.label"></button>
       }     
-      <button (click)="nextPage()" [disabled]="currentPage === paginatedUsers.length - 1" class="bg-gray-400 text-white py-1 px-2 m-1 rounded text-2xl cursor-pointer hover:bg-gray-600 disabled:bg-gray-900 disabled:cursor-not-allowed">&gt;</button>
     </div>
 
 
