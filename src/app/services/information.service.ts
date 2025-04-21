@@ -11,29 +11,29 @@ export class InformationService {
   private baseApi = 'https://c.jordanwebmaster.com/flexihire/public/api';
 
 
-  // onGetcompanies(){
-  //   return this.http.get(this.baseApi + '/companies');
-  // }
-  onGetCompanyByUrl(pageNumber){
-    return this.http.get(this.baseApi + '/companies' + '?page=' + pageNumber);
+  onGetCompanyByUrl(pageNumber, search){
+    return this.http.get(this.baseApi + '/companies' + '?page=' + pageNumber + '&search=' + search);
   }
   onGetCompanyById(id){
     return this.http.get(this.baseApi + '/company/' + id);
   }
-  // onGetusers(){
-  //   return this.http.get(this.baseApi + '/users');
-  // }
-  onGetUsersByUrl(pageNumber){
-    return this.http.get(this.baseApi + '/users' + '?page=' + pageNumber);
+
+
+
+  onGetUsersByUrl(pageNumber, search){
+    return this.http.get(this.baseApi + '/users' + '?page=' + pageNumber + '&search=' + search);
   }
   onGetUserById(id){
     return this.http.get(this.baseApi + '/user/' + id);
   }
-  onGetJobs(){
-    return this.http.get(this.baseApi + '/all-jobs');
-  }
-  onGetJobsByUrl(pageNumber){
-    return this.http.get(this.baseApi + '/all-jobs' + '?page=' + pageNumber);
+
+
+
+  // onGetJobs(){
+  //   return this.http.get(this.baseApi + '/all-jobs');
+  // }
+  onGetJobsByUrl(pageNumber, search){
+    return this.http.get(this.baseApi + '/all-jobs' + '?page=' + pageNumber + '&search=' + search);
   }
   onGetJobById(id){
     return this.http.get(this.baseApi + '/company/get-job/' + id);

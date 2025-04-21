@@ -1,10 +1,10 @@
 <!-- Main navigation container -->
 <nav
-  class="flex-no-wrap relative flex w-full items-center justify-between bg-teal-900 py-3 shadow-dark-mild lg:flex-wrap lg:justify-start lg:py-4">
+  class="flex-no-wrap relative flex w-full items-center justify-between bg-white/70 py-3 shadow-dark-mild lg:flex-wrap lg:justify-start lg:py-4">
   <div class="flex w-full flex-wrap items-center justify-between px-3">
     <!-- Hamburger button for mobile view -->
     <button
-      class="block border-0 bg-transparent px-2 text-black/50 hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0 dark:text-neutral-200 lg:hidden"
+      class="block border-0 bg-transparent px-2 text-black/50 hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0 dark:text-black lg:hidden"
       type="button"
       data-twe-collapse-init
       data-twe-target="#navbarSupportedContent1"
@@ -13,7 +13,7 @@
       aria-label="Toggle navigation">
       <!-- Hamburger icon -->
       <span
-        class="[&>svg]:w-7 [&>svg]:stroke-black/50 dark:[&>svg]:stroke-neutral-200">
+        class="[&>svg]:w-7 [&>svg]:stroke-black/50 dark:[&>svg]:stroke-black">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -33,7 +33,7 @@
       data-twe-collapse-item>
       <!-- Logo -->
       <a
-        class="mb-4 me-5 ms-2 mt-3 flex items-center text-neutral-900 hover:text-neutral-900 focus:text-neutral-900 dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400 lg:mb-0 lg:mt-0"
+        class="mb-4 me-5 ms-2 mt-3 flex items-center text-neutral-900 hover:text-neutral-900 focus:text-neutral-900 dark:text-black dark:hover:text-black dark:focus:text-black lg:mb-0 lg:mt-0"
         href="#">
         <img
           src="photo/white logo.png"
@@ -48,20 +48,20 @@
         <!-- Dashboard link -->
         <li class="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
           <a
-            class="text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80 lg:px-2"
+            class="text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none dark:text-black/60 dark:hover:text-black/80 dark:focus:text-black/80 dark:active:text-black/80 lg:px-2"
             href="#"
             routerLink="/page/companies"
-            routerLinkActive="font-bold dark:text-white"
+            routerLinkActive="font-bold dark:text-black"
             data-twe-nav-link-ref
             >Companies</a
           >
         </li>
         <li class="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
           <a
-            class="text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80 lg:px-2"
+            class="text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none dark:text-black/60 dark:hover:text-black/80 dark:focus:text-black/80 dark:active:text-black/80 lg:px-2"
             href="#"
             routerLink="/page/users"
-            routerLinkActive="font-bold dark:text-white"
+            routerLinkActive="font-bold dark:text-black"
             data-twe-nav-link-ref
             >Users</a
           >
@@ -69,10 +69,10 @@
         <!-- Team link -->
         <li class="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
           <a
-            class="text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80 lg:px-2"
+            class="text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none dark:text-black/60 dark:hover:text-black/80 dark:focus:text-black/80 dark:active:text-black/80 lg:px-2"
             href="#"
             routerLink="/page/jobs"
-            routerLinkActive="font-bold dark:text-white"
+            routerLinkActive="font-bold dark:text-black"
             data-twe-nav-link-ref
             >All Jobs</a
           >
@@ -112,7 +112,7 @@
         data-twe-dropdown-alignment="end">
         <!-- First dropdown trigger -->
         <a
-          class="me-4 flex items-center text-neutral-600 dark:text-white"
+          class="me-4 flex items-center text-neutral-600 dark:text-black"
           href="#"
           id="dropdownMenuButton1"
           role="button"
@@ -138,7 +138,7 @@
         </a>
         <!-- First dropdown menu -->
         <ul
-          class="absolute z-[1000] float-left m-0 hidden min-w-max list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg data-[twe-dropdown-show]:block dark:bg-surface-dark"
+          class="absolute z-[1000] float-left m-0 hidden min-w-max list-none overflow-hidden rounded-lg border-none bg-black bg-clip-padding text-left text-base shadow-lg data-[twe-dropdown-show]:block dark:bg-surface-dark"
           aria-labelledby="dropdownMenuButton1"
           data-twe-dropdown-menu-ref>
           <!-- First dropdown menu items -->
@@ -201,7 +201,7 @@
         </a>
         <!-- Second dropdown menu -->
         <ul
-          class="absolute z-[1000] float-left m-0 hidden min-w-max list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg data-[twe-dropdown-show]:block dark:bg-surface-dark"
+          class="absolute z-[1000] float-left m-0 hidden min-w-max list-none overflow-hidden rounded-lg border-none bg-black bg-clip-padding text-left text-base shadow-lg data-[twe-dropdown-show]:block dark:bg-surface-dark"
           aria-labelledby="dropdownMenuButton2"
           data-twe-dropdown-menu-ref>
           <!-- Second dropdown menu items -->
@@ -224,17 +224,17 @@
           <li>
             @if(user.user.roles[0] == 'user'){
               <button
-                class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
+                class="block w-full whitespace-nowrap bg-black px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
                 data-twe-dropdown-item-ref
                 [routerLink]="'/page/users/'+ user.user.id">My Account</button>
             } @else {
               <button
-              class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
+              class="block w-full whitespace-nowrap bg-black px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
               data-twe-dropdown-item-ref
               [routerLink]="'/page/companies/'+ user.user.id">My Account</button>
             }
             <button
-              class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
+              class="block w-full whitespace-nowrap bg-black px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
               data-twe-dropdown-item-ref
               (click)="onLogout()">Logout</button>
           </li>

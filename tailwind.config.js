@@ -16,7 +16,10 @@ module.exports = {
       },   
     },
     extend: {
-
+      colors: {
+        "custom-blue": "rgba(162, 204, 217)",
+        "dark-blue": "rgb(115 153 165)",
+      },
     },
   },
   plugins: [require("tw-elements/plugin.cjs")],

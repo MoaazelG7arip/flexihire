@@ -24,18 +24,22 @@ export class CompaniesComponent {
   routeSubscription: any;
 
 
+
   route: ActivatedRoute = inject(ActivatedRoute);
   router: Router = inject(Router);
+  mainCompany: any;
 
 
   ngOnInit(): void {
 
     this.routeSubscription = this.route.queryParamMap.subscribe(queryMap => {
       let page = +queryMap.get('page');
-      console.log(page);
+      let search = queryMap.get('search');
+      
       if(page == 0){ page = 1 }
-      console.log(page);
-      this.fetchCompanyDetails(page);
+      if(search == null){ search = '' }
+      
+      this.fetchCompanyDetails(page, search);
     });
 
 
@@ -43,52 +47,43 @@ export class CompaniesComponent {
 
   }
 
-  fetchCompanyDetails(page){
+  fetchCompanyDetails(page, search){
     this.loading = true;
-    this.informationService.onGetCompanyByUrl(page).subscribe({
+    this.informationService.onGetCompanyByUrl(page, search).subscribe({
       next: (res) => {
         this.loading = false;
         console.log(res);
         this.companies = res['data']['data'];
         this.paginationLinks = res['data']['links'];
-        // this.paginateCompanies(this.companies);
 
  
-        this.userLocation = JSON.parse(sessionStorage.getItem('user')).user.location;
-        console.log(this.userLocation);
-        // this.list = 0;
-        // this.companies.forEach(company =>{
-        //   if(company.location == this.userLocation){
-        //     this.list++;
-        //     console.log('done')
-        //   }
-        // })
-        // console.log(this.list)
+        this.mainCompany = JSON.parse(sessionStorage.getItem('user'));
+
       },
       error: (error) => {
         this.loading = false;
         console.log(error);
       }
-    })
+    }) 
 
   }
   
 
-  onLocationChange(){
-    console.log('Location changed');
-    this.locationChange = !this.locationChange;
-    if(this.locationChange){
-      let filteredCompanies = [];
-      this.companies.forEach((company)=>{
-        if(company.location == this.userLocation){
-          filteredCompanies.push(company);
-        }
-      })
+  // onLocationChange(){
+  //   console.log('Location changed');
+  //   this.locationChange = !this.locationChange;
+  //   if(this.locationChange){
+  //     let filteredCompanies = [];
+  //     this.companies.forEach((company)=>{
+  //       if(company.location == this.userLocation){
+  //         filteredCompanies.push(company);
+  //       }
+  //     })
 
-    } else {
+  //   } else {
 
-    }
-  }
+  //   }
+  // }
 
 
 
@@ -97,20 +92,29 @@ export class CompaniesComponent {
     if(url != null){
       window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to the top of the page
       let pageLabel = +this.route.snapshot.queryParamMap.get('page');
+      let search = this.route.snapshot.queryParamMap.get('search');
+
       if(pageLabel == 0){ pageLabel = 1 }
+      if(search == null){ search = '' }
 
       if (label == 'Next &raquo;') {
 
-        this.router.navigate(['/page/companies'], { queryParams: { page: ++pageLabel } });
+        this.router.navigate(['/page/companies'], { queryParams: { page: ++pageLabel, search: search } });
 
       } else if( label == '&laquo; Previous') {
 
-        this.router.navigate(['/page/companies'], { queryParams: { page: --pageLabel } });
+        this.router.navigate(['/page/companies'], { queryParams: { page: --pageLabel, search: search } });
 
       } else {
-        this.router.navigate(['/page/companies'], { queryParams: { page: label } });
+        this.router.navigate(['/page/companies'], { queryParams: { page: label, search: search } });
       }
     }
+
+  }
+
+  onSearch(event: any) {
+
+    this.router.navigate(['/page/companies'], { queryParams: { page: 1 , search : event.value} }); 
 
   }
 

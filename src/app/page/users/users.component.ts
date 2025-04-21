@@ -18,6 +18,7 @@ export class UsersComponent {
   informationService: InformationService = inject(InformationService);
   users = [];
   loading: boolean = false;
+  MainUser: any;
 
   
   route : ActivatedRoute = inject(ActivatedRoute);
@@ -29,24 +30,28 @@ export class UsersComponent {
 
       this.routeSubscription = this.route.queryParamMap.subscribe(queryMap => {
         let page = +queryMap.get('page');
+        let search = queryMap.get('search');
+        
         if(page == 0){ page = 1 }
-        console.log(page);
-        this.fetchUsersDetails(page);
+        if(search == null){ search = '' }
+        
+        this.fetchUsersDetails(page, search);
       });
 
 
       
     }
     
-    fetchUsersDetails(page){
+    fetchUsersDetails(page, search){
       this.loading = true;
-      this.informationService.onGetUsersByUrl(page).subscribe({
+      this.informationService.onGetUsersByUrl(page, search).subscribe({
         next: (res) => {
           this.loading = false;
           console.log(res);
           this.users = res['data']['data'];
           this.paginationLinks = res['data']['links'];          
-          // this.paginateUsers();
+          
+          this.MainUser = JSON.parse(sessionStorage.getItem('user'));
         },
         error: (error) => {
           this.loading = false;
@@ -60,24 +65,32 @@ export class UsersComponent {
 
 
     goToPage(label, url){
-
       if(url != null){
         window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to the top of the page
         let pageLabel = +this.route.snapshot.queryParamMap.get('page');
+        let search = this.route.snapshot.queryParamMap.get('search');
+  
         if(pageLabel == 0){ pageLabel = 1 }
-
+        if(search == null){ search = '' }
+  
         if (label == 'Next &raquo;') {
   
-          this.router.navigate(['/page/users'], { queryParams: { page: ++pageLabel } });
+          this.router.navigate(['/page/users'], { queryParams: { page: ++pageLabel, search: search } });
   
         } else if( label == '&laquo; Previous') {
   
-          this.router.navigate(['/page/users'], { queryParams: { page: --pageLabel } });
+          this.router.navigate(['/page/users'], { queryParams: { page: --pageLabel, search: search } });
   
         } else {
-          this.router.navigate(['/page/users'], { queryParams: { page: label } });
+          this.router.navigate(['/page/users'], { queryParams: { page: label, search: search } });
         }
       }
+  
+    }
+  
+    onSearch(event: any) {
+  
+      this.router.navigate(['/page/users'], { queryParams: { page: 1 , search : event.value} }); 
   
     }
 
