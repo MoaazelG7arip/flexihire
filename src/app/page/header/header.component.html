@@ -222,16 +222,16 @@
             >
           </li> -->
           <li>
-            @if(user.user.roles[0] == 'user'){
+            @if(user?.user?.roles[0] == 'user'){
               <button
                 class="block w-full whitespace-nowrap bg-black px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
                 data-twe-dropdown-item-ref
-                [routerLink]="'/page/users/'+ user.user.id">My Account</button>
+                [routerLink]="'/page/users/'+ user?.user?.id">My Account</button>
             } @else {
               <button
               class="block w-full whitespace-nowrap bg-black px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
               data-twe-dropdown-item-ref
-              [routerLink]="'/page/companies/'+ user.user.id">My Account</button>
+              [routerLink]="'/page/companies/'+ user?.user?.id">My Account</button>
             }
             <button
               class="block w-full whitespace-nowrap bg-black px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"

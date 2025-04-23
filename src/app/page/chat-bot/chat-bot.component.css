@@ -1,1 +1,60 @@
 
+
+/* chatbot.component.css */
+/* Custom animation for input shake */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+  }
+  
+  .animate-shake {
+    animation: shake 0.3s ease-in-out;
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #a1a1a1;
+  }
+
+
+
+
+
+
+
+
+
+/* chatbot.component.css */
+/* Add these custom styles */
+.fab-enter-active, .fab-leave-active {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .fab-enter-from, .fab-leave-to {
+    transform: scale(0) rotate(-180deg);
+    opacity: 0;
+  }
+  
+  /* Ensure the chat window appears above other content */
+  .fixed {
+    z-index: 9999;
+  }
+  
+  /* Add backdrop filter if desired */
+  .backdrop {
+    backdrop-filter: blur(2px);
+  }

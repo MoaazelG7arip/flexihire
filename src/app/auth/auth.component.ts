@@ -88,6 +88,7 @@ export class AuthComponent implements OnInit {
   onLogin(){
     this.loading = true;
     this.bridgeService.getLoading(this.loading)
+    console.log('login Form  : ' , this.logForm);
     this.authService.onLogin(this.logForm).subscribe({
       next: res => {
         console.log(res);
