@@ -38,7 +38,7 @@ export class CompanyComponent implements OnDestroy {
         this.loading = false;
         console.log(res);
         this.company = res['company'];
-        let theUser = JSON.parse(sessionStorage.getItem('user'));
+        let theUser = JSON.parse(localStorage.getItem('user'));
         if (theUser['user'].id == id) {
           this.mainUser = true;
         }

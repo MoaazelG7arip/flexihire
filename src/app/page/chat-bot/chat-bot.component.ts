@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, inject, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 
@@ -11,6 +11,7 @@ import {
   transition,
   animate
 } from '@angular/animations';
+import { ChatBotService } from '../../services/chat-bot.service';
 
 
 interface Message {
@@ -50,15 +51,19 @@ export class ChatBotComponent {
 
 
   @ViewChild('scrollContainer') private scrollContainer!: ElementRef;
+  chatBotService: ChatBotService = inject(ChatBotService)
   
   messages: Message[] = [];
   newMessage = '';
   isOpen = false;
   isTyping = false;
   showInputError = false;
+  randomStr = Math.random().toString(36).substring(2, 6); // Random string for session_id
+
 
   ngOnInit(): void {
     this.addBotMessage('Hello! How can I help you today?');
+    
   }
 
   // ngAfterViewChecked(): void {
@@ -90,7 +95,6 @@ export class ChatBotComponent {
       timestamp: new Date()
     });
 
-    
     this.scrollToBottom();
   }
 
@@ -107,15 +111,42 @@ export class ChatBotComponent {
 
   private simulateBotResponse(): void {
     this.isTyping = true;
-    setTimeout(() => {
-      this.addBotMessage('This is a sample response. Implement your bot logic here.');
-      this.isTyping = false;
+
+    const msg = this.newMessage.trim();
+
+    const body = {
+      input: msg,
+      // session_id: '5'
+      session_id: this.randomStr
+    }
+
+    console.log(body);
+
+    this.chatBotService.getResponse(body).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.isTyping = false;
+        this.addBotMessage(response['answer']);
+      },
+      error: (error) => {
+        console.error('Error:', error);
+        this.isTyping = false;
+        this.addBotMessage('Sorry, I could not process your request.');
+      }
+    })
 
 
-      // Scroll to the bottom after the bot message is added
-      this.scrollToBottom();
 
-    }, 1500);
+
+    // setTimeout(() => {
+    //   this.addBotMessage('This is a sample response. Implement your bot logic here.');
+    //   this.isTyping = false;
+
+
+    //   // Scroll to the bottom after the bot message is added
+    //   this.scrollToBottom();
+
+    // }, 1500);
 
   }
 

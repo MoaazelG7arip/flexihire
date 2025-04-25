@@ -93,7 +93,7 @@ export class AccountComponent {
         skill_id: this.fb.array([],Validators.required),
         job_id: this.fb.control(null, Validators.required)
       });
-      if (JSON.parse(sessionStorage.getItem('addInfo'))) {
+      if (JSON.parse(localStorage.getItem('addInfo'))) {
         this.addInfo = true;
       }
     }
@@ -154,11 +154,11 @@ export class AccountComponent {
           console.log('Upload successful:', res)
           this.loading = false;
           
-          const user = sessionStorage.getItem('user');
+          const user = localStorage.getItem('user');
           if(user){
             const userData = JSON.parse(user);
             userData.user.background_url = res['background_url'];
-            sessionStorage.setItem('user', JSON.stringify(userData));
+            localStorage.setItem('user', JSON.stringify(userData));
             this.authService.user.next(userData);
           }
           this.notification = {
@@ -203,11 +203,11 @@ export class AccountComponent {
           console.log('Upload successful:', res)
           this.loading = false;
           
-          const user = sessionStorage.getItem('user');
+          const user = localStorage.getItem('user');
           if(user){
             const userData = JSON.parse(user);
             userData.user.image_url = res['image_url'];
-            sessionStorage.setItem('user', JSON.stringify(userData));
+            localStorage.setItem('user', JSON.stringify(userData));
             this.authService.user.next(userData);
           }
           this.notification = {
@@ -247,12 +247,12 @@ export class AccountComponent {
         console.log('Name updated successfully:', res)
 
                   
-        const user = sessionStorage.getItem('user');
+        const user = localStorage.getItem('user');
         if(user){
           const userData = JSON.parse(user);
           userData.user.first_name = res['first_name'];
           userData.user.last_name = res['last_name'];
-          sessionStorage.setItem('user', JSON.stringify(userData));
+          localStorage.setItem('user', JSON.stringify(userData));
           this.authService.user.next(userData);
         }
 
@@ -288,11 +288,11 @@ export class AccountComponent {
         this.loading = false;
         console.log('Name updated successfully:', res)
 
-        const user = sessionStorage.getItem('user');
+        const user = localStorage.getItem('user');
         if(user){
           const userData = JSON.parse(user);
           userData.user.description = res['description'];
-          sessionStorage.setItem('user', JSON.stringify(userData));
+          localStorage.setItem('user', JSON.stringify(userData));
           this.authService.user.next(userData);
         }
 
@@ -328,11 +328,11 @@ export class AccountComponent {
         this.loading = false;
         console.log('Location updated successfully:', res)
 
-        const user = sessionStorage.getItem('user');
+        const user = localStorage.getItem('user');
         if(user){
           const userData = JSON.parse(user);
           userData.user.location = res['location'];
-          sessionStorage.setItem('user', JSON.stringify(userData));
+          localStorage.setItem('user', JSON.stringify(userData));
           this.authService.user.next(userData);
         }
 
@@ -411,11 +411,11 @@ export class AccountComponent {
           console.log('Upload successful:', res)
           this.loading = false;
           
-          const user = sessionStorage.getItem('user');
+          const user = localStorage.getItem('user');
           if(user){
             const userData = JSON.parse(user);
             userData.user.cv = res['cv'];
-            sessionStorage.setItem('user', JSON.stringify(userData));
+            localStorage.setItem('user', JSON.stringify(userData));
             this.authService.user.next(userData);
           }
           this.notification = {
@@ -495,12 +495,12 @@ export class AccountComponent {
       next: (res) => {
         this.loading = false;
         console.log('Skills and job updated successfully:', res)
-        const user = sessionStorage.getItem('user');
+        const user = localStorage.getItem('user');
         if(user){
           const userData = JSON.parse(user);
           userData.user.job = res['user']['jobs'][0];
           userData.user.skills = res['user']['skills'];
-          sessionStorage.setItem('user', JSON.stringify(userData));
+          localStorage.setItem('user', JSON.stringify(userData));
           this.authService.user.next(userData);
           console.log(this.selectedSkills)
         }
@@ -539,6 +539,6 @@ export class AccountComponent {
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
-    sessionStorage.removeItem('addInfo');
+    localStorage.removeItem('addInfo');
   }
 }

@@ -51,7 +51,7 @@ export class UsersComponent {
           this.users = res['data']['data'];
           this.paginationLinks = res['data']['links'];          
           
-          this.MainUser = JSON.parse(sessionStorage.getItem('user'));
+          this.MainUser = JSON.parse(localStorage.getItem('user'));
         },
         error: (error) => {
           this.loading = false;

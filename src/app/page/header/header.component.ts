@@ -19,14 +19,15 @@ export class HeaderComponent {
   @Output() onloading : EventEmitter<boolean> = new EventEmitter();
   loading: boolean = false;
   @Output() onNotification : EventEmitter<object> = new EventEmitter();
-  notification = {isFound: false, message: '', status: ''};
+  notification = {isFound: false, message: '', status: ''};y
+
 
 
   authService: AuthService = inject(AuthService);
   router: Router = inject(Router);
   ngOnInit(): void {
     initTWE({ Collapse, Dropdown }); // Initialize required components
-    let user = JSON.parse(sessionStorage.getItem('user'));
+    let user = JSON.parse(localStorage.getItem('user'));
     if(user){
       this.loggedIn = true;
       this.authService.user.subscribe((data)=>{
@@ -41,14 +42,14 @@ export class HeaderComponent {
   onLogout(){
     this.loading = true;
     this.onloading.emit(this.loading);
-    let user = JSON.parse(sessionStorage.getItem('user'));
+    let user = JSON.parse(localStorage.getItem('user'));
     if(user){
       this.authService.onLogout().subscribe({
         next: res => {
           console.log(res);
           this.loading = false;
           this.onloading.emit(this.loading);
-          sessionStorage.removeItem('user');
+          localStorage.removeItem('user');
           this.authService.user.next(null);
           this.loggedIn = false;
           this.router.navigate(['/auth/welcome']);

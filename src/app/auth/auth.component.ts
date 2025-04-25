@@ -56,7 +56,7 @@ export class AuthComponent implements OnInit {
         this.loading = false;
         this.bridgeService.getLoading(this.loading)
         this.authService.user.next(res);
-        sessionStorage.setItem('user', JSON.stringify(res));
+        localStorage.setItem('user', JSON.stringify(res));
         sessionStorage.setItem('addInfo', 'true');
         // routing to home page
         this.router.navigate(['/page/account']);
@@ -95,7 +95,7 @@ export class AuthComponent implements OnInit {
         this.loading = false;
         this.bridgeService.getLoading(this.loading);
         this.authService.user.next(res);
-        sessionStorage.setItem('user', JSON.stringify(res));
+        localStorage.setItem('user', JSON.stringify(res));
         // routing to home page
          
         this.router.navigate(['/page/jobs']);

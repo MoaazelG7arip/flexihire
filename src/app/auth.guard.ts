@@ -3,7 +3,7 @@ import { Router } from "@angular/router";
 
 
 export const CanActivateAuth = () => {
-  let user = sessionStorage.getItem('user')
+  let user = localStorage.getItem('user')
   let router: Router = inject(Router);
   if(user){
     router.navigate(['/page/jobs']);
@@ -17,7 +17,7 @@ export const CanActivateAuthChild = () => {
 }
 
 export const CanActivateMain = () => {
-  let user = sessionStorage.getItem('user')
+  let user = localStorage.getItem('user')
   let router: Router = inject(Router);
   if(user){
     return true;

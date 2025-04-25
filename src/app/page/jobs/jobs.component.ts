@@ -55,7 +55,7 @@ export class JobsComponent {
             this.paginationLinks = res['data']['links'];            
 
             
-            // this.userLocation = JSON.parse(sessionStorage.getItem('user')).user.location;
+            // this.userLocation = JSON.parse(localStorage.getItem('user')).user.location;
             // console.log(this.userLocation);
     
           },

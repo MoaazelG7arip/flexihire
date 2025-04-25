@@ -49,6 +49,9 @@ export class CompaniesComponent {
 
   fetchCompanyDetails(page, search){
     this.loading = true;
+
+
+
     this.informationService.onGetCompanyByUrl(page, search).subscribe({
       next: (res) => {
         this.loading = false;
@@ -57,7 +60,7 @@ export class CompaniesComponent {
         this.paginationLinks = res['data']['links'];
 
  
-        this.mainCompany = JSON.parse(sessionStorage.getItem('user'));
+        this.mainCompany = JSON.parse(localStorage.getItem('user'));
 
       },
       error: (error) => {

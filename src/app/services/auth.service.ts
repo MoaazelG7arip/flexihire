@@ -11,11 +11,11 @@ export class AuthService {
 
   private baseApi = 'https://c.jordanwebmaster.com/flexihire/public/api';
   private auth_token;
-  // constructor() {
-  //   if (sessionStorage.getItem('user')) {
-  //     this.user.next(JSON.parse(sessionStorage.getItem('user')));
-  //   }
-  // }
+  constructor() {
+    if (localStorage.getItem('user')) {
+      this.user.next(JSON.parse(localStorage.getItem('user')));
+    }
+  }
   onRegister(data) {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ export class AuthService {
   }
 
   onLogout() {
-    this.auth_token = JSON.parse(sessionStorage.getItem('user')).token;
+    this.auth_token = JSON.parse(localStorage.getItem('user')).token;
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.auth_token}`,
     });

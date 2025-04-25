@@ -7,14 +7,12 @@ import { Injectable } from '@angular/core';
 export class ChatBotService {
 
 
-  private apiUrl = 'YOUR_API_ENDPOINT'; // Replace with your API endpoint
+  private apiUrl = 'https://b0ce-156-197-188-232.ngrok-free.app/query'; // Replace with your API endpoint
 
   constructor(private http: HttpClient) { }
 
-  getResponse(message: string): Promise<string> {
-    return this.http.post<{response: string}>(this.apiUrl, { message })
-      .toPromise()
-      .then(res => res?.response || 'No response');
+  getResponse(body) {
+    return this.http.post(this.apiUrl, body)
   }
 
 }
