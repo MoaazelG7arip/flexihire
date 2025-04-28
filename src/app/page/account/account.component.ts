@@ -93,7 +93,7 @@ export class AccountComponent {
         skill_id: this.fb.array([],Validators.required),
         job_id: this.fb.control(null, Validators.required)
       });
-      if (JSON.parse(localStorage.getItem('addInfo'))) {
+      if (JSON.parse(sessionStorage.getItem('addInfo'))) {
         this.addInfo = true;
       }
     }
@@ -539,6 +539,6 @@ export class AccountComponent {
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
-    localStorage.removeItem('addInfo');
+    sessionStorage.removeItem('addInfo');
   }
 }

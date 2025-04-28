@@ -52,7 +52,7 @@
               @if(user.skills.length > 0){
               <div class="flex flex-wrap gap-2 mt-2">
                   @for(skill of user.skills; track $index){
-                      <div class="px-4 py-2 bg-blue-100 text-white rounded-full flex items-center gap-2" [ngStyle]="{'background-color': getRandomColor()}">
+                      <div class="px-4 py-2 bg-blue-100 text-white rounded-full flex items-center gap-2" [ngStyle]="{'background-color': getRandomColor()}" #skill>
                           <span>{{skill.name}}</span>
                       </div>
                   }
@@ -76,6 +76,7 @@
           </div>
           @if(mainUser){
             <button class="bg-teal-700 hover:bg-teal-900 p-3 m-3 rounded-md text-white" routerLink="/page/account">update Account</button>
+            <button routerLink="myJobs" class="bg-teal-700 hover:bg-teal-900 p-3 m-3 rounded-md text-white">My Jobs</button>
           } @else {
             <button class="bg-teal-700 hover:bg-teal-900 p-3 m-3 rounded-md text-white">Get Contact</button>
           }

@@ -1,6 +1,6 @@
 
 
-import { Component, inject, OnDestroy } from '@angular/core';
+import { Component, ElementRef, inject, OnDestroy, ViewChild } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { LoaderComponent } from "../../../shared/loader/loader.component";
 import { CommonModule } from '@angular/common';
@@ -51,6 +51,7 @@ export class UserComponent implements OnDestroy {
   }
 
   getRandomColor(): string {
+
     const letters = '0123456789ABCDEF';
     let color = '#';
     for (let i = 0; i < 6; i++) {
@@ -58,6 +59,8 @@ export class UserComponent implements OnDestroy {
     }
     return color;
   }
+
+  
 
   ngOnDestroy(): void {
     // Unsubscribe from the route paramMap observable to prevent memory leaks

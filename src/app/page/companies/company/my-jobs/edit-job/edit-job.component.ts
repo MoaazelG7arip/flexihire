@@ -1,10 +1,11 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { UpdateInfoService } from '../../../../services/update-info.service';
-import { InformationService } from '../../../../services/information.service';
-import { LoaderComponent } from "../../../../shared/loader/loader.component";
-import { NotificationComponent } from "../../../../shared/notification/notification.component";
+import { UpdateInfoService } from '../../../../../services/update-info.service';
+import { InformationService } from '../../../../../services/information.service';
+import { LoaderComponent } from "../../../../../shared/loader/loader.component";
+import { NotificationComponent } from "../../../../../shared/notification/notification.component";
 import { CommonModule } from '@angular/common';
+import { JobService } from '../../../../../services/job.service';
 
 @Component({
   selector: 'app-edit-job',
@@ -25,14 +26,8 @@ export class EditJobComponent {
   
   
     updateInfo :UpdateInfoService = inject(UpdateInfoService);
-    informationService : InformationService = inject(InformationService);
+    jobService : JobService = inject(JobService);
     
-    governates = [
-      'Cairo', 'Alexandria', 'Giza', 'Port Said', 'Suez', 
-      'Luxor', 'Aswan', 'Ismailia', 'Damietta', 'Sharqia',
-      'Dakahlia', 'Red Sea', 'Matrouh', 'North Sinai', 'South Sinai'
-    ];
-  
     @Input() job = null;
     @Output() innerState :EventEmitter<string> = new EventEmitter<string>();
   
@@ -50,9 +45,8 @@ export class EditJobComponent {
           this.loading = false;
           this.allSkills = res['skills'];
           console.log(res);
-          // this.selectedSkills = this.job.skills;
-          // this.editSkillsAndJob();
-
+          this.selectedSkills = this.job.skills;
+          console.log(this.selectedSkills);
           this.makeUpdateForm();
           
         },
@@ -63,15 +57,18 @@ export class EditJobComponent {
       });
       this.editSkillsAndJob();
     }
-    makeUpdateForm(){
+    makeUpdateForm(){ 
       this.editJobForm = this.fb.group({
         title: [this.job.title,Validators.required],
         location: [this.job.location, Validators.required],
-        // type: ['Full Time'],
-        // model: ['Hybrid'],
         description: [this.job.description, Validators.required],
-        // skills: this.fb.array(this.job.skills,Validators.required),
-        skills: this.fb.array([],Validators.required),
+        skills: this.fb.array([], Validators.required),
+        payment_period: [this.job.payment_period, Validators.required],
+        payment_currency: [this.job.payment_currency, Validators.required],
+        min_salary: [this.job.min_salary, Validators.required],
+        max_salary: [this.job.max_salary, Validators.required],
+        salary_negotiable:[this.job.salary_negotiable, Validators.required],
+        hiring_multiple_candidates: [this.job.hiring_multiple_candidates, Validators.required]
       });
     }
   
@@ -83,14 +80,14 @@ export class EditJobComponent {
         // Handle form submission here
         this.loading = true;
         console.log(this.editJobForm.value);
-        this.informationService.onEditJob(this.editJobForm.value, this.job.id).subscribe({
+        this.jobService.onEditJob(this.editJobForm.value, this.job.id).subscribe({
           next: (res) => {
             this.loading = false;
             console.log(res);
   
             this.notification = {
               isFound: true, 
-              message: res['message'] || "Job added successfully",
+              message: res['message'] || "Job updated successfully",
               status:'success'
             };
             setTimeout(() => {
@@ -98,7 +95,7 @@ export class EditJobComponent {
             }, 3500);
   
   
-            this.innerState.emit('');
+            this.innerState.emit('done');
           },
           error: (err) => {
             this.loading = false;
@@ -106,7 +103,7 @@ export class EditJobComponent {
   
             this.notification = {
               isFound: true, 
-              message: err.error.message || "Job not added successfully",
+              message: err.error.message || "Job not updated successfully",
               status:'alert'
             };
             setTimeout(() => {
@@ -134,25 +131,32 @@ export class EditJobComponent {
       }
     }
     editSkillsAndJob(){
-      this.skills.clear();
-      this.selectedSkills.forEach(skill => {
-        this.skills.push(new FormControl(skill['name']));
+      this.skills?.clear();
+      this.selectedSkills?.forEach(skill => {
+        // this.skills?.push(new FormControl(skill['name']));
+        if(typeof skill == 'string'){
+          this.skills?.push(new FormControl(skill));
+        }else {
+          this.skills?.push(new FormControl(skill['name']));
+        }
       });
     }
   
     get skills() {
-      return this.editJobForm.get('skills') as FormArray;
+      return this.editJobForm?.get('skills') as FormArray;
     }
     get availableSkills() {
       let av = [];
+
       for(let i=0; i<this.allSkills.length; i++) {
         for(let j=0; j<this.selectedSkills.length; j++) {
-          if(this.selectedSkills[j].id == this.allSkills[i].id) {
+          // if(this.selectedSkills[j].id == this.allSkills[i].id) {
+          if(this.selectedSkills[j] == this.allSkills[i].name) {
             av.push(this.allSkills[i])
           }
         }
       }
-      return this.allSkills.filter(skill =>{
+      return this.allSkills?.filter(skill =>{
         return !av.includes(skill)
       })
     }

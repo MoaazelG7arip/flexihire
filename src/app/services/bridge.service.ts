@@ -35,4 +35,6 @@ export class BridgeService {
   // getNotification(notification){
   //   this.notification.emit(notification);
   // }
+
+
 }

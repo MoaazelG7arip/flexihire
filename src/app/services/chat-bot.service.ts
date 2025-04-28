@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class ChatBotService {
 
 
-  private apiUrl = 'https://b0ce-156-197-188-232.ngrok-free.app/query'; // Replace with your API endpoint
+  private apiUrl = 'https://5e30-156-197-188-232.ngrok-free.app/query'; // Replace with your API endpoint
 
   constructor(private http: HttpClient) { }
 

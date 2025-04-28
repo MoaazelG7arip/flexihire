@@ -4,7 +4,7 @@
 @if (notification.isFound) {
     <app-notification [attr.role]="notification.status">{{notification.message}}</app-notification>
 }
- 
+
 <div class="bg-gradient-to-b from-custom-blue to-white min-h-screen flex items-center justify-center p-4">
     <div class="font-std mb-10 w-full rounded-2xl p-3 sm:p-10 font-normal leading-relaxed text-gray-900 shadow-xl">
        @if (loading) {

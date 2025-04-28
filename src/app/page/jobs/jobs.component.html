@@ -79,7 +79,7 @@
             <div class="flex flex-wrap">
                 @for(skill of job.skills; track $index){
                     @if($index < 5){
-                        <span class="p-2 m-2 border bg-custom-blue rounded-full  hover:bg-dark-blue"> {{skill}} </span>
+                        <span class="p-2 m-2 border bg-custom-blue/70 rounded-full  hover:bg-dark-blue"> {{skill}} </span>
                     }@else if($index == 5){
                         <span class="p-2 m-2 border bg-custom-blue rounded-lg  hover:bg-dark-blue"> +{{job.skills.length - 5}} </span>
                     }

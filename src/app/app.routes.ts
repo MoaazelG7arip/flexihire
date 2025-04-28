@@ -21,10 +21,13 @@ export const routes: Routes = [
         {path: 'account', loadComponent: ()=> import('./page/account/account.component').then(m=>m.AccountComponent)},
         {path: 'companies', loadComponent: ()=>import('./page/companies/companies.component').then(m=>m.CompaniesComponent)},
         {path: 'companies/:id', loadComponent: ()=>import('./page/companies/company/company.component').then(m=>m.CompanyComponent)},
+        {path: 'companies/:id/myJobs', loadComponent: ()=>import('./page/companies/company/my-jobs/my-jobs.component').then(m=>m.MyJobsComponent)},
+        {path: 'companies/:id/myJobs/applicants/:jobId', loadComponent: ()=>import('./page/companies/company/my-jobs/applicants/applicants.component').then(m=>m.ApplicantsComponent)},
         {path: 'jobs', loadComponent: ()=>import('./page/jobs/jobs.component').then(m=>m.JobsComponent)},
         {path: 'jobs/:id', loadComponent: ()=>import('./page/jobs/job/job.component').then(m=>m.JobComponent)},
         {path: 'users', loadComponent: ()=>import('./page/users/users.component').then(m=>m.UsersComponent)},
         {path: 'users/:id', loadComponent: ()=>import('./page/users/user/user.component').then(m=>m.UserComponent)},
+        {path: 'users/:id/myJobs', loadComponent: ()=>import('./page/users/user/my-jobs/my-jobs.component').then(m=>m.MyJobsComponent)},
  
     ]},
 ];

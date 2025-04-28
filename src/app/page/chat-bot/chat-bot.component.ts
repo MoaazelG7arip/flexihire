@@ -116,7 +116,7 @@ export class ChatBotComponent {
 
     const body = {
       input: msg,
-      // session_id: '5'
+      // session_id: 'session_5'
       session_id: this.randomStr
     }
 

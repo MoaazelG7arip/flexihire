@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { UpdateInfoService } from '../../../../services/update-info.service';
-import { LoaderComponent } from "../../../../shared/loader/loader.component";
-import { InformationService } from '../../../../services/information.service';
-import { NotificationComponent } from "../../../../shared/notification/notification.component";
+import { FormArray, FormBuilder, FormControl, FormGroup, MaxValidator, MinValidator, ReactiveFormsModule, Validators } from '@angular/forms';
+import { UpdateInfoService } from '../../../../../services/update-info.service';
+import { LoaderComponent } from "../../../../../shared/loader/loader.component";
+import { NotificationComponent } from "../../../../../shared/notification/notification.component";
+import { JobService } from '../../../../../services/job.service';
 
 @Component({
   selector: 'app-add-job',
@@ -25,13 +25,8 @@ export class AddJobComponent {
 
 
   updateInfo :UpdateInfoService = inject(UpdateInfoService);
-  informationService : InformationService = inject(InformationService);
-  
-  governates = [
-    'Cairo', 'Alexandria', 'Giza', 'Port Said', 'Suez', 
-    'Luxor', 'Aswan', 'Ismailia', 'Damietta', 'Sharqia',
-    'Dakahlia', 'Red Sea', 'Matrouh', 'North Sinai', 'South Sinai'
-  ];
+  jobService :JobService = inject(JobService);  
+
 
   @Output() innerState :EventEmitter<string> = new EventEmitter<string>();
 
@@ -40,10 +35,14 @@ export class AddJobComponent {
     this.jobForm = this.fb.group({
       title: ['',Validators.required],
       location: ['', Validators.required],
-      // type: ['Full Time'],
-      // model: ['Hybrid'],
       description: ['', Validators.required],
       skills: this.fb.array([],Validators.required),
+      payment_period: ['monthly', Validators.required],
+      payment_currency: ['USD', Validators.required],
+      min_salary: ['', Validators.required],
+      max_salary: ['', Validators.required],
+      salary_negotiable:[false, Validators.required],
+      hiring_multiple_candidates: [true, Validators.required]
     });
   }
 
@@ -60,7 +59,7 @@ export class AddJobComponent {
       },
       error: (err) => {
         this.loading = false;
-        console.error('Error getting skills and jobs:', err)
+        console.error('Error getting skills:', err)
       }
     });
     this.editSkillsAndJob();
@@ -74,7 +73,7 @@ export class AddJobComponent {
       // Handle form submission here
       this.loading = true;
       console.log(this.jobForm.value);
-      this.informationService.onAddJob(this.jobForm.value).subscribe({
+      this.jobService.onAddJob(this.jobForm.value).subscribe({
         next: (res) => {
           this.loading = false;
           console.log(res);
@@ -89,7 +88,7 @@ export class AddJobComponent {
           }, 3500);
 
 
-          this.innerState.emit('');
+          this.innerState.emit('done');
         },
         error: (err) => {
           this.loading = false;

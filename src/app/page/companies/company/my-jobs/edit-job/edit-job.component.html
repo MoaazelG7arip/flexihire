@@ -1,0 +1,184 @@
+@if (notification.isFound) {
+    <app-notification [attr.role]="notification.status">{{
+      notification.message
+    }}</app-notification>
+    }
+    
+    <div class="overflow-y-scroll fixed top-0 left-0 w-full h-full">
+      <div
+        class="container bg-gradient-to-b from-custom-blue to-white backdrop-blur min-h-screen min-w-full py-14"
+      >
+        <!-- job-post.component.html -->
+        <div class="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md ">
+          @if(loading){
+          <app-loader class="my-32"></app-loader>
+          } @else {
+          <!-- Job Close -->
+          <div class="float-end cursor-pointer" (click)="onClose()">
+            <i
+              class="fa-solid fa-square-xmark text-2xl text-red-700 hover:text-red-900"
+            ></i>
+          </div>
+          <h2 class="text-2xl font-bold mb-6 text-gray-800">Job Post</h2>
+    
+          <form [formGroup]="editJobForm" (ngSubmit)="onSubmit()" class="space-y-4">
+            <!-- Title -->
+            <div>
+              <label class="block mb-2 font-semibold text-lg">Job Title</label>
+              <input
+                type="text"
+                formControlName="title"
+                placeholder="e.g. Mobile Developer"
+                class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+    
+            <!-- Location -->
+            <div>
+              <label class="block mb-2 font-semibold text-lg">Job Location</label>
+              <input
+                type="text"
+                formControlName="location"
+                placeholder="Cairo"
+                class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+    
+            <!-- Description -->
+            <div>
+              <label class="block mb-2 font-semibold text-lg">Job Description</label>
+              <textarea
+                formControlName="description"
+                placeholder="Write Job Description"
+                rows="4"
+                class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              ></textarea>
+            </div>
+    
+            <!-- Skills -->
+            <div>
+              <!-- Selected Skills -->
+              <div class="mb-4">
+                @if(selectedSkills.length > 0){
+                <label class="block mb-2 font-semibold text-lg"
+                  >Skills</label
+                >
+                <div
+                  class="flex flex-wrap gap-2 mb-2 border border-indigo-800 rounded-lg p-5"
+                >
+                  <div
+                    *ngFor="let skillCtrl of selectedSkills; let i = index"
+                    class="flex items-center px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm"
+                  >
+                    <button
+                      type="button"
+                      (click)="removeSkill(skillCtrl)"
+                      class="ml-1 text-blue-600 flex hover:text-blue-800"
+                    >
+                      {{ skillCtrl }}
+                      &times;
+                    </button>
+                  </div>
+                </div>
+                }
+              </div>
+    
+              <!-- Skill Suggestions -->
+              <div class="mb-8">
+                <h3 class="mb-4 font-semibold text-lg">
+                  Skill suggestions
+                </h3>
+                <div class="flex flex-wrap gap-2 h-60 overflow-auto bg-slate-50">
+                  <button
+                    type="button"
+                    *ngFor="let skill of availableSkills"
+                    (click)="addSkill(skill.name)"
+                    class="flex items-center px-3 py-1 border rounded-full text-sm hover:bg-blue-50 hover:border-blue-200 transition-colors"
+                  >
+                    <span class="mr-1">+</span>
+                    {{ skill.name }}
+                  </button>
+                </div>
+              </div>
+            </div>
+    
+            <!-- Salary -->
+    
+            <!-- payment period -->
+             <div>
+                <label class="block mb-2 font-semibold text-lg">Payment Period</label>
+    
+                <select formControlName="payment_period"
+                class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="hourly" selected>Hourly</option>
+                    <option value="daily">Daily</option>
+                    <option value="monthly">Monthly</option>
+                    <option value="weekly">Weekly</option>
+                    <option value="yearly">Yearly</option>
+                </select>
+            </div>
+    
+            <!-- payment currency -->
+             <div>
+                <label class="block mb-2 font-semibold text-lg">Payment Currency</label>
+    
+                <select formControlName="payment_currency"
+                class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="USD" selected>US Dollar (USD)</option>
+                    <option value="EUR">Euro (EUR)</option>
+                    <option value="GBP">British Pound (GBP)</option>
+                    <option value="JPY">Japanese Yen (JPY)</option>
+                    <option value="AUD">Australian Dollar (AUD)</option>
+                    <option value="CAD">Canadian Dollar (CAD)</option>
+                    <option value="CHF">Swiss Franc (CHF)</option>
+                    <option value="CNY">Chinese Yuan (CNY)</option>
+                    <option value="EGP">Egyptian Pound (EGP)</option>
+                    <option value="AED">UAE Dirham (AED)</option>
+                    <option value="SAR">Saudi Riyal (SAR)</option>
+                    <option value="INR">Indian Rupee (INR)</option>
+                    <option value="BRL">Brazilian Real (BRL)</option>
+                    <option value="ZAR">South African Rand (ZAR)</option>
+                </select>
+             </div>
+             <!-- Salary Range -->
+              <div>
+                <label class="block mb-2 font-semibold text-lg">Salary Range</label>
+                <div class="flex flex-nowrap justify-center w-full">
+                    <input type="number" formControlName="min_salary" placeholder="Min Salary" class="!w-1/4 !rounded-r-none !border-4" #minSalary>
+                    <input type="number" formControlName="max_salary" placeholder="Max Salary" class="!w-1/4 !rounded-l-none !border-4" [min]="minSalary.value">
+                </div>
+                @if(editJobForm.get('max_salary')?.errors?.['min'] && editJobForm.get('max_salary')?.touched){
+                <p class="text-red-500 text-sm mt-2">Max Salary must be greater than Min Salary</p>
+                }
+              </div>
+              <!-- Salary negotiable -->
+               <div>
+                <input type="checkbox" formControlName="salary_negotiable"> <span class="font-semibold text-lg ms-3">Salary is negotiable</span>
+               </div>
+               <!-- Hiring multiple candidates -->
+                <div class="!mb-32">
+                    <h3 class="font-semibold text-lg">Hiring multiple candidates?</h3>
+                    <div class="flex justify-center gap-x-10">
+    
+                        <div>
+                            <input type="radio" formControlName="hiring_multiple_candidates" [value]="true"> <span class="text-xl">Yes</span>
+                        </div>
+                        <div>
+                            <input type="radio" formControlName="hiring_multiple_candidates" [value]="false"> <span class="text-xl">NO</span>
+                        </div>
+                    </div>
+                </div>
+    
+            <button
+              type="submit"
+              class="w-full bg-custom-blue text-white py-2 px-4 rounded-md hover:bg-dark-blue transition disabled:bg-gray-300 disabled:text-gray-600 disabled:cursor-not-allowed"
+              [disabled]="editJobForm.invalid"
+            >
+              Update Job
+            </button>
+          </form>
+          }
+        </div>
+      </div>
+    </div>
+    
