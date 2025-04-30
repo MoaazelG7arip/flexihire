@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UpdateInfoService } from '../../services/update-info.service';
 import { NotificationComponent } from "../../shared/notification/notification.component";
@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { PasswordMatchValidator } from '../../validators/confimPassword.validator';
 import { RouterLink } from '@angular/router';
 import { ProgressBarComponent } from "../../shared/progress-bar/progress-bar.component";
+import { BridgeService } from '../../services/bridge.service';
 
 
 
@@ -65,13 +66,15 @@ export class AccountComponent {
   selectedJob = null;
   loading: boolean = false;
   notification = {isFound: false, message: '', status: ''};
-
+  
+  
 
   selectedFile: File | null = null;
   selectedBackground: File | null = null;
   cvFile: File | null = null;
   updateInfo : UpdateInfoService = inject(UpdateInfoService);
   authService: AuthService = inject(AuthService);
+  bridgeService: BridgeService = inject(BridgeService);
   changePasswordForm: FormGroup;
   
   fb : FormBuilder = inject(FormBuilder);
@@ -533,6 +536,11 @@ export class AccountComponent {
 
 
 
+
+  onEmitInfo(){
+    this.bridgeService.onEmitAddInfo(false)
+
+  }
 
 
 

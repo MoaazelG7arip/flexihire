@@ -1,15 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { HeaderComponent } from "./header/header.component";
-import { FooterComponent } from "./footer/footer.component";
 import { RouterOutlet } from '@angular/router';
 import { LoaderComponent } from "../shared/loader/loader.component";
-import { NotificationComponent } from "../shared/notification/notification.component";
 import { ChatBotComponent } from "./chat-bot/chat-bot.component";
+import { BridgeService } from '../services/bridge.service';
 
 @Component({
   selector: 'app-page',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, FooterComponent, LoaderComponent, NotificationComponent, ChatBotComponent],
+  imports: [RouterOutlet, HeaderComponent, LoaderComponent, ChatBotComponent],
   templateUrl: './page.component.html',
   styleUrl: './page.component.css'
 })
@@ -17,10 +16,31 @@ export class PageComponent {
   loading = false;
   notification = {isFound: false, message: '', status: ''};
 
+  addInfo = false;
+
+  bridgeService: BridgeService = inject(BridgeService);
+
+
+  ngOnInit(): void {
+    
+    if (JSON.parse(sessionStorage.getItem('addInfo'))) {
+      this.addInfo = true;
+    }
+
+    this.bridgeService.addInfoEmitter.subscribe((data: any) => {
+      this.addInfo = data;
+    });
+
+  }
+
+
   onloading(value){
     this.loading = value;
   }
   onNotification(value){
     this.notification = value;
   }
+
+  
+
 }

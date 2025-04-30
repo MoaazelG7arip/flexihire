@@ -1,4 +1,12 @@
 
+
+
+@if (notification.isFound) {
+  <app-notification [attr.role]="notification.status">{{notification.message}}</app-notification>
+}
+
+
+
 <app-progress-bar></app-progress-bar>
 
 <!-- company-list.component.html -->
@@ -110,12 +118,12 @@
 } @else {
 
 
-  <div class="pagination-controls mx-auto w-fit border-2 border-cyan-500 rounded-full py-2 px-10 mt-2 mb-20">
+  <div class="pagination-controls mx-auto w-fit md:border-2 md:border-cyan-500 rounded-full py-2 px-10 mt-2 mb-20">
     @for (item of paginationLinks; track $index) {
         <button
         (click)="goToPage(item.label, item.url)"
         [disabled]="item.active"
-        class="border text-black py-1 px-2 m-1 rounded-full text-2xl cursor-pointer hover:bg-gray-100 disabled:bg-cyan-500 disabled:text-white disabled:cursor-auto" [innerHTML]="item.label"></button>
+        class="border text-black py-1 px-2 m-1 rounded-full text-sm md:text-xl cursor-pointer hover:bg-gray-100 disabled:bg-cyan-500 disabled:text-white disabled:cursor-auto" [innerHTML]="item.label"></button>
       }     
   </div>
 }

@@ -12,7 +12,8 @@ export class BridgeService {
   forgotForm : EventEmitter<any> = new EventEmitter();
   resetForm : EventEmitter<any> = new EventEmitter();
   loading : EventEmitter<boolean> = new EventEmitter();
-  // notification : EventEmitter<any> = new EventEmitter();
+  notification : EventEmitter<any> = new EventEmitter();
+  addInfoEmitter: EventEmitter<any> = new EventEmitter();
 
 
   getLogForm(form: any){
@@ -32,9 +33,11 @@ export class BridgeService {
   getLoading(status){
     this.loading.emit(status); 
   }
-  // getNotification(notification){
-  //   this.notification.emit(notification);
-  // }
-
+  getNotification(notification){
+    this.notification.emit(notification);
+  }
+  onEmitAddInfo(data: any){
+    this.addInfoEmitter.emit(data);
+  }
 
 }

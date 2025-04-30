@@ -40,10 +40,29 @@ export class JobComponent {
         this.isApplied = res['has_applied'];
         this.mainUser = JSON.parse(localStorage.getItem('user'));
 
+        this.notification = {
+          isFound: true,
+          message: res['message'] || 'Job fetched successfully',
+          status: 'success',
+        };
+        setTimeout(() => {
+          this.notification = { isFound: false, message: '', status: '' };
+        }, 3500);
+
       },
       error: (err) => {
         this.loading = false;
         console.log(err);
+
+
+        this.notification = {
+          isFound: true,
+          message: err.error.message || 'Job not fetched',
+          status: 'alert',
+        };
+        setTimeout(() => {
+          this.notification = { isFound: false, message: '', status: '' };
+        }, 3500);
       }
     });
 

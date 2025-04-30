@@ -15,18 +15,24 @@ export class HeaderComponent {
   user;
   loggedIn = false;
   image_url = null;
+  // addInfo = false;
+
 
   @Output() onloading : EventEmitter<boolean> = new EventEmitter();
   loading: boolean = false;
   @Output() onNotification : EventEmitter<object> = new EventEmitter();
   notification = {isFound: false, message: '', status: ''};y
-
+  
 
 
   authService: AuthService = inject(AuthService);
   router: Router = inject(Router);
   ngOnInit(): void {
     initTWE({ Collapse, Dropdown }); // Initialize required components
+    
+    // if (JSON.parse(sessionStorage.getItem('addInfo'))) {
+    //   this.addInfo = true;
+    // }
     let user = JSON.parse(localStorage.getItem('user'));
     if(user){
       this.loggedIn = true;

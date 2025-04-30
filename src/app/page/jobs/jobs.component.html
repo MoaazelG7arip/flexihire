@@ -1,4 +1,10 @@
 
+
+@if (notification.isFound) {
+    <app-notification [attr.role]="notification.status">{{notification.message}}</app-notification>
+  }
+
+
 <app-progress-bar></app-progress-bar>
 
 <div class="page bg-gradient-to-b from-custom-blue to-white min-h-screen overflow-hidden ">
@@ -37,7 +43,7 @@
   
         <!-- job content box -->
             
-        <div class="relative border-custom-blue bg-white p-8 my-16 w-full rounded-lg shadow-lg space-y-3 sm:space-y-1.5">
+        <div class="relative border-custom-blue bg-white p-4 py-16 sm:p-8 my-16 w-full rounded-lg shadow-lg space-y-3 sm:space-y-1.5">
             <!-- company logo -->
             <!-- <figure class="float-none sm:float-end items-end inline-block cursor-pointer" [routerLink]="'/page/companies/'+ job.user.id">
                 @if (job.user.image_url) {
@@ -72,14 +78,14 @@
             </div>
             <!-- Salary -->
             <div>
-                <p class="text-cyan-500 font-bold">Salary: {{job.min_salary | currency:'USD' :'symbol':'1.0-0' }} - {{ job.max_salary |  currency:'USD' :'symbol':'1.0-0' }} &nbsp;  {{job.salary_negotiable ? ' (Negotiable)' : ' (Not Negotiable)'}}</p>
+                <p class="text-cyan-500 font-bold">Salary: {{job.min_salary | currency:'USD' :'symbol':'1.0-0' }} - {{ job.max_salary |  currency:'USD' :'symbol':'1.0-0' }} &nbsp;  {{job.salary_negotiable ? ' (Negotiable)' : ' (Not-Negotiable)'}}</p>
             </div>
             <!-- skills required -->
             <!-- <h2 class="font-bold">skills required</h2> -->
-            <div class="flex flex-wrap">
+            <div class="flex flex-wrap ">
                 @for(skill of job.skills; track $index){
                     @if($index < 5){
-                        <span class="p-2 m-2 border bg-custom-blue/70 rounded-full  hover:bg-dark-blue"> {{skill}} </span>
+                        <span class="self-center p-1 sm:p-2 m-1 sm:m-2 text-sm sm:text-base border bg-custom-blue/70 rounded-full  hover:bg-dark-blue"> {{skill}} </span>
                     }@else if($index == 5){
                         <span class="p-2 m-2 border bg-custom-blue rounded-lg  hover:bg-dark-blue"> +{{job.skills.length - 5}} </span>
                     }
@@ -100,12 +106,12 @@
         } @else {
 
 
-        <div class="pagination-controls mx-auto w-fit border-2 border-cyan-500 rounded-full py-2 px-10 mt-2 mb-20">
+        <div class="pagination-controls mx-auto w-fit md:border-2 md:border-cyan-500 rounded-full py-2 px-10 mt-2 mb-20">
             @for (item of paginationLinks; track $index) {
                 <button
                 (click)="goToPage(item.label, item.url)"
                 [disabled]="item.active"
-                class="border text-black py-1 px-2 m-1 rounded-full text-2xl cursor-pointer hover:bg-gray-100 disabled:bg-cyan-500 disabled:text-white disabled:cursor-auto" [innerHTML]="item.label"></button>
+                class="border text-black py-1 px-2 m-1 rounded-full text-sm md:text-xl cursor-pointer hover:bg-gray-100 disabled:bg-cyan-500 disabled:text-white disabled:cursor-auto" [innerHTML]="item.label"></button>
             }     
         </div>
         }

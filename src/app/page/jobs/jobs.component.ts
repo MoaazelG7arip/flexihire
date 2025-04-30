@@ -4,11 +4,12 @@ import { ProgressBarComponent } from "../../shared/progress-bar/progress-bar.com
 import { LoaderComponent } from "../../shared/loader/loader.component";
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CurrencyPipe, DatePipe } from '@angular/common';
+import { NotificationComponent } from "../../shared/notification/notification.component";
 
 @Component({
   selector: 'app-jobs',
   standalone: true,
-  imports: [ProgressBarComponent, LoaderComponent, RouterLink, CurrencyPipe, DatePipe],
+  imports: [ProgressBarComponent, LoaderComponent, RouterLink, CurrencyPipe, DatePipe, NotificationComponent],
   templateUrl: './jobs.component.html',
   styleUrl: './jobs.component.css'
 })
@@ -21,7 +22,7 @@ export class JobsComponent {
   userLocation;
   list;
   routeSubscription: any;
-
+  notification = {isFound: false, message: '', status: ''};
 
   route: ActivatedRoute = inject(ActivatedRoute);
   router: Router = inject(Router);
@@ -57,11 +58,30 @@ export class JobsComponent {
             
             // this.userLocation = JSON.parse(localStorage.getItem('user')).user.location;
             // console.log(this.userLocation);
+
+            this.notification = {
+              isFound: true,
+              message: res['message'] || 'Jobs fetched successfully',
+              status: 'success',
+            };
+            setTimeout(() => {
+              this.notification = { isFound: false, message: '', status: '' };
+            }, 3500);
     
           },
           error: (err) => {
             this.loading = false;
             console.log(err);
+
+
+            this.notification = {
+              isFound: true,
+              message: err.error.message || 'Error fetching jobs',
+              status: 'alert',
+            };
+            setTimeout(() => {
+              this.notification = { isFound: false, message: '', status: '' };
+            }, 3500);
           }
         });
 

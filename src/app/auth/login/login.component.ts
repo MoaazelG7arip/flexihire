@@ -5,19 +5,21 @@ import { LoaderComponent } from "../../shared/loader/loader.component";
 import { NotificationComponent } from "../../shared/notification/notification.component";
 import { BridgeService } from '../../services/bridge.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, LoaderComponent, ],
+  imports: [CommonModule, ReactiveFormsModule, LoaderComponent, NotificationComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
   
   bridgeService: BridgeService = inject(BridgeService);
+  authService: AuthService = inject(AuthService);
   loading: boolean = false;
-  // notification: any = { isFound:false, message:'', status : ''};
+  notification: any = { isFound:false, message:'', status : ''};
 
   router: Router = inject(Router);
 
@@ -48,7 +50,8 @@ export class LoginComponent {
   onSubmit() {
     if (this.loginForm.valid) {
       // this.logForm.emit(this.loginForm.value)
-      this.bridgeService.getLogForm(this.loginForm.value);
+      // this.bridgeService.getLogForm(this.loginForm.value);
+      this.onLogin();
     }
   }  
   goToRegisterPage(){
@@ -58,5 +61,49 @@ export class LoginComponent {
   goToForgetPassword(){
     // this.authStatus.emit('forget')
     this.router.navigate(['/auth/forget-password'])
+  }
+
+  onLogin(){
+    this.loading = true;
+    this.bridgeService.getLoading(this.loading)
+    console.log('login Form  : ' , this.loginForm.value);
+    this.authService.onLogin(this.loginForm.value).subscribe({
+      next: res => {
+        console.log(res);
+        this.loading = false;
+        this.bridgeService.getLoading(this.loading);
+        this.authService.user.next(res);
+        localStorage.setItem('user', JSON.stringify(res));
+        // routing to home page
+         
+        // end
+        this.notification = {
+          isFound: true,
+          message: res['message'] || 'Login Successfully',
+          status:'success'
+        };
+        this.bridgeService.getNotification(this.notification);
+        setTimeout(() => {
+          this.notification = {isFound: false, message: '', status: ''};
+        }, 3500);
+        this.bridgeService.getNotification(this.notification);
+        this.router.navigate(['/page/jobs']);
+      },
+      error: err => {
+        console.error(err);
+        this.loading = false;
+        this.bridgeService.getLoading(this.loading)
+        this.notification = {
+          isFound: true,
+          message: err?.error?.message,
+          status: 'alert',
+        };
+        this.bridgeService.getNotification(this.notification);
+        setTimeout(() => {
+          this.notification = {isFound: false, message: '', status: ''};
+        }, 3500);
+        this.bridgeService.getNotification(this.notification);
+      }
+    })
   }
 }

@@ -1,12 +1,13 @@
-@if (notification.isFound) {
+<!-- @if (notification.isFound) {
     <app-notification [attr.role]="notification.status">{{notification.message}}</app-notification>
-}
+} -->
 
-
+@if(!addInfo){
 <app-header
     (onloading)="onloading($event)"
     (onNotification)="onNotification($event)" 
 ></app-header>
+}
 @if(loading){
     <app-loader></app-loader>    
 }@else {

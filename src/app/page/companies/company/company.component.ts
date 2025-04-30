@@ -6,11 +6,12 @@ import { LoaderComponent } from "../../../shared/loader/loader.component";
 import { CommonModule } from '@angular/common';
 import { InformationService } from '../../../services/information.service';
 import { Subscription } from 'rxjs';
+import { NotificationComponent } from "../../../shared/notification/notification.component";
 
 @Component({
   selector: 'app-company',
   standalone: true,
-  imports: [CommonModule, LoaderComponent, RouterLink],
+  imports: [CommonModule, LoaderComponent, RouterLink, NotificationComponent],
   templateUrl: './company.component.html',
   styleUrl: './company.component.css'
 })
@@ -22,6 +23,8 @@ export class CompanyComponent implements OnDestroy {
   loading = false;
   mainUser = false;
   private routeSubscription: Subscription;
+  notification = { isFound: false, message: '', status: '' };
+
 
   ngOnInit(): void {
     // Subscribe to paramMap to react to changes in the URL
@@ -42,10 +45,29 @@ export class CompanyComponent implements OnDestroy {
         if (theUser['user'].id == id) {
           this.mainUser = true;
         }
+
+        this.notification = {
+          isFound: true,
+          message: res['message'] || 'Companies fetched successfully',
+          status: 'success',
+        };
+        setTimeout(() => {
+          this.notification = { isFound: false, message: '', status: '' };
+        }, 3500);
+
       },
-      error: (error) => {
+      error: (err) => {
         this.loading = false;
-        console.log(error);
+        console.log(err);
+
+        this.notification = {
+          isFound: true,
+          message: err.error.message || 'Companies not fetched ',
+          status: 'alert',
+        };
+        setTimeout(() => {
+          this.notification = { isFound: false, message: '', status: '' };
+        }, 3500);
       }
     });
   }

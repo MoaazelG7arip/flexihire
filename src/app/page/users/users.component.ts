@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { LoaderComponent } from "../../shared/loader/loader.component";
 import { InformationService } from '../../services/information.service';
+import { NotificationComponent } from "../../shared/notification/notification.component";
 
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [CommonModule, ProgressBarComponent, RouterLink, LoaderComponent],
+  imports: [CommonModule, ProgressBarComponent, RouterLink, LoaderComponent, NotificationComponent],
   templateUrl: './users.component.html',
   styleUrl: './users.component.css'
 })
@@ -19,6 +20,7 @@ export class UsersComponent {
   users = [];
   loading: boolean = false;
   MainUser: any;
+  notification = { isFound: false, message: '', status: '' };
 
   
   route : ActivatedRoute = inject(ActivatedRoute);
@@ -52,10 +54,29 @@ export class UsersComponent {
           this.paginationLinks = res['data']['links'];          
           
           this.MainUser = JSON.parse(localStorage.getItem('user'));
+
+
+          this.notification = {
+            isFound: true,
+            message: res['message'] || 'Users fetched successfully',
+            status: 'success',
+          };
+          setTimeout(() => {
+            this.notification = { isFound: false, message: '', status: '' };
+          }, 3500);
         },
-        error: (error) => {
+        error: (err) => {
           this.loading = false;
-          console.log(error);
+          console.log(err);
+
+          this.notification = {
+            isFound: true,
+            message: err.error.message || 'Error fetching Users',
+            status: 'alert',
+          };
+          setTimeout(() => {
+            this.notification = { isFound: false, message: '', status: '' };
+          }, 3500);
         }
       })
     

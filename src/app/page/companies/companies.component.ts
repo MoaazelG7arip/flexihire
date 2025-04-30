@@ -4,11 +4,12 @@ import { ProgressBarComponent } from "../../shared/progress-bar/progress-bar.com
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { LoaderComponent } from "../../shared/loader/loader.component";
 import { InformationService } from '../../services/information.service';
+import { NotificationComponent } from "../../shared/notification/notification.component";
 
 @Component({
   selector: 'app-companies',
   standalone: true,
-  imports: [CommonModule, ProgressBarComponent, RouterLink, LoaderComponent],
+  imports: [CommonModule, ProgressBarComponent, RouterLink, LoaderComponent, NotificationComponent],
   templateUrl: './companies.component.html',
   styleUrl: './companies.component.css'
 })
@@ -22,6 +23,7 @@ export class CompaniesComponent {
   userLocation;
   list;
   routeSubscription: any;
+  notification = {isFound: false, message: '', status: ''};
 
 
 
@@ -59,13 +61,32 @@ export class CompaniesComponent {
         this.companies = res['data']['data'];
         this.paginationLinks = res['data']['links'];
 
+        this.notification = {
+          isFound: true,
+          message: res['message'] || 'Companies fetched successfully',
+          status: 'success',
+        };
+        setTimeout(() => {
+          this.notification = { isFound: false, message: '', status: '' };
+        }, 3500);
+
  
         this.mainCompany = JSON.parse(localStorage.getItem('user'));
 
       },
-      error: (error) => {
+      error: (err) => {
         this.loading = false;
-        console.log(error);
+        console.log(err);
+
+        this.notification = {
+          isFound: true,
+          message: err.error.message || 'Error fetching applications',
+          status: 'alert',
+        };
+        setTimeout(() => {
+          this.notification = { isFound: false, message: '', status: '' };
+        }, 3500);
+
       }
     }) 
 

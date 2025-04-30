@@ -1,2 +1,6 @@
 <app-auth></app-auth>
 
+
+@if (notification.isFound) {
+    <app-notification [attr.role]="notification.status">{{notification.message}}</app-notification>
+}

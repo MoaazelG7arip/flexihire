@@ -23,7 +23,7 @@
   <div 
     *ngIf="isOpen"
     @chatWindow
-    class="chat-window fixed bottom-24 right-8 w-96 h-[600px] bg-white rounded-xl shadow-xl border border-gray-100"
+    class="chat-window fixed bottom-24 right-8 w-3/4 sm:w-96 max-w-full h-[600px] bg-white rounded-xl shadow-xl border border-gray-100"
     (click)="$event.stopPropagation()">
     
     <div class="flex flex-col h-full">

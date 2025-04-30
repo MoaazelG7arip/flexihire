@@ -6,11 +6,12 @@ import { LoaderComponent } from "../../../shared/loader/loader.component";
 import { CommonModule } from '@angular/common';
 import { InformationService } from '../../../services/information.service';
 import { Subscription } from 'rxjs';
+import { NotificationComponent } from "../../../shared/notification/notification.component";
 
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [LoaderComponent, CommonModule, RouterLink],
+  imports: [LoaderComponent, CommonModule, RouterLink, NotificationComponent],
   templateUrl: './user.component.html',
   styleUrl: './user.component.css'
 })
@@ -18,6 +19,7 @@ export class UserComponent implements OnDestroy {
 
   route: ActivatedRoute = inject(ActivatedRoute);
   informationService: InformationService = inject(InformationService);
+  notification = { isFound: false, message: '', status: '' };
   user;
   loading = false;
   mainUser = false;
@@ -42,10 +44,31 @@ export class UserComponent implements OnDestroy {
         if (theUser['user'].id == id) {
           this.mainUser = true;
         }
+
+
+        this.notification = {
+          isFound: true,
+          message: res['message'] || 'User fetched successfully',
+          status: 'success',
+        };
+        setTimeout(() => {
+          this.notification = { isFound: false, message: '', status: '' };
+        }, 3500);
       },
-      error: (error) => {
+      error: (err) => {
         this.loading = false;
-        console.log(error);
+        console.log(err);
+
+
+
+        this.notification = {
+          isFound: true,
+          message: err.error.message || 'User not fetched ',
+          status: 'alert',
+        };
+        setTimeout(() => {
+          this.notification = { isFound: false, message: '', status: '' };
+        }, 3500);
       }
     });
   }
