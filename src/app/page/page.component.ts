@@ -16,21 +16,12 @@ export class PageComponent {
   loading = false;
   notification = {isFound: false, message: '', status: ''};
 
-  addInfo = false;
 
   bridgeService: BridgeService = inject(BridgeService);
 
 
   ngOnInit(): void {
-    
-    if (JSON.parse(sessionStorage.getItem('addInfo'))) {
-      this.addInfo = true;
-    }
-
-    this.bridgeService.addInfoEmitter.subscribe((data: any) => {
-      this.addInfo = data;
-    });
-
+  
   }
 
 

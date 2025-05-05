@@ -89,7 +89,9 @@
           @if(mainCompany?.user?.id != company?.id){
           <!-- Contact Me -->
           <div>
-            <button class="flex items-center bg-gradient-to-r from-dark-blue/70 to-custom-blue/70 py-3 px-5 rounded-full hover:from-dark-blue hover:to-custom-blue ">
+            <button 
+            (click)="onContactMe($event, company)"
+            class="flex items-center bg-gradient-to-r from-custom-blue to-custom-blue/50 py-3 px-5 rounded-full hover:from-dark-blue hover:to-custom-blue ">
               Contact Me
               <img src="photo/Vector.png" class="ms-2 w-5" alt="">
             </button>

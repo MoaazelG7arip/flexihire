@@ -537,11 +537,6 @@ export class AccountComponent {
 
 
 
-  onEmitInfo(){
-    this.bridgeService.onEmitAddInfo(false)
-
-  }
-
 
 
   ngOnDestroy(): void {

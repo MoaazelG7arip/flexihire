@@ -1,7 +1,7 @@
 
 
 import { Component, ElementRef, inject, OnDestroy, ViewChild } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { LoaderComponent } from "../../../shared/loader/loader.component";
 import { CommonModule } from '@angular/common';
 import { InformationService } from '../../../services/information.service';
@@ -18,6 +18,7 @@ import { NotificationComponent } from "../../../shared/notification/notification
 export class UserComponent implements OnDestroy {
 
   route: ActivatedRoute = inject(ActivatedRoute);
+  router: Router = inject(Router)
   informationService: InformationService = inject(InformationService);
   notification = { isFound: false, message: '', status: '' };
   user;
@@ -90,5 +91,10 @@ export class UserComponent implements OnDestroy {
     if (this.routeSubscription) {
       this.routeSubscription.unsubscribe();
     }
+  }
+
+  contactWith(){
+    sessionStorage.setItem('userChat', JSON.stringify(this.user));
+    this.router.navigate(['/page/real-chat']);
   }
 }

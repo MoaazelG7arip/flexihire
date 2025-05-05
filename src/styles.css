@@ -12,6 +12,28 @@ body{
   font-family: "Inter", sans-serif;
 
 }
+
+/* For WebKit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 10px; /* for vertical scrollbars */
+  background-color: white;
+}
+
+::-webkit-scrollbar-track {
+  display: none;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-image: linear-gradient(to bottom, rgb(115 153 165), rgb(52, 80, 88));
+}
+
+
 app-loader{
     display: flex;
     justify-content: center;

@@ -1,5 +1,4 @@
 <!-- Main navigation container -->
- <!-- @if(!addInfo){ -->
 <nav
   class="flex-no-wrap relative flex w-full items-center justify-between bg-white/70 py-3 shadow-dark-mild lg:flex-wrap lg:justify-start lg:py-4">
   <div class="flex w-full flex-wrap items-center justify-between px-3">
@@ -202,7 +201,9 @@
         </a>
         <!-- Second dropdown menu -->
         <ul
-          class="absolute z-[1000] float-left m-0 hidden min-w-max list-none overflow-hidden rounded-lg border-none bg-black bg-clip-padding text-left text-base shadow-lg data-[twe-dropdown-show]:block dark:bg-surface-dark"
+          class="absolute z-[1000] float-left m-0 hidden min-w-max list-none overflow-hidden rounded-sm border-2
+           bg-white bg-clip-padding text-left text-base shadow-md shadow-black/20 data-[twe-dropdown-show]:flex 
+           data-[twe-dropdown-show]:flex-col"
           aria-labelledby="dropdownMenuButton2"
           data-twe-dropdown-menu-ref>
           <!-- Second dropdown menu items -->
@@ -222,20 +223,22 @@
               >Another action</a
             >
           </li> -->
-          <li>
+          <li class="w-52 border-b-[1px] border-black/20">
             @if(user?.user?.roles[0] == 'user'){
               <button
-                class="block w-full whitespace-nowrap bg-black px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
+                class="block w-full text-start whitespace-nowrap bg-white px-4 hover:px-7 transition-all py-2 font-normal text-lg text-neutral-700 hover:bg-gray-100 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline"
                 data-twe-dropdown-item-ref
                 [routerLink]="'/page/users/'+ user?.user?.id">My Account</button>
             } @else {
               <button
-              class="block w-full whitespace-nowrap bg-black px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
+              class="block w-full text-start whitespace-nowrap bg-white px-4 hover:px-7 transition-all py-2 font-normal text-lg text-neutral-700 hover:bg-gray-100 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline"
               data-twe-dropdown-item-ref
               [routerLink]="'/page/companies/'+ user?.user?.id">My Account</button>
             }
+          </li>
+          <li class="w-52">
             <button
-              class="block w-full whitespace-nowrap bg-black px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
+              class="block w-full text-start whitespace-nowrap bg-white px-4 hover:px-7 transition-all py-2 font-normal text-lg text-neutral-700 hover:bg-gray-100 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline"
               data-twe-dropdown-item-ref
               (click)="onLogout()">Logout</button>
           </li>
@@ -245,4 +248,3 @@
     <!-- Right elements -->
   </div>
 </nav>
- <!-- } -->

@@ -15,7 +15,6 @@ export class HeaderComponent {
   user;
   loggedIn = false;
   image_url = null;
-  // addInfo = false;
 
 
   @Output() onloading : EventEmitter<boolean> = new EventEmitter();
@@ -30,9 +29,6 @@ export class HeaderComponent {
   ngOnInit(): void {
     initTWE({ Collapse, Dropdown }); // Initialize required components
     
-    // if (JSON.parse(sessionStorage.getItem('addInfo'))) {
-    //   this.addInfo = true;
-    // }
     let user = JSON.parse(localStorage.getItem('user'));
     if(user){
       this.loggedIn = true;

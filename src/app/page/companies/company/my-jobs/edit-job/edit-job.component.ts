@@ -62,7 +62,7 @@ export class EditJobComponent {
         title: [this.job.title,Validators.required],
         location: [this.job.location, Validators.required],
         description: [this.job.description, Validators.required],
-        skills: this.fb.array([], Validators.required),
+        skills: this.fb.array([]),
         payment_period: [this.job.payment_period, Validators.required],
         payment_currency: [this.job.payment_currency, Validators.required],
         min_salary: [this.job.min_salary, Validators.required],

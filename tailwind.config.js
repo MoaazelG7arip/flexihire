@@ -7,13 +7,14 @@ module.exports = {
   theme: {
     container: {
       center: true, // Centers the container 
-      padding: {
-        DEFAULT: '1rem',
-        sm: '2rem',
-        lg: '4rem',
-        xl: '5rem',
-        '2xl': '6rem',
-      },   
+      padding: '1rem',
+        screens: {
+          sm: '540px',
+          md: '720px',
+          lg: '960px',
+          xl: '1140px',
+          xxl: '1320px',
+        },  
     },
     extend: {
       colors: {

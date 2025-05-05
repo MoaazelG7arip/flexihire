@@ -33,6 +33,8 @@ export class CompaniesComponent {
 
 
   ngOnInit(): void {
+    sessionStorage.removeItem('addInfo');
+
 
     this.routeSubscription = this.route.queryParamMap.subscribe(queryMap => {
       let page = +queryMap.get('page');
@@ -142,5 +144,13 @@ export class CompaniesComponent {
 
   }
 
+  onContactMe(event: Event, company: any){
+    event.stopPropagation();
+    sessionStorage.setItem('userChat', JSON.stringify(company));
+    this.router.navigate(['/page/real-chat']);
+  }
+
 
 }
+
+

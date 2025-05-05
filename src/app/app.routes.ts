@@ -28,6 +28,7 @@ export const routes: Routes = [
         {path: 'users', loadComponent: ()=>import('./page/users/users.component').then(m=>m.UsersComponent)},
         {path: 'users/:id', loadComponent: ()=>import('./page/users/user/user.component').then(m=>m.UserComponent)},
         {path: 'users/:id/myJobs', loadComponent: ()=>import('./page/users/user/my-jobs/my-jobs.component').then(m=>m.MyJobsComponent)},
+        {path: 'real-chat', loadComponent: ()=>import('./page/real-chat/real-chat.component').then(m=>m.RealChatComponent)},
  
     ]},
 ];

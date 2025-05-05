@@ -29,6 +29,9 @@ export class UsersComponent {
   paginationLinks = [];
   
     ngOnInit(): void {
+      
+      sessionStorage.removeItem('addInfo');
+
 
       this.routeSubscription = this.route.queryParamMap.subscribe(queryMap => {
         let page = +queryMap.get('page');
@@ -113,6 +116,12 @@ export class UsersComponent {
   
       this.router.navigate(['/page/users'], { queryParams: { page: 1 , search : event.value} }); 
   
+    }
+
+    onContactMe(event: Event, user: any){
+      event.stopPropagation();
+      sessionStorage.setItem('userChat', JSON.stringify(user));
+      this.router.navigate(['/page/real-chat']);
     }
 
 }

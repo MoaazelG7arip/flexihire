@@ -30,6 +30,7 @@ export class JobsComponent {
 
 
   ngOnInit(): void {
+    sessionStorage.removeItem('addInfo');
 
     this.routeSubscription = this.route.queryParamMap.subscribe(queryMap => {
       let page = +queryMap.get('page');
