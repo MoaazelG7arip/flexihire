@@ -1,9 +1,9 @@
-import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, ElementRef, inject, ViewChild } from '@angular/core';
+import { AsyncPipe, CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { first } from 'rxjs';
+import { BehaviorSubject, first, Subject } from 'rxjs';
 
 declare var Pusher: any;
 
@@ -28,6 +28,8 @@ export class RealChatComponent {
   contactors: any[] = [];
   user: any = null;
 
+  userChat;
+
 
   private pusher: any;
   private channel: any;
@@ -36,6 +38,8 @@ export class RealChatComponent {
   http: HttpClient = inject(HttpClient);
   router: Router = inject(Router);
 
+  @ViewChild('scrollContainer') private scrollContainer!: ElementRef;
+  
 
   ngOnInit() {
 
@@ -55,7 +59,6 @@ export class RealChatComponent {
       this.getChatWithSomeone(this.user.id);
     }
     this.getContactors();
-
 
 // #####################
 
@@ -174,6 +177,7 @@ export class RealChatComponent {
     });
     // Trigger change detection
     this.messages = [...this.messages];
+    this.scrollToBottom();
   }
 
   getChatWithSomeone(id) {
@@ -190,6 +194,18 @@ export class RealChatComponent {
       next: (res: any) => {
         console.log(res);
         this.messages = res['messages'];
+
+        
+        this.contactors.forEach((contactor) => {
+          if (contactor.id == this.receiverId) {
+            this.userChat = contactor;
+          }
+        });
+        console.log(this.receiverId)
+        console.log('this.userChat',this.userChat)
+
+        
+        this.scrollToBottom();
       },
       error: (err) => {
         console.error(err);
@@ -209,6 +225,12 @@ export class RealChatComponent {
         console.log(res);
         this.contactors = res['contacts'];
 
+        this.contactors.forEach((contactor) => {
+          if (contactor.id == this.receiverId) {
+            this.userChat = contactor;
+          }
+        });
+
       },
       error: (err) => {
         console.error(err);
@@ -217,5 +239,17 @@ export class RealChatComponent {
 
   }
 
+
+
+  private scrollToBottom(): void {
+    try {
+      setTimeout(() => {
+        if (this.scrollContainer?.nativeElement) {
+          this.scrollContainer.nativeElement.scrollTop = 
+            this.scrollContainer.nativeElement.scrollHeight;
+        }
+      }, 100);
+    } catch(err) { /* Handle error */ }
+  }
 
 }

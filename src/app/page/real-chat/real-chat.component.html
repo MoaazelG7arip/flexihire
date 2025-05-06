@@ -1,23 +1,14 @@
-<div class="container grid grid-cols-8 bg-white rounded p-6 h-[85vh]  ">
-  <div class="col-span-3 flex flex-col h-full p-4 bg-gray-50 rounded shadow-md overflow-y-auto">
-    <h2 class="text-xl font-bold mb-4">Chat List</h2>
+<div class="grid grid-cols-4 bg-white rounded h-[89vh]  ">
+  <div class="col-span-1 flex flex-col h-full bg-white rounded shadow-md overflow-y-auto">
+    <!-- <h2 class="text-xl font-bold mb-4">Chat List</h2> -->
     <div class="overflow-y-auto flex-grow">
       <ul class="list-none p-0 m-0">
-        <!-- @if(this.user){
-          <li
-          [class.bg-custom-blue]="true"
-          class="p-3 cursor-pointer rounded transition duration-200 ease-in-out flex items-center gap-x-2">
-          <div class="font-bold"><img [src]="user?.image || 'photo/user.png'" class="rounded-full w-14" alt="">
-          </div>
-          <div class="text-lg text-gray-500">{{ user?.first_name + ' ' + user?.last_name }}</div>
-        </li>
-        } -->
         <li *ngFor="let contactor of contactors" (click)="getChatWithSomeone(contactor.id)"
-          [class.bg-custom-blue]="receiverId === contactor?.id"
-          class="p-3 cursor-pointer rounded transition duration-200 ease-in-out flex items-center gap-x-2">
-          <div class="font-bold"><img [src]="contactor?.image || 'photo/user.png'" class="rounded-full w-14" alt="">
+          [class.bg-chat]="receiverId === contactor?.id"
+          class="p-3 cursor-pointer border-b-[1px] transition duration-200 ease-in-out flex items-center gap-x-2">
+          <div class="font-bold"><img [src]="contactor?.image || 'photo/user.png'" class="rounded-full w-12" alt="">
           </div>
-          <div class="text-lg text-gray-500">{{ contactor?.first_name + ' ' + contactor?.last_name }}</div>
+          <div class="text-lg text-black font-bold">{{ contactor?.first_name + ' ' + contactor?.last_name }}</div>
         </li>
       </ul>
     </div>
@@ -25,24 +16,29 @@
 
   </div>
   <!-- Chat Section -->
-  <div class="chat-section col-span-5 flex flex-col h-full bg-white rounded shadow-md overflow-y-auto">
+  <div class="chat-section col-span-3 flex flex-col h-full bg-chat rounded shadow-md overflow-y-auto">
     <!-- <h2 class="text-xl font-bold mb-4">Chat with User {{ receiverId }}</h2> -->
-    <div class="overflow-y-auto p-4 border rounded bg-gray-50 flex-grow">
-      <div *ngFor="let chat of messages" class="mb-3 p-3 rounded" [class.ml-auto]="chat?.is_mine"
-        [class.bg-blue-100]="chat?.is_mine" [class.text-blue-800]="chat?.is_mine" [class.bg-gray-200]="!chat?.is_mine">
-        <div class="flex items-center gap-x-2 mb-2">
+    <div class="bg-white flex gap-x-2 items-center p-3 rounded-b-3xl" *ngIf="userChat">
+      <img [src]="userChat.image || 'photo/user.png'" class="w-12 rounded-full" alt="">
+      <p class="font-bold">{{userChat.first_name + ' '+ userChat.last_name}}</p>
+    </div>
+    <div class="overflow-y-auto p-4 bg-chat flex-grow" #scrollContainer>
+      <div *ngFor="let chat of messages" class="w-fit" [class.ml-auto]="chat?.is_mine"
+       >
+        <!-- <div class="flex items-center gap-x-2 mb-2">
           <div class="font-bold"><img [src]="chat?.sender?.image || 'photo/user.png'" class="rounded-full w-7" alt="">
           </div>
           <div class="font-bold text-xs mb-1">{{ chat?.sender?.first_name + ' ' + chat?.sender?.last_name }}</div>
-        </div>
-        <div>{{ chat?.message }}</div>
-        <div class="text-xs text-gray-500 mt-1">{{ chat?.sent_at | date:'shortTime' }}</div>
+        </div> -->
+        <div  [class.bg-custom-blue]="chat?.is_mine" [class.bg-white]="!chat?.is_mine"
+        class="mb-3 py-2 px-3 rounded-xl">{{ chat?.message }}</div>
+        <div class="text-xs text-gray-500 mt-1" [class.text-end]="chat?.is_mine" [class.text-start]="!chat?.is_mine">{{ chat?.sent_at | date:'shortTime' }}</div>
       </div>
     </div>
-    <form (submit)="sendMessage()" class="flex gap-2">
-      <input type="text" [(ngModel)]="newMessage" name="message" class="flex-1 !m-0 border rounded"
+    <form (submit)="sendMessage()" class="flex gap-2 p-5 bg-[#F4F9FA] rounded-t-3xl" >
+      <input type="text" [(ngModel)]="newMessage" name="message" class="flex-1 !m-0 !border-2 !border-custom-blue !rounded-full"
         placeholder="Type a message...">
-      <button type="submit" class="bg-custom-blue text-white px-4 py-2 rounded hover:bg-dark-blue">Send</button>
+      <button type="submit" class="bg-custom-blue rounded-full text-white px-4 py-2  hover:bg-dark-blue">Send</button>
     </form>
   </div>
 </div>
