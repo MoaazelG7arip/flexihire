@@ -1,16 +1,15 @@
 <!-- @if (notification.isFound) {
     <app-notification [attr.role]="notification.status">{{notification.message}}</app-notification>
 } -->
-
-<app-header
+  <app-header
     (onloading)="onloading($event)"
-    (onNotification)="onNotification($event)" 
-></app-header>
+    (onNotification)="onNotification($event)"
+  ></app-header>
 
-@if(loading){
-    <app-loader></app-loader>    
-}@else {
-    <router-outlet></router-outlet>
-}
-<app-chat-bot></app-chat-bot>
-<!-- <app-footer></app-footer> -->
+  @if(loading){
+  <app-loader></app-loader>
+  }@else {
+        <router-outlet></router-outlet>
+  }
+  <app-chat-bot></app-chat-bot>
+  <!-- <app-footer></app-footer> -->

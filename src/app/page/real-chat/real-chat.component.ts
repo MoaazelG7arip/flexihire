@@ -1,9 +1,8 @@
 import { Component, ElementRef, inject, ViewChild } from '@angular/core';
-import { AsyncPipe, CommonModule } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { BehaviorSubject, first, Subject } from 'rxjs';
 
 declare var Pusher: any;
 
@@ -29,6 +28,9 @@ export class RealChatComponent {
   user: any = null;
 
   userChat;
+  searchTerm: string = '';
+  contactorsFiltered: any[] = []; 
+  chatType: string;
 
 
   private pusher: any;
@@ -50,17 +52,24 @@ export class RealChatComponent {
       this.currentUserId = JSON.parse(localStorage.getItem('user')).user.id;
     }
     if(sessionStorage.getItem('receiverId')) {
-      this.receiverId = parseInt(sessionStorage.getItem('receiverId'));
+      this.receiverId = JSON.parse(sessionStorage.getItem('receiverId'));
+      console.log('receiverId of sessionStorage',this.receiverId)
       this.getChatWithSomeone(this.receiverId);
     }
-    if(this.user){
+    if(this.user != null || this.user != undefined){
       console.log('this.user',this.user)
       this.receiverId = this.user.id;
-      this.getChatWithSomeone(this.user.id);
+      sessionStorage.setItem('receiverId', this.receiverId.toString());
+      console.log('receiverId of user', this.receiverId)
+      this.getChatWithSomeone(this.receiverId);
+      sessionStorage.removeItem('userChat');
+    }
+    if(sessionStorage.getItem('chatType')){
+      this.chatType = sessionStorage.getItem('chatType');
+    } else {
+      this.chatType = 'company'
     }
     this.getContactors();
-
-// #####################
 
 
 
@@ -137,6 +146,7 @@ export class RealChatComponent {
 
   sendMessage() {
     const message = this.newMessage.trim();
+    this.newMessage = '';
     if (!message || !this.receiverId) return;
 
     let headers = new HttpHeaders({
@@ -148,7 +158,7 @@ export class RealChatComponent {
       next: (res) => {
         console.log('sender is',res)
         this.addMessage(message, true, res['data']['sender'], new Date());
-        this.newMessage = '';
+        // this.newMessage = '';
 
         if(this.user){
 
@@ -157,7 +167,6 @@ export class RealChatComponent {
           sessionStorage.removeItem('userChat');
           this.user = null;
           console.log('this.user',this.user)
-
 
         }
       },
@@ -182,6 +191,7 @@ export class RealChatComponent {
 
   getChatWithSomeone(id) {
     this.receiverId = id;
+    console.log(this.receiverId)
     sessionStorage.setItem('receiverId', this.receiverId.toString());
     this.connect();
 
@@ -224,6 +234,7 @@ export class RealChatComponent {
       next: (res: any) => {
         console.log(res);
         this.contactors = res['contacts'];
+        this.contactorsFiltered = this.contactors;
 
         this.contactors.forEach((contactor) => {
           if (contactor.id == this.receiverId) {
@@ -239,6 +250,11 @@ export class RealChatComponent {
 
   }
 
+  onChangeChatType(chatType:string){
+    this.chatType = chatType;
+    sessionStorage.setItem('chatType', this.chatType)
+  }
+
 
 
   private scrollToBottom(): void {
@@ -250,6 +266,20 @@ export class RealChatComponent {
         }
       }, 100);
     } catch(err) { /* Handle error */ }
+  }
+
+
+  onSearchContractor(){
+    if(this.searchTerm.length > 0) {
+      this.contactorsFiltered = this.contactors.filter((contactor) => {
+        let name = contactor.first_name + ' ' + contactor.last_name;
+        return name.toLowerCase().includes(this.searchTerm.toLowerCase())
+      })
+      // console.log(this.contactors)
+    } else {
+      // this.getContactors();
+      this.contactorsFiltered = this.contactors;
+    }
   }
 
 }

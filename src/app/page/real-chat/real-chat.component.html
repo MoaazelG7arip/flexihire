@@ -1,15 +1,33 @@
-<div class="grid grid-cols-4 bg-white rounded h-[89vh]  ">
+<div class="grid grid-cols-4 bg-white rounded  h-[calc(100vh-72px)]">
   <div class="col-span-1 flex flex-col h-full bg-white rounded shadow-md overflow-y-auto">
     <!-- <h2 class="text-xl font-bold mb-4">Chat List</h2> -->
     <div class="overflow-y-auto flex-grow">
       <ul class="list-none p-0 m-0">
-        <li *ngFor="let contactor of contactors" (click)="getChatWithSomeone(contactor.id)"
+        <li class="p-5 pb-0">
+          <input type="text" (keyup)="onSearchContractor()" [(ngModel)]="searchTerm" placeholder="Search..." 
+            class=" !p-3 !rounded-full !border-2 !border-custom-blue focus:outline-none focus:border-custom-blue" />
+        </li>
+        <li class="flex justify-around pb-3">
+          <button (click)="onChangeChatType('company')" 
+          class="border-custom-blue border-2 py-2 px-7 rounded-full text-gray-500 hover:bg-gray-100"
+          [ngClass]="{'bg-custom-blue' : chatType == 'company', 'hover:!bg-dark-blue': chatType == 'company', 'text-white': chatType == 'company'}"
+          >Company</button>
+          <button (click)="onChangeChatType('user')" 
+          class="border-custom-blue border-2 py-2 px-7 rounded-full text-gray-500 hover:bg-gray-100"
+          [ngClass]="{'bg-custom-blue' : chatType == 'user', 'hover:!bg-dark-blue': chatType == 'user', 'text-white': chatType == 'user'}"
+          >User</button>
+        </li>
+        @for(contactor of contactorsFiltered; track $index){
+          @if(chatType == contactor.type){
+        <li (click)="getChatWithSomeone(contactor.id)"
           [class.bg-chat]="receiverId === contactor?.id"
           class="p-3 cursor-pointer border-b-[1px] transition duration-200 ease-in-out flex items-center gap-x-2">
           <div class="font-bold"><img [src]="contactor?.image || 'photo/user.png'" class="rounded-full w-12" alt="">
           </div>
           <div class="text-lg text-black font-bold">{{ contactor?.first_name + ' ' + contactor?.last_name }}</div>
         </li>
+      }
+      }
       </ul>
     </div>
 
