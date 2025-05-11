@@ -1,5 +1,19 @@
-<div class="grid grid-cols-4 bg-white rounded  h-[calc(100vh-72px)]">
-  <div class="col-span-1 flex flex-col h-full bg-white rounded shadow-md overflow-y-auto">
+
+
+@if (notification.isFound) {
+  <app-notification [attr.role]="notification.status">{{notification.message}}</app-notification>
+}
+
+
+ @if(loading){
+    <app-loader class="mt-32"></app-loader>
+ } @else {
+
+<div class="grid grid-cols-1 md:grid-cols-5 lg:grid-cols-4 bg-white rounded h-[calc(100vh-52px)] lg:h-[calc(100vh-72px)]">
+  <div [class.bg-white]="chatMobileChange"
+  class="fixed py-2 px-3 border-2 border-custom-blue md:hidden bg-custom-blue rounded-full right-5 top-14 cursor-pointer" (click)="onchatMobileChange()"><i class="fa-solid fa-list"></i></div>
+  <div [ngClass]="{'hidden': chatMobileChange}"
+  class="md:col-span-2 lg:col-span-1 flex md:!flex flex-col h-full bg-white rounded shadow-md overflow-y-auto">
     <!-- <h2 class="text-xl font-bold mb-4">Chat List</h2> -->
     <div class="overflow-y-auto flex-grow">
       <ul class="list-none p-0 m-0">
@@ -19,7 +33,7 @@
         </li>
         @for(contactor of contactorsFiltered; track $index){
           @if(chatType == contactor.type){
-        <li (click)="getChatWithSomeone(contactor.id)"
+        <li (click)="getChatWithSomeone(contactor.id)" (click)="onChangeChatAgain()"
           [class.bg-chat]="receiverId === contactor?.id"
           class="p-3 cursor-pointer border-b-[1px] transition duration-200 ease-in-out flex items-center gap-x-2">
           <div class="font-bold"><img [src]="contactor?.image || 'photo/user.png'" class="rounded-full w-12" alt="">
@@ -34,7 +48,8 @@
 
   </div>
   <!-- Chat Section -->
-  <div class="chat-section col-span-3 flex flex-col h-full bg-chat rounded shadow-md overflow-y-auto">
+  <div [ngClass]="{'hidden': !chatMobileChange}"
+  class="chat-section md:col-span-3 flex md:!flex flex-col h-full bg-chat rounded shadow-md overflow-y-auto">
     <!-- <h2 class="text-xl font-bold mb-4">Chat with User {{ receiverId }}</h2> -->
     <div class="bg-white flex gap-x-2 items-center p-3 rounded-b-3xl" *ngIf="userChat">
       <img [src]="userChat.image || 'photo/user.png'" class="w-12 rounded-full" alt="">
@@ -60,3 +75,5 @@
     </form>
   </div>
 </div>
+
+}

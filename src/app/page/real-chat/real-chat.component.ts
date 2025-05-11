@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { LoaderComponent } from "../../shared/loader/loader.component";
+import { NotificationComponent } from "../../shared/notification/notification.component";
 
 declare var Pusher: any;
 
@@ -10,7 +12,7 @@ declare var Pusher: any;
 @Component({
   selector: 'app-real-chat',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, LoaderComponent, NotificationComponent],
   templateUrl: './real-chat.component.html',
   styleUrl: './real-chat.component.css'
 })
@@ -31,6 +33,9 @@ export class RealChatComponent {
   searchTerm: string = '';
   contactorsFiltered: any[] = []; 
   chatType: string;
+  chatMobileChange:boolean = false;
+  loading:boolean = false;
+  notification = {isFound: false, message: '', status: ''};
 
 
   private pusher: any;
@@ -69,12 +74,12 @@ export class RealChatComponent {
     } else {
       this.chatType = 'company'
     }
+    if(sessionStorage.getItem('chatMobileChange')){
+      this.chatMobileChange = JSON.parse(sessionStorage.getItem('chatMobileChange'));
+      console.log(this.chatMobileChange)
+    }
+
     this.getContactors();
-
-
-
-
-
 
 
   }
@@ -117,6 +122,16 @@ export class RealChatComponent {
     this.pusher.connection.bind('error', (err: any) => {
       const errorMsg = err?.message || JSON.stringify(err) || 'Unknown error';
       // this.showStatus(`Connection error: ${errorMsg}`, true);
+
+        this.notification = {
+          isFound: true,
+          message: errorMsg,
+          status: 'alert',
+        };
+        setTimeout(() => {
+          this.notification = { isFound: false, message: '', status: '' };
+        }, 3500);
+
     });
   }
 
@@ -134,6 +149,16 @@ export class RealChatComponent {
     this.channel.bind('pusher:subscription_error', (error: any) => {
       const errorMsg = error?.message || error?.error || JSON.stringify(error) || 'Unknown error';
       // this.showStatus(`Failed to connect: ${errorMsg}`, true);
+
+        this.notification = {
+          isFound: true,
+          message: errorMsg,
+          status: 'alert',
+        };
+        setTimeout(() => {
+          this.notification = { isFound: false, message: '', status: '' };
+        }, 3500);
+
     });
 
     this.channel.bind('new.message', (data: any) => {
@@ -172,9 +197,26 @@ export class RealChatComponent {
       },
       error: (err) => {
         // this.showStatus(`Failed to send: ${err.message}`, true);
+
+                this.notification = {
+          isFound: true,
+          message: err.message || 'Error fetching applications',
+          status: 'alert',
+        };
+        setTimeout(() => {
+          this.notification = { isFound: false, message: '', status: '' };
+        }, 3500);
+
         console.error(err);
       }
     });
+  }
+  onChangeChatAgain(){
+
+    if(!this.chatMobileChange){
+      this.onchatMobileChange()
+    }
+
   }
 
   private addMessage(text: string, isMine: boolean, sender, timestamp: Date) {
@@ -199,11 +241,12 @@ export class RealChatComponent {
       'Authorization': `Bearer ${this.token}`,
       'Accept': 'application/json'
     });
-
+    this.loading = true;
     this.http.get(`${this.base_API}/get-chat/${this.receiverId}`, { headers }).subscribe({
       next: (res: any) => {
         console.log(res);
         this.messages = res['messages'];
+        this.loading = false;
 
         
         this.contactors.forEach((contactor) => {
@@ -229,10 +272,11 @@ export class RealChatComponent {
       'Authorization': `Bearer ${this.token}`,
       'Accept': 'application/json'
     });
-
+    this.loading = true;
     this.http.get(this.base_API + `/contacts`, { headers }).subscribe({
       next: (res: any) => {
         console.log(res);
+        this.loading = false;
         this.contactors = res['contacts'];
         this.contactorsFiltered = this.contactors;
 
@@ -280,6 +324,11 @@ export class RealChatComponent {
       // this.getContactors();
       this.contactorsFiltered = this.contactors;
     }
+  }
+
+  onchatMobileChange(){
+    this.chatMobileChange = !this.chatMobileChange;
+    sessionStorage.setItem('chatMobileChange', JSON.stringify(this.chatMobileChange))
   }
 
 }
