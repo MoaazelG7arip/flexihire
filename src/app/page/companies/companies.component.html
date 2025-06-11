@@ -51,8 +51,7 @@
     
 
       <div
-      class="flex flex-col items-center w-full bg-white rounded-lg shadow-lg my-16 cursor-pointer"
-      [routerLink]="company.id">
+      class="flex flex-col items-center w-full bg-white rounded-lg shadow-lg my-16">
 
   
       <!-- company Content -->
@@ -75,7 +74,8 @@
             }
             <div class="ms-5">
             <!-- company Name -->
-            <h2 class="mt-4 text-2xl font-semibold ">
+            <h2 class="mt-4 text-2xl font-semibold hover:underline cursor-pointer"
+            [routerLink]="company.id">
               {{ company.first_name }} {{ company.last_name }}
             </h2>
       

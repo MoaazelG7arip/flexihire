@@ -95,6 +95,8 @@ export class UserComponent implements OnDestroy {
 
   contactWith(){
     sessionStorage.setItem('userChat', JSON.stringify(this.user));
+    sessionStorage.setItem('chatType', 'user');
+    sessionStorage.setItem('chatMobileChange', 'true')
     this.router.navigate(['/page/real-chat']);
   }
 }

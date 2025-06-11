@@ -72,10 +72,11 @@ export class RealChatComponent {
     if(sessionStorage.getItem('chatType')){
       this.chatType = sessionStorage.getItem('chatType');
     } else {
-      this.chatType = 'company'
+      this.chatType = 'company';
     }
     if(sessionStorage.getItem('chatMobileChange')){
       this.chatMobileChange = JSON.parse(sessionStorage.getItem('chatMobileChange'));
+      sessionStorage.removeItem('chatMobileChange');
       console.log(this.chatMobileChange)
     }
 
@@ -248,6 +249,11 @@ export class RealChatComponent {
         this.messages = res['messages'];
         this.loading = false;
 
+        if(this.user && this.messages.length == 0){
+          this.newMessage = 'Welcome in a New Chat';
+          this.sendMessage();
+        }
+
         
         this.contactors.forEach((contactor) => {
           if (contactor.id == this.receiverId) {
@@ -262,6 +268,7 @@ export class RealChatComponent {
       },
       error: (err) => {
         console.error(err);
+        this.loading = false;
       }
     });
   }

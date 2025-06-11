@@ -147,6 +147,8 @@ export class CompaniesComponent {
   onContactMe(event: Event, company: any){
     event.stopPropagation();
     sessionStorage.setItem('userChat', JSON.stringify(company));
+    sessionStorage.setItem('chatType', 'company');
+    sessionStorage.setItem('chatMobileChange', 'true')
     this.router.navigate(['/page/real-chat']);
   }
 

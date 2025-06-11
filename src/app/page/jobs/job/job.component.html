@@ -15,29 +15,38 @@
   } @else {
 
   <div class="container max-w-full">
-    <div class="my-10 bg-white shadow-md rounded-lg p-5">
+    <div class="my-10 bg-white shadow-md rounded-lg p-5 space-y-2">
       <!-- job details -->
 
       <!-- job title -->
       <h1 class="font-bold text-2xl">{{ job.title }}</h1>
       <!-- company and Location-->
       <div>
-        <span class="font-bold text-custom-blue"
+        <span class="font-semibold text-[#62AFC6]"
           >{{ job.user.first_name + " " + job.user.last_name }} -
         </span>
-        <span class="text-gray-600">{{ job.location }}</span>
+        <span class="text-gray-600 inline-block">
+          <img src="photo/loc.png" alt="" class="w-4 inline-block">
+          {{ job.location }}</span>
       </div>
-      <!-- date posted -->
-      <div class="text-gray-500 text-sm my-3">
-        <span>Posted on: {{ job.date_posted }}</span>
+      <!-- Salary and job date posted -->
+      <div class="flex space-x-4">
+        <p class="text-[#62AFC6] font-semibold">Salary: {{job.min_salary | currency:'USD' :'symbol':'1.0-0' }} - {{ job.max_salary |  currency:'USD' :'symbol':'1.0-0' }} &nbsp;  {{job.salary_negotiable ? ' (Negotiable)' : ' (Not Negotiable)'}}</p>
+        <p class="inline-block">
+          <img src="photo/posted.png" alt="" class="w-4 inline-block">
+          Posted on: {{ job.date_posted }}
+        </p>
       </div>
-        <!-- Salary -->
-        <div>
-            <p class="text-cyan-500 font-bold">Salary: {{job.min_salary | currency:'USD' :'symbol':'1.0-0' }} - {{ job.max_salary |  currency:'USD' :'symbol':'1.0-0' }} &nbsp;  {{job.salary_negotiable ? ' (Negotiable)' : ' (Not Negotiable)'}}</p>
-        </div>
+      <!-- hiring_multiple_candidates -->
+      <div class="flex items-center">
+        <p class="inline-block text-[#62AFC6] font-semibold">
+          <img src="photo/candi2.png" alt="" class="w-6 me-1 inline-block">
+          {{ job.hiring_multiple_candidates ? 'Accept Multiple Candidates' : 'Accept Single Candidate' }}
+        </p>
+      </div>
       <!-- job description -->
       <div>
-        <h1 class="font-bold">Job Description</h1>
+        <h1 class="font-bold mt-2">Job Description</h1>
         <div class="text-gray-600 my-3">
           {{ job.description }}
         </div>

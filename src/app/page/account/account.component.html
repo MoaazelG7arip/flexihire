@@ -204,8 +204,8 @@
 
                         <label for="cv" class="sr-only">Choose file</label>
                         <input type="file" name="cv" id="cv" (change)="onCVSelect($event)" accept=".pdf,.doc,.docx" class="block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none
-                            file:bg-teal-600 file:border-0
-                            file:text-white
+                            file:bg-custom-blue file:border-0
+                            file:text-black
                             file:me-4
                             file:py-3 file:px-4"
                         >
@@ -236,15 +236,15 @@
                     <!-- Job Profile -->
                     <div class="mb-6">
                       <label class="block text-sm font-medium text-gray-700 mb-2">Job Profile</label>
-                      <div class="flex flex-wrap gap-2 h-60 overflow-auto bg-slate-50">
+                      <div class="flex flex-wrap gap-2 h-60 overflow-auto  rounded-lg p-2">
                         <button 
                           type="button"
                           *ngFor="let profile of allJobs"
                           (click)="selectjob_id(profile)"
-                          class="p-2 sm:px-4 sm:py-2 text-xs sm:text-sm rounded-md transition-colors"
-                          [class.bg-teal-600]="form.get('job_id')?.value === profile['id']"
-                          [class.text-white]="form.get('job_id')?.value === profile['id']"
-                          [class.bg-gray-100]="form.get('job_id')?.value !== profile['id']"
+                          class="border-2  p-2 sm:px-4 sm:py-2 text-xs sm:text-sm rounded-md transition-colors"
+                          [class.bg-custom-blue]="form.get('job_id')?.value === profile['id']"
+                          [class.text-black]="form.get('job_id')?.value === profile['id']"
+                          [class.border-custom-blue]="form.get('job_id')?.value !== profile['id']"
                           [class.hover:bg-gray-200]="form.get('job_id')?.value !== profile['id']"
                         >
                           {{ profile.name }}
@@ -258,11 +258,11 @@
                       <label class="block text-sm font-medium text-gray-700 mb-2">Skills</label>
                       <div class="flex flex-wrap gap-2 mb-2 border border-teal-800 rounded-lg p-5">
                         <div *ngFor="let skillCtrl of selectedSkills; let i = index"
-                            class="flex items-center px-3 py-1 bg-blue-100 text-teal-800 rounded-full text-sm">
+                            class="flex items-center px-3 py-1 bg-custom-blue hover:bg-dark-blue text-black rounded-lg text-sm">
                             <button
                             type="button"
                             (click)="removeSkill(skillCtrl)"
-                            class="ml-1 text-blue-600 flex hover:text-blue-800"
+                            class="ml-1 text-black flex"
                             >
                             {{ skillCtrl.name }}
                             &times;
@@ -275,12 +275,12 @@
                     <!-- Skill Suggestions -->
                     <div class="mb-8">
                       <h3 class="text-sm font-medium text-gray-700 mb-4">Skill suggestions</h3>
-                      <div class="flex flex-wrap gap-2 h-60 overflow-auto bg-slate-50">
+                      <div class="flex flex-wrap gap-2 h-60 overflow-auto rounded-lg p-2">
                         <button 
                           type="button"
                           *ngFor="let skill of availableSkills"
                           (click)="addSkill(skill)"
-                          class="flex items-center px-3 py-1 border rounded-full text-sm hover:bg-blue-50 hover:border-blue-200 transition-colors"
+                          class="flex items-center px-3 py-1 border-2 rounded-lg text-sm hover:bg-blue-50 hover:border-blue-200 transition-colors"
                         >
                           <span class="mr-1">+</span>
                           {{ skill.name }}
@@ -293,7 +293,7 @@
                       <button
                         type="submit"
                         [disabled]="!form.valid"
-                        class="px-4 py-2 bg-teal-600 text-white rounded-md hover:bg-teal-700 transition-colors"
+                        class="px-4 py-2 bg-custom-blue text-white rounded-md hover:bg-dark-blue transition-colors"
                       >
                         @if(addInfo){
                           Add Job and Skills
