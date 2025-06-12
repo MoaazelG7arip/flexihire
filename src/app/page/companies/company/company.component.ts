@@ -1,7 +1,7 @@
 
 
 import { Component, inject, OnDestroy } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { LoaderComponent } from "../../../shared/loader/loader.component";
 import { CommonModule } from '@angular/common';
 import { InformationService } from '../../../services/information.service';
@@ -18,6 +18,7 @@ import { NotificationComponent } from "../../../shared/notification/notification
 export class CompanyComponent implements OnDestroy {
 
   route: ActivatedRoute = inject(ActivatedRoute);
+  router: Router = inject(Router);
   informationService: InformationService = inject(InformationService);
   company = null;
   loading = false;
@@ -71,6 +72,15 @@ export class CompanyComponent implements OnDestroy {
       }
     });
   }
+
+    onContactMe(){
+    sessionStorage.setItem('userChat', JSON.stringify(this.company));
+    sessionStorage.setItem('chatType', 'company');
+    sessionStorage.setItem('chatMobileChange', 'true')
+    this.router.navigate(['/page/real-chat']);
+  }
+
+
 
   ngOnDestroy(): void {
     // Unsubscribe from the route paramMap observable to prevent memory leaks

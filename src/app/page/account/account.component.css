@@ -5,7 +5,7 @@
 
 
 button[type=submit]{
-    @apply bg-custom-blue text-black py-2 px-4 rounded-lg hover:bg-dark-blue transition duration-300 disabled:bg-gray-300 disabled:cursor-not-allowed
+    @apply bg-custom-blue text-white py-2 px-4 rounded-lg hover:bg-dark-blue transition duration-300 disabled:bg-gray-300 disabled:cursor-not-allowed
 }
 *{
     @apply !border-custom-blue;

@@ -171,7 +171,13 @@ export class RealChatComponent {
   }
 
   sendMessage() {
-    const message = this.newMessage.trim();
+    let message = this.newMessage.trim();
+
+    if(this.user && this.messages.length == 0){
+      message = 'Welcome in a New Chat';
+    }
+
+
     this.newMessage = '';
     if (!message || !this.receiverId) return;
 
@@ -247,6 +253,7 @@ export class RealChatComponent {
       next: (res: any) => {
         console.log(res);
         this.messages = res['messages'];
+        console.log('this.messages',this.messages)
         this.loading = false;
 
         if(this.user && this.messages.length == 0){

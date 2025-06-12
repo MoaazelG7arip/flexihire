@@ -135,7 +135,7 @@
                           </option>
                         </select>
                   </div>
-                    <div class="col-span-1 text-center sm:text-start">
+                    <div class="col-span-1 text-center sm:text-start text-white">
                         <button type="submit" [disabled]="!location" >
                           @if(addInfo){
                             Add
@@ -185,7 +185,7 @@
                             Passwords do not match.
                         </div>
                     </div>
-                    <div class="col-span-1 text-center sm:text-start">
+                    <div class="col-span-1 text-center sm:text-start text-white">
                         <button type="submit" [disabled]="changePasswordForm.invalid" >Update</button>
                     </div>
                 </form>
@@ -280,7 +280,7 @@
                           type="button"
                           *ngFor="let skill of availableSkills"
                           (click)="addSkill(skill)"
-                          class="flex items-center px-3 py-1 border-2 rounded-lg text-sm hover:bg-blue-50 hover:border-blue-200 transition-colors"
+                          class="flex items-center px-3 border-2 rounded-lg text-sm hover:bg-blue-50 hover:border-blue-200 transition-colors"
                         >
                           <span class="mr-1">+</span>
                           {{ skill.name }}

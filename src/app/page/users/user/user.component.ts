@@ -72,19 +72,7 @@ export class UserComponent implements OnDestroy {
         }, 3500);
       }
     });
-  }
-
-  getRandomColor(): string {
-
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-  }
-
-  
+  }  
 
   ngOnDestroy(): void {
     // Unsubscribe from the route paramMap observable to prevent memory leaks
