@@ -47,8 +47,8 @@
       <!-- job description -->
       <div>
         <h1 class="font-bold mt-2">Job Description</h1>
-        <div class="text-gray-600 my-3">
-          {{ job.description }}
+        <div class="text-gray-600 my-3" [innerHTML]="getSafeHtml(job.description)">
+          <!-- {{ job.description }} -->
         </div>
       </div>
       <!-- skills required -->

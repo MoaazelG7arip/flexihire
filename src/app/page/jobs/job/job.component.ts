@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { InformationService } from '../../../services/information.service';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { LoaderComponent } from "../../../shared/loader/loader.component";
 import { FormsModule } from '@angular/forms';
 import { JobService } from '../../../services/job.service';
 import { NotificationComponent } from "../../../shared/notification/notification.component";
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-job',
@@ -20,6 +21,8 @@ export class JobComponent {
   loading = false;
   job = null;
   proposal = '';
+
+  sanitizer = inject(DomSanitizer);
 
   informationService: InformationService = inject(InformationService);
   jobService: JobService = inject(JobService);
@@ -108,6 +111,14 @@ export class JobComponent {
         }, 3500);
       }
     });
+  }
+
+
+
+
+
+  getSafeHtml(html: string) {
+    return this.sanitizer.bypassSecurityTrustHtml(html);
   }
 
 }
