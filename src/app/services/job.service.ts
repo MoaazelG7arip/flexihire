@@ -81,4 +81,15 @@ export class JobService {
   }
 
 
+  onUpdateProposalStatus(id, status){
+
+        this.auth_token = JSON.parse(localStorage.getItem('user')).token;
+        const headers = new HttpHeaders({
+          Authorization: `Bearer ${this.auth_token}`,
+        });
+
+    return this.http.post(this.baseApi + '/dashboard/company/update-application-status/'+ id, {status}, { headers });
+  }
+
+
 }

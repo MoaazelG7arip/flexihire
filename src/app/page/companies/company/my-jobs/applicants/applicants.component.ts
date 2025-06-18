@@ -89,6 +89,41 @@ export class ApplicantsComponent {
     })
   }
 
+  updateProposalStatus(id, status){
+    this.loading = true;
+    this.jobService.onUpdateProposalStatus(id, status).subscribe({
+      next: (res) => {
+        this.loading = false;
+        console.log(res);
+        this.fetchMyApplicants(this.jobId,1); // Refresh the applicants list
+
+        this.notification = {
+          isFound: true,
+          message: res['message'] || "Proposal status updated successfully",
+          status:'success'
+        };
+        setTimeout(() => {
+          this.notification = {isFound: false, message: '', status: ''};
+        }, 3500);
+
+      },
+      error: (err) => {
+        this.loading = false;
+        console.log(err);
+
+        this.notification = {
+          isFound: true,
+          message: err.error.message || "Error updating proposal status",
+          status:'alert'
+        };
+        setTimeout(() => {
+          this.notification = {isFound: false, message: '', status: ''};
+        }, 3500);
+
+      }
+    })
+  }
+
 
 
 
