@@ -5,6 +5,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { LoaderComponent } from "../../shared/loader/loader.component";
 import { InformationService } from '../../services/information.service';
 import { NotificationComponent } from "../../shared/notification/notification.component";
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-companies',
@@ -24,6 +25,7 @@ export class CompaniesComponent {
   list;
   routeSubscription: any;
   notification = {isFound: false, message: '', status: ''};
+
 
 
 

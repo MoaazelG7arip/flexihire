@@ -73,9 +73,7 @@
                 <span class="bg-gray-300 p-1 rounded">Hybrid</span>
             </div> -->
             <!-- description -->
-            <div class=" text-justify line-clamp-4">
-                {{job.description}}            
-            </div>
+            <div class=" text-justify line-clamp-4" [innerHTML]="getSafeHtml(job.description)"></div>
             <!-- Salary -->
             <div>
                 <p class="text-cyan-500 font-bold">Salary: {{job.min_salary | currency:'USD' :'symbol':'1.0-0' }} - {{ job.max_salary |  currency:'USD' :'symbol':'1.0-0' }} &nbsp;  {{job.salary_negotiable ? ' (Negotiable)' : ' (Not-Negotiable)'}}</p>

@@ -5,6 +5,7 @@ import { LoaderComponent } from "../../shared/loader/loader.component";
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { NotificationComponent } from "../../shared/notification/notification.component";
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-jobs',
@@ -26,6 +27,8 @@ export class JobsComponent {
 
   route: ActivatedRoute = inject(ActivatedRoute);
   router: Router = inject(Router);
+  sanitizer = inject(DomSanitizer);
+
   paginationLinks = [];
 
 
@@ -138,8 +141,10 @@ export class JobsComponent {
     }
   
     onSearch(event: any) {
-  
       this.router.navigate(['/page/jobs'], { queryParams: { page: 1 , search : event.value} }); 
-  
+    }
+
+    getSafeHtml(html: string) {
+      return this.sanitizer.bypassSecurityTrustHtml(html);
     }
 }

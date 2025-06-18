@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { InformationService } from '../../../services/information.service';
 import { Subscription } from 'rxjs';
 import { NotificationComponent } from "../../../shared/notification/notification.component";
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-company',
@@ -25,6 +26,8 @@ export class CompanyComponent implements OnDestroy {
   mainUser = false;
   private routeSubscription: Subscription;
   notification = { isFound: false, message: '', status: '' };
+  sanitizer = inject(DomSanitizer);
+  
 
 
   ngOnInit(): void {
@@ -87,5 +90,9 @@ export class CompanyComponent implements OnDestroy {
     if (this.routeSubscription) {
       this.routeSubscription.unsubscribe();
     }
+  }
+
+    getSafeHtml(html: string) {
+    return this.sanitizer.bypassSecurityTrustHtml(html);
   }
 }

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, inject, Input, Output, ViewChild } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -16,6 +16,9 @@ import { NotificationComponent } from '../../../../../shared/notification/notifi
 import { JobService } from '../../../../../services/job.service';
 import { EditorModule } from '@tinymce/tinymce-angular';
 
+
+
+
 @Component({
   selector: 'app-add-job',
   standalone: true,
@@ -30,6 +33,13 @@ import { EditorModule } from '@tinymce/tinymce-angular';
   styleUrl: './add-job.component.css',
 })
 export class AddJobComponent {
+
+
+@ViewChild('editorElement') editorElement!: ElementRef;
+
+
+
+  
   jobForm: FormGroup;
   newSkill = '';
   allSkills = [];
@@ -80,6 +90,8 @@ export class AddJobComponent {
   }
 
   ngOnInit(): void {
+
+
     this.loading = true;
     this.updateInfo.onGetSkillsAndJobs().subscribe({
       next: (res) => {
@@ -176,4 +188,5 @@ export class AddJobComponent {
   onClose() {
     this.innerState.emit('');
   }
+
 }

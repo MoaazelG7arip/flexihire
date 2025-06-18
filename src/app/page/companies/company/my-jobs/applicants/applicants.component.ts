@@ -114,4 +114,12 @@ export class ApplicantsComponent {
     }
 
   }
+
+
+    contactWith(user){
+      sessionStorage.setItem('userChat', JSON.stringify(user));
+      sessionStorage.setItem('chatType', 'user');
+      sessionStorage.setItem('chatMobileChange', 'true')
+      this.router.navigate(['/page/real-chat']);
+  }
 }
