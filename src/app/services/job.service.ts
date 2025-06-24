@@ -91,5 +91,49 @@ export class JobService {
     return this.http.post(this.baseApi + '/dashboard/company/update-application-status/'+ id, {status}, { headers });
   }
 
+  onSaveJob(job_id){
+    this.auth_token = JSON.parse(localStorage.getItem('user')).token;
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.auth_token}`,
+    });
+
+    return this.http.post(this.baseApi + '/profile/saved-job/toggle-saved-job', {job_id}, { headers });
+  }
+
+  onReviewCompany(review){
+    this.auth_token = JSON.parse(localStorage.getItem('user')).token;
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.auth_token}`,
+    });
+
+    return this.http.post(this.baseApi + '/reviews/create', review, { headers });
+  }
+
+  onFollowCompany(company_id){
+    this.auth_token = JSON.parse(localStorage.getItem('user')).token;
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.auth_token}`,
+    });
+
+    return this.http.post(this.baseApi + '/follow/toggle-follow', {company_id}, { headers });
+  }
+  onGetReviews(){
+    this.auth_token = JSON.parse(localStorage.getItem('user')).token;
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.auth_token}`,
+    });
+
+    return this.http.get(this.baseApi + '/reviews/my-reviews', { headers });
+  }
+
+  onDeleteReview(reviewId: number) {
+    this.auth_token = JSON.parse(localStorage.getItem('user')).token;
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.auth_token}`,
+    });
+
+    return this.http.post(this.baseApi + '/reviews/delete/' + reviewId, null, { headers });
+  }
+
 
 }

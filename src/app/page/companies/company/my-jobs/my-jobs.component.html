@@ -4,7 +4,7 @@
   }}</app-notification>
 } @if(loading) {
 
-<app-loader class="mt-32"></app-loader>
+<app-loader class="fixed top-0 left-0 z-10 w-full bg-white flex min-h-screen justify-center items-center"></app-loader>
 
 } @else {
 
@@ -42,10 +42,11 @@
                 <img src="photo/pincel.png" alt="" class="min-w-5 max-w-5" />
               </div>
 
-              <div class="p-2 border border-custom-blue rounded-lg hover:bg-gray-200 cursor-pointer">
+              <div class="">
                 <div x-data="{modalIsOpen: false}">
-                  <span x-on:click="modalIsOpen = true" type="button"><img src="photo/bin.png" alt=""
-                      class="min-w-5 max-w-5" /></span>
+                  <div x-on:click="modalIsOpen = true" type="button"
+                  class="p-2 border border-custom-blue rounded-lg hover:bg-gray-200 cursor-pointer"><img src="photo/bin.png" alt=""
+                      class="min-w-5 max-w-5" /></div>
 
                   <div x-cloak x-show="modalIsOpen" x-transition.opacity.duration.200ms
                     x-trap.inert.noscroll="modalIsOpen" x-on:keydown.esc.window="modalIsOpen = false"

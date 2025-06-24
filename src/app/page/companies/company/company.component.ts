@@ -8,11 +8,13 @@ import { InformationService } from '../../../services/information.service';
 import { Subscription } from 'rxjs';
 import { NotificationComponent } from "../../../shared/notification/notification.component";
 import { DomSanitizer } from '@angular/platform-browser';
+import { RateUsComponent } from "./rate-us/rate-us.component";
+import { JobService } from '../../../services/job.service';
 
 @Component({
   selector: 'app-company',
   standalone: true,
-  imports: [CommonModule, LoaderComponent, RouterLink, NotificationComponent],
+  imports: [CommonModule, LoaderComponent, RouterLink, NotificationComponent, RateUsComponent],
   templateUrl: './company.component.html',
   styleUrl: './company.component.css'
 })
@@ -21,9 +23,13 @@ export class CompanyComponent implements OnDestroy {
   route: ActivatedRoute = inject(ActivatedRoute);
   router: Router = inject(Router);
   informationService: InformationService = inject(InformationService);
+  jobService: JobService = inject(JobService);
   company = null;
   loading = false;
   mainUser = false;
+
+  reviewState = false;
+
   private routeSubscription: Subscription;
   notification = { isFound: false, message: '', status: '' };
   sanitizer = inject(DomSanitizer);
@@ -94,5 +100,35 @@ export class CompanyComponent implements OnDestroy {
 
     getSafeHtml(html: string) {
     return this.sanitizer.bypassSecurityTrustHtml(html);
+  }
+
+  onFollow(){
+
+    this.loading = true;
+    this.jobService.onFollowCompany(this.company.id).subscribe({
+      next : (res)=>{
+        this.loading = false;
+
+        this.company.following = !this.company.following;
+
+      },
+      error : (err)=>{
+        this.loading = false;
+          this.notification = {
+          isFound: true,
+          message: err.error.message || 'Can not Following Company ',
+          status: 'alert',
+        };
+        setTimeout(() => {
+          this.notification = { isFound: false, message: '', status: '' };
+        }, 3500);
+      }
+    })
+  }
+
+
+  onChangeStatus(value: boolean) {
+    this.reviewState = value;
+    this.fetchCompanyDetails(this.company.id);
   }
 }

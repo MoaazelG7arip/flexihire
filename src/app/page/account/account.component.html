@@ -8,7 +8,7 @@
 <div class="bg-gradient-to-b from-custom-blue to-30% to-white min-h-screen flex items-center justify-center p-4">
     <div class="font-std mb-10 w-full rounded-2xl p-3 sm:p-10 font-normal leading-relaxed text-gray-900 shadow-xl">
        @if (loading) {
-        <app-loader></app-loader>
+        <app-loader class="fixed top-0 left-0 z-10 w-full bg-white flex min-h-screen justify-center items-center"></app-loader>
        } @else {
             <div class="grid grid-cols-3 -mb-32 items-start">
                 <h2 class=" col-span-3 mb-5 text-xl sm:text-4xl font-bold text-blue-900">

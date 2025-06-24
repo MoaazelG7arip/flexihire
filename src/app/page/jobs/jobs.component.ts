@@ -6,6 +6,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { NotificationComponent } from "../../shared/notification/notification.component";
 import { DomSanitizer } from '@angular/platform-browser';
+import { JobService } from '../../services/job.service';
 
 @Component({
   selector: 'app-jobs',
@@ -17,6 +18,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class JobsComponent {
 
   informationService: InformationService = inject(InformationService);
+  jobService: JobService = inject(JobService);
   jobs = [];
   loading = false;
   locationChange = false;
@@ -146,5 +148,46 @@ export class JobsComponent {
 
     getSafeHtml(html: string) {
       return this.sanitizer.bypassSecurityTrustHtml(html);
+    }
+
+    saveJob(jobId) {
+
+      this.loading = true;
+      this.jobService.onSaveJob(jobId).subscribe({
+        next: (res) => {
+          console.log(res);
+          this.loading = false;
+
+
+          this.jobs.forEach((job) => {
+            if (job.id === jobId) {
+              job.saved = !job.saved; // Update the job's isSaved property
+            }
+          });
+
+
+
+          this.notification = {
+            isFound: true,
+            message: res['message'] || 'Job saved successfully',
+            status: 'success',
+          };
+          setTimeout(() => {
+            this.notification = { isFound: false, message: '', status: '' };
+          }, 3500);
+        },
+        error: (err) => {
+          this.loading = false;
+          console.log(err);
+          this.notification = {
+            isFound: true,
+            message: err.error.message || 'Error saving job',
+            status: 'alert',
+          };
+          setTimeout(() => {
+            this.notification = { isFound: false, message: '', status: '' };
+          }, 3500);
+        }
+      });
     }
 }

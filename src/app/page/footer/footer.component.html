@@ -1,1 +1,52 @@
-<p>footer works!</p>
+<footer>
+  <div class="max-w-full mx-auto rounded-lg bg-[#E9F3F6] text-[#003B57] p-6 md:p-10 flex flex-col gap-8">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-sm">
+      <div>
+        <h3 class="font-bold text-lg  mb-2">FLEXIHIRE</h3>
+        <ul class="space-y-1">
+          <li><a href="#" class="hover:underline ">Home</a></li>
+          <li><a href="#" class="hover:underline ">Contact Us</a></li>
+          <li><a href="#" class="hover:underline ">About Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-bold text-lg  mb-2">Search</h3>
+        <ul class="space-y-1">
+          <li><a routerLink="/page/jobs" class="hover:underline ">Job Search</a></li>
+          <li><a routerLink="/page/users" class="hover:underline ">For Seekers</a></li>
+          <li><a routerLink="/page/companies" class="hover:underline ">For Companies</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-bold text-lg mb-2">Quick Links</h3>
+        <ul class="space-y-1">
+          <li><a routerLink="page/" class="hover:underline">Post Jobs</a></li>
+          <li><a href="#" class="hover:underline">Saved Jobs</a></li>
+          <li><a href="#" class="hover:underline">Top Companies</a></li>
+        </ul>
+      </div>
+      <div class="flex flex-col">
+        <h3 class="font-bold text-lg  mb-2">Social Media</h3>
+        <div class="flex gap-4 text-2xl">
+          <a aria-label="Facebook" class="hover:text-blue-600"><i class="fab fa-facebook"></i></a>
+          <a aria-label="Instagram" class="hover:text-pink-500"><i class="fab fa-instagram"></i></a>
+          <a aria-label="X" class="hover:text-gray-700"><i class="fab fa-x-twitter"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-col gap-2 items-center">
+      <div class="flex flex-wrap justify-center gap-2 text-xs ">
+        <a class="hover:underline">Privacy Policy</a>
+        <span class="hidden md:inline">|</span>
+        <a class="hover:underline">Terms of Service</a>
+        <span class="hidden md:inline">|</span>
+        <a class="hover:underline">Accessibility Statement</a>
+        <span class="hidden md:inline">|</span>
+        <a class="hover:underline">Cookie Policy</a>
+        <span class="hidden md:inline">|</span>
+        <a class="hover:underline">Supplier Code of Conduct</a>
+      </div>
+      <div class="text-center text-xs  mt-2">&copy; {{ currentYear }} FLEXIHIRE. All rights reserved.</div>
+    </div>
+  </div>
+</footer>

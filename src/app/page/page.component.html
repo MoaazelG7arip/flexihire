@@ -1,15 +1,29 @@
 <!-- @if (notification.isFound) {
     <app-notification [attr.role]="notification.status">{{notification.message}}</app-notification>
 } -->
+
+<div class="cont">
+
+  
   <app-header
     (onloading)="onloading($event)"
     (onNotification)="onNotification($event)"
   ></app-header>
 
-  @if(loading){
-  <app-loader></app-loader>
-  }@else {
-        <router-outlet></router-outlet>
+  
+    @if(loading) {
+      <app-loader class="fixed z-10 w-full bg-white flex min-h-screen justify-center items-center"></app-loader>
+  } @else {
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
   }
+
+
   <app-chat-bot></app-chat-bot>
-  <!-- <app-footer></app-footer> -->
+
+  @if(showFooter){
+    <app-footer></app-footer>
+  }
+
+</div>

@@ -75,7 +75,7 @@ export class LoginComponent {
         this.authService.user.next(res);
         localStorage.setItem('user', JSON.stringify(res));
         // routing to home page
-         
+        this.router.navigate(['/page/jobs']);
         // end
         this.notification = {
           isFound: true,
@@ -87,7 +87,6 @@ export class LoginComponent {
           this.notification = {isFound: false, message: '', status: ''};
         }, 3500);
         this.bridgeService.getNotification(this.notification);
-        this.router.navigate(['/page/jobs']);
       },
       error: err => {
         console.error(err);

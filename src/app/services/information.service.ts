@@ -13,10 +13,22 @@ export class InformationService {
 
 
   onGetCompanyByUrl(pageNumber, search){
-    return this.http.get(this.baseApi + '/companies' + '?page=' + pageNumber + '&search=' + search);
+
+    this.auth_token = JSON.parse(localStorage.getItem('user')).token;
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.auth_token}`,
+    });
+
+    return this.http.get(this.baseApi + '/auth-companies' + '?page=' + pageNumber + '&search=' + search, { headers });
   }
   onGetCompanyById(id){
-    return this.http.get(this.baseApi + '/company/' + id);
+
+    this.auth_token = JSON.parse(localStorage.getItem('user')).token;
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.auth_token}`,
+    });
+    
+    return this.http.get(this.baseApi + '/auth-company/' + id, { headers });
   }
 
 
@@ -36,7 +48,13 @@ export class InformationService {
     //   return this.http.get(this.baseApi + '/all-jobs');
     // }
     onGetJobsByUrl(pageNumber, search){
-      return this.http.get(this.baseApi + '/all-jobs' + '?page=' + pageNumber + '&search=' + search);
+
+      this.auth_token = JSON.parse(localStorage.getItem('user')).token;
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${this.auth_token}`,
+      });
+
+      return this.http.get(this.baseApi + '/auth-jobs' + '?page=' + pageNumber + '&search=' + search, { headers });
     }
     onGetJobById(id){
       this.auth_token = JSON.parse(localStorage.getItem('user')).token;

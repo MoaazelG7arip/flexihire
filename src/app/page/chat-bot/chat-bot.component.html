@@ -7,7 +7,7 @@
     (click)="toggleChat()"
     class="fab-button w-16 h-16 rounded-full bg-custom-blue text-white flex items-center justify-center 
           shadow-lg hover:bg-dark-blue transition-all duration-300 hover:scale-110
-          [&.open]:scale-90 [&.open]:bg-dark-blue [&.open]:opacity-100 opacity-75"
+          [&.open]:scale-90 [&.open]:bg-white [&.open]:hover:bg-gray-100 [&.open]:text-black [&.open]:opacity-100 opacity-75"
     [class.open]="isOpen">
     <!-- <svg *ngIf="!isOpen" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
@@ -48,7 +48,7 @@
                class="flex"
                [class.justify-end]="message.sender === 'user'">
             <div class="max-w-[80%] p-3 rounded-2xl transition-all duration-200 bg-custom-blue"
-                 [class.bg-dark-blue]="message.sender === 'user'"
+                 [class.bg-gray-200]="message.sender === 'user'"
                  [class.shadow-sm]="message.sender === 'bot'">
               <div class="text-sm">{{ message.text }}</div>
               <div class="mt-1 text-xs opacity-70">{{ message.timestamp | date:'shortTime' }}</div>
@@ -78,11 +78,11 @@
           (click)="sendMessage()">➤</button>
       </div> -->
 
-      <div class="flex bg-white m-3 rounded-3xl border-2 border-custom-blue focus:outline-none transition-all"
+      <div class="flex bg-white m-3 rounded-[3rem] border-2 border-custom-blue focus:outline-none transition-all"
       [class.animate-shake]="showInputError">
         <input type="text" class="!border-none !p-0 !m-0 !ms-4" placeholder="Type your message..."
           [(ngModel)]="newMessage"  (keyup.enter)="sendMessage()">
-        <button class="text-white w-24 rounded-3xl bg-custom-blue hover:bg-dark-blue"
+        <button class="text-white w-28  rounded-[3rem] bg-custom-blue hover:bg-dark-blue"
           (click)="sendMessage()">➤</button>
       </div>
       

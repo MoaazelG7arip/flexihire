@@ -1,27 +1,24 @@
 @if (notification.isFound) {
 <app-notification [attr.role]="notification.status">{{
   notification.message
-}}</app-notification>
-} @if(loading) {
-<app-loader class="mt-32"></app-loader>
+  }}</app-notification>} 
+  @if(loading) {
+<app-loader class="fixed top-0 left-0 z-10 w-full bg-white flex min-h-screen justify-center items-center"></app-loader>
 } @else {
 
 <div
-  class="min-h-screen max-w-full bg-gradient-to-b from-custom-blue to-white flex items-center justify-center p-6 md:px-10"
->
+  class="min-h-screen max-w-full bg-gradient-to-b to-30% from-custom-blue to-white flex items-center justify-center p-6 md:px-10">
   <!-- Profile Card -->
-  <div class="relative w-full aspect-[16/9] sm:h-[30rem]">
+  <div class="relative w-full">
     <!-- Background Image -->
     @if(company?.background_url){
     <div
-      class="w-full bg-cover bg-center rounded-2xl sm:w-3/4 h-full object-cover mx-auto border-4 border-indigo-800 mb-4 transition-transform duration-300 hover:scale-105"
-      [ngStyle]="{ 'background-image': 'url(' + company?.background_url + ')' }"
-    ></div>
+      class="w-full aspect-[16/9] sm:h-[30rem] bg-cover bg-center rounded-2xl sm:w-3/4 h-full object-cover mx-auto border-4 border-indigo-800 mb-4 transition-transform duration-300 hover:scale-105"
+      [ngStyle]="{ 'background-image': 'url(' + company?.background_url + ')' }"></div>
     } @else {
     <div
-      class="w-full bg-cover bg-center rounded-2xl sm:w-3/4 h-full object-cover mx-auto border-4 border-indigo-800 mb-4 transition-transform duration-300 hover:scale-105"
-      [ngStyle]="{ 'background-image': 'url(photo/white-2172682_1920.jpg)' }"
-    ></div>
+      class="w-full aspect-[16/9] sm:h-[30rem] bg-cover bg-center rounded-2xl sm:w-3/4 h-full object-cover mx-auto border-4 border-indigo-800 mb-4 transition-transform duration-300 hover:scale-105"
+      [ngStyle]="{ 'background-image': 'url(photo/white-2172682_1920.jpg)' }"></div>
     }
     <!-- Profile Content -->
     <div class="p-6">
@@ -31,19 +28,15 @@
             </div> -->
       <div class="flex justify-center sm:justify-start -mt-24">
         @if (company?.image_url) {
-        <img
-          [src]="company?.image_url"
-          alt="{{ company?.first_name }} {{ company?.last_name }}"
-          class="w-32 h-32 rounded-full border-4 shadow-lg z-50 sm:w-32 sm:h-32 mx-auto border-indigo-800 mb-4 transition-transform duration-300 hover:scale-105"
-        />
+        <img [src]="company?.image_url" alt="{{ company?.first_name }} {{ company?.last_name }}"
+          class="w-32 h-32 rounded-full border-4 shadow-lg z-[5] sm:w-32 sm:h-32 mx-auto border-indigo-800 mb-4 transition-transform duration-300 hover:scale-105" />
         } @else {
         <!-- <img src="photo/company.png" alt="Profile Picture" class="w-24 h-24 rounded-full border-4 border-white"> -->
         <div
-          class="w-32 h-32 rounded-full border-4 shadow-lg z-50 sm:w-32 sm:h-32 mx-auto border-indigo-800 mb-4 transition-transform duration-300 hover:scale-105 bg-gray-200 flex items-center justify-center text-4xl font-semibold text-gray-600"
-        >
+          class="w-32 h-32 rounded-full border-4 shadow-lg z-[5] sm:w-32 sm:h-32 mx-auto border-indigo-800 mb-4 transition-transform duration-300 hover:scale-105 bg-gray-200 flex items-center justify-center text-4xl font-semibold text-gray-600">
           {{
-            company?.first_name[0].toUpperCase() +
-              company?.last_name[0].toUpperCase()
+          company?.first_name[0].toUpperCase() +
+          company?.last_name[0].toUpperCase()
           }}
         </div>
         }
@@ -53,8 +46,8 @@
       <div class="text-center mt-4">
         <h1 class="text-4xl font-semibold">
           {{
-            company?.first_name + " " + company?.last_name ||
-              "no company name provided"
+          company?.first_name + " " + company?.last_name ||
+          "no company name provided"
           }}
         </h1>
         <!-- <p class="text-lg text-gray-600">{{company?.job?.name || 'unknown'}}</p> -->
@@ -62,9 +55,56 @@
 
       <!-- Location -->
       <div class="mt-4 text-center font-semibold">
-        <p>{{ company?.location || "no location provided" }}</p>
+        <p>{{ company?.location || "" }}</p>
       </div>
 
+      <!-- Follow + Review -->
+      @if(company?.reviews?.average_rating > 0){
+      <div class="mt-4 text-center text-2xl font-semibold">
+        <p>
+          {{ company?.reviews?.average_rating }}
+          <i class="fa-solid fa-star" style="color: #ffd43b"></i>
+        </p>
+      </div>
+      } @if(!mainUser){
+      <!-- Follow -->
+      <div class="p-5 my-8 rounded-lg text-center flex flex-col md:flex-row gap-5">
+        <div class="w-full md:w-1/2">
+          @if(company?.following){
+          <button (click)="onFollow()"
+            class="border-2 border-custom-blue bg-white hover:bg-slate-100 p-3 m-3 rounded-md text-dark-blue w-4/5 text-xl">
+            <i class="fa-solid fa-user-minus mx-2"></i>
+            UnFollow
+          </button>
+          } @else {
+          <button (click)="onFollow()"
+            class="bg-custom-blue hover:bg-dark-blue p-3 m-3 rounded-md text-white w-4/5 text-xl">
+            <i class="fa-solid fa-user-plus mx-2"></i>
+            Follow
+          </button>
+          }
+        </div>
+
+        <!-- Review -->
+        <div class="w-full md:w-1/2">
+          @if(company?.reviews?.has_reviewed){
+          <button
+            class="border-2 border-custom-blue bg-white p-3 m-3 rounded-md text-dark-blue w-4/5 text-xl cursor-auto">
+            <i class="fa-solid fa-star mx-2"></i>
+            Rated
+          </button>
+          } @else {
+          <button (click)="reviewState = true"
+            class="bg-custom-blue hover:bg-dark-blue p-3 m-3 rounded-md text-white w-4/5 text-xl">
+            <i class="fa-solid fa-star mx-2"></i>
+            Rate Us
+          </button>
+          } @if(reviewState){
+          <app-rate-us (reviewSubmitted)="onChangeStatus($event)"></app-rate-us>
+          }
+        </div>
+      </div>
+      }
       <!-- Description -->
       <div class="border-2 border-custom-blue px-5 py-10 my-16 rounded-lg">
         <h1 class="font-semibold text-2xl">About Us</h1>
@@ -75,41 +115,33 @@
 
       <!-- My Jobs -->
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-
         @for(job of company?.jobs; track job.id) {
-          <div class="relative inline-block">
-            <img src="photo/Subtract.png" class="w-full h-auto" alt="Background" />
+        <div class="relative inline-block">
+          <img src="photo/Subtract.png" class="w-full h-auto" alt="Background" />
 
-            <div class="absolute inset-0 p-4 flex items-center justify-center">
-              <div class="text-center">
-                <h2>{{job.title}}</h2>
-                <p class="line-clamp-2" [innerHTML]="getSafeHtml(job.description)"></p>
-              </div>
+          <div class="absolute inset-0 p-4 flex items-center justify-center">
+            <div class="text-center">
+              <h2>{{ job.title }}</h2>
+              <p class="line-clamp-2" [innerHTML]="getSafeHtml(job.description)"></p>
             </div>
           </div>
+        </div>
         }
       </div>
 
-
       @if(mainUser){
 
-      <div
-        class="border-2 border-custom-blue px-5 py-10 my-16 rounded-lg text-center flex flex-col md:flex-row gap-5"
-      >
+      <div class="border-2 border-custom-blue px-5 py-10 my-16 rounded-lg text-center flex flex-col md:flex-row gap-5">
         <div class="w-full md:w-1/2">
-          <button
-            class="bg-custom-blue hover:bg-dark-blue p-3 m-3 rounded-md text-white w-4/5 text-xl"
-            routerLink="/page/account"
-          >
+          <button class="bg-custom-blue hover:bg-dark-blue p-3 m-3 rounded-md text-white w-4/5 text-xl"
+            routerLink="/page/account">
             <i class="fa-solid fa-pen mx-2"></i>
             update Account
           </button>
         </div>
         <div class="w-full md:w-1/2">
-          <button
-            routerLink="myJobs"
-            class="bg-custom-blue hover:bg-dark-blue p-3 m-3 rounded-md text-white w-4/5 text-xl"
-          >
+          <button routerLink="myJobs"
+            class="bg-custom-blue hover:bg-dark-blue p-3 m-3 rounded-md text-white w-4/5 text-xl">
             <i class="fa-regular fa-rectangle-list mx-2"></i>
             My Jobs
           </button>
@@ -117,19 +149,88 @@
       </div>
 
       } @else {
-      <div
-        class="border-2 border-custom-blue px-5 py-10 my-16 rounded-lg text-center"
-      >
+      <div class="border-2 border-custom-blue px-5 py-10 my-16 rounded-lg text-center">
         <h1 class="text-xl font-semibold">Contact Me</h1>
-        <button
-          class="bg-custom-blue hover:bg-dark-blue p-3 m-3 rounded-md text-white w-4/5 text-xl"
-          (click)="onContactMe()"
-        >
+        <button class="bg-custom-blue hover:bg-dark-blue p-3 m-3 rounded-md text-white w-4/5 text-xl"
+          (click)="onContactMe()">
           <i class="fa-regular fa-envelope"></i>
           Get Contact
         </button>
       </div>
       }
+    </div>
+
+    <!-- Reviews -->
+    <div class="mt-12">
+      <h2 class="text-3xl font-bold text-center mb-8">Reviews</h2>
+
+      @if(company?.reviews?.items?.length == 0){
+    <div class="flex flex-col items-center justify-center w-full h-52">
+      <i class="fa-solid fa-circle-exclamation text-9xl text-yellow-500"></i>
+      <h2 class="text-4xl font-semibold text-gray-700">No Reviews Found</h2>
+    </div>
+      } @else {
+
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:grid-cols-2 xl:grid-cols-2">
+        @for(review of company?.reviews?.items; track $index) {
+          @if($index < 4){
+        <div
+          class="bg-white border-2 border-blue-200 rounded-lg p-6 flex flex-col justify-between shadow-sm">
+          <div>
+            <!-- Stars -->
+            <div class="flex items-center mb-2">
+              <ng-container *ngFor="let star of [1, 2, 3, 4, 5]; let i = index">
+                <i class="fa-star text-2xl mr-1" style="color: #ffd43b" [ngClass]="{
+                    'fa-solid ': i < review.rating,
+                    'fa-regular ': i >= review.rating
+                  }"></i>
+              </ng-container>
+            </div>
+            <div class="flex justify-end items-center mb-2">
+              <span class="text-gray-500 text-sm">On {{ review.created_at | date : "MMMM d, y" }}</span>
+            </div>
+            <!-- Title and Date -->
+            <!-- Description -->
+            <p class="text-gray-700 mb-4">{{ review.comment }}</p>
+          </div>
+          <!-- Reviewer Info -->
+          <div class="flex items-center mt-4">
+
+            @if(review?.user?.image_url){
+            <img [src]="review?.user?.image_url" alt="Reviewer"
+              class="w-14 h-14 rounded-full border-2 border-gray-300 object-cover mr-4" />
+            } @else {
+            <div
+              class="w-14 h-14 rounded-full border-2 border-gray-300 bg-gray-200 flex items-center justify-center text-2xl font-semibold text-gray-600 mr-4">
+              {{
+              review?.user?.first_name[0].toUpperCase() +
+              review?.user?.last_name[0].toUpperCase()
+              }}</div>
+            }
+
+            <div>
+              <div class="font-semibold text-lg">
+                {{ review?.user?.first_name + " " + review?.user?.last_name }}
+              </div>
+              @if(review?.user?.jobs[0]?.name){
+              <div class="flex items-center text-gray-600 text-sm">
+                <i class="fa-solid fa-briefcase mr-1"></i>
+                {{ review?.user?.jobs[0]?.name || "" }}
+              </div>
+            }
+            </div>
+          </div>
+        </div>
+          }
+        }
+      </div>
+      <div class="text-center mt-4">
+        <a routerLink="reviews" class="text-gray-500 hover:text-gray-700 hover:underline text-lg">See All</a>
+      </div>
+    }
+
+
     </div>
   </div>
 </div>

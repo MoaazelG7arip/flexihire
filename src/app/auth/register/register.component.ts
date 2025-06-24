@@ -74,6 +74,7 @@ export class RegisterComponent {
         localStorage.setItem('user', JSON.stringify(res));
         sessionStorage.setItem('addInfo', 'true');
         // routing to home page
+        this.router.navigate(['/page/account']);
         // end
         this.notification = {
           isFound: true,
@@ -85,7 +86,6 @@ export class RegisterComponent {
           this.notification = {isFound: false, message: '', status: ''};
         }, 3500);
         this.bridgeService.getNotification(this.notification);
-        this.router.navigate(['/page/account']);
       },
       error: err => {
         console.error(err);

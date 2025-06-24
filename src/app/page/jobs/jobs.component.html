@@ -10,7 +10,7 @@
 <div class="page bg-gradient-to-b from-custom-blue to-white min-h-screen overflow-hidden ">
 
     @if(loading){
-        <app-loader class="mt-32"></app-loader>
+        <app-loader class="fixed top-0 left-0 z-10 w-full bg-white flex min-h-screen justify-center items-center"></app-loader>
     } @else {
 
         <!-- <div class="flex items-center gap-x-3 relative mt-10 ml-10">
@@ -57,7 +57,17 @@
                         <img src="photo/user.png" alt="Profile Picture" class="w-24 h-24 rounded-full">
                 }       
             </figure> -->
-            
+
+            <!-- save job -->
+            <div class="absolute top-7 right-7">
+                <button class="text-black/80 hover:text-cyan-500" (click)="saveJob(job.id)">
+                    @if(job.saved){
+                        <i class="fa-solid fa-bookmark text-3xl"></i>
+                    } @else {
+                        <i class="fa-regular fa-bookmark text-3xl"></i>
+                    }
+                </button>
+            </div>
             
             <!-- title  -->
             <h1 class="text-xl font-bold text-black hover:underline cursor-pointer" [routerLink]="'/page/jobs/'+ job.id">{{job.title}}</h1>
