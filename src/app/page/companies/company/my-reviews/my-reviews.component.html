@@ -1,0 +1,226 @@
+@if (notification.isFound) {
+<app-notification [attr.role]="notification.status">{{
+    notification.message
+    }}</app-notification>
+} @if(loading) {
+
+<app-loader class="fixed top-0 left-0 z-10 w-full bg-white flex min-h-screen justify-center items-center"></app-loader>
+
+} @else {
+
+<div class="min-h-screen max-w-full py-10 bg-gradient-to-b from-custom-blue to-white">
+    <div class="px-4">
+        <h1 class="text-2xl font-bold text-gray-800 mb-6">My Reviews</h1>
+        <div class="overflow-x-auto bg-white shadow-md rounded-lg">
+            <table class="min-w-full border-collapse overflow-x-scroll whitespace-nowrap">
+                <thead class="bg-custom-blue/40 text-gray-600 font-semibold uppercase text-lg">
+                    <tr>
+                        <th class="px-6 py-3 text-start">Company</th>
+                        <th class="px-6 py-3 text-start">Review Date</th>
+                        <th class="px-6 py-3 text-start">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for(review of reviews; track $index){
+                    <!-- Example Row -->
+                    <tr class="border-b hover:bg-gray-50">
+                        <td class="px-6 py-4 text-gray-800">
+                            {{ review?.company.first_name + " " + review?.company.last_name }}
+                        </td>
+                        <td class="px-6 py-4 text-gray-800">
+                            {{ review?.created_at | date : "MMMM d, y" }}
+                        </td>
+                        <td class="px-6 py-4 flex items-center gap-4">
+                            <div x-data="{modalIsOpen: false}">
+                                <button class="flex border-2 rounded-lg p-2 px-8 hover:bg-gray-200 cursor-pointer"
+                                    x-on:click="modalIsOpen = true" type="button">
+                                    <img src="photo/eye.png" class="w-5 me-1" alt="" />
+                                    View Review
+                                </button>
+                                <div x-cloak x-show="modalIsOpen" x-transition.opacity.duration.200ms
+                                    x-trap.inert.noscroll="modalIsOpen" x-on:keydown.esc.window="modalIsOpen = false"
+                                    x-on:click.self="modalIsOpen = false"
+                                    class="fixed inset-0 z-30 flex justify-center bg-white/20 p-4 pb-8 backdrop-blur-md items-center lg:p-8"
+                                    role="dialog" aria-modal="true" aria-labelledby="defaultModalTitle">
+                                    <!-- Modal Dialog -->
+                                    <div x-show="modalIsOpen"
+                                        x-transition:enter="transition ease-out duration-200 delay-100 motion-reduce:transition-opacity"
+                                        x-transition:enter-start="opacity-0 scale-50"
+                                        x-transition:enter-end="opacity-100 scale-100"
+                                        class="flex max-w-lg flex-col gap-4 overflow-hidden rounded-lg bg-white shadow-lg w-full">
+                                        <!-- Dialog Header -->
+                                        <div class="flex items-center justify-between bg-white p-4">
+                                            <h3 id="defaultModalTitle"
+                                                class="font-bold text-2xl tracking-wide text-neutral-900 p-3 m-auto">
+                                                Review Details
+                                            </h3>
+                                            <button x-on:click="modalIsOpen = false" aria-label="close modal">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                    aria-hidden="true" stroke="currentColor" fill="none"
+                                                    stroke-width="1.4" class="w-5 h-5">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M6 18L18 6M6 6l12 12" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                        <!-- Dialog Body -->
+                                        <div class="p-8 whitespace-normal text-justify">
+                                            <!-- <p>{{ review?.comment }}</p> -->
+                                        <!-- </div> -->
+
+
+
+
+                                        
+
+
+<div class="w-full flex flex-col gap-5 md:gap-0 items-center md:items-start">
+            <!-- Reviewer Info -->
+            <div class="flex flex-col-reverse md:flex-row items-center justify-between w-full gap-5 md:mb-7">
+                <div class="flex items-center">
+        @if (review?.company?.image_url) {
+
+                    <img [src]="review?.company?.image_url" alt="Eleanor Pena"
+                        class="w-16 h-16 rounded-full border-2 border-gray-300 object-cover mr-4" />
+        } @else {
+            <div 
+                        class="min-w-16 min-h-16 max-w-16 max-h-16 bg-gray-200 flex items-center justify-center text-4xl font-semibold text-gray-600 rounded-full border-2 border-gray-300 object-cover mr-4" >{{
+          review?.company?.first_name[0].toUpperCase() +
+          review?.company?.last_name[0].toUpperCase()
+          }}</div>
+        }
+                    <div>
+                        <div class="font-semibold text-lg">
+                            {{ review?.company?.first_name + " " + review?.company?.last_name }}
+                        </div>
+ 
+                    </div>
+                </div>
+
+                <div class="flex flex-col items-end">
+                    <div class="flex items-center mb-2">
+                        <ng-container *ngFor="let star of [1, 2, 3, 4, 5]; let i = index">
+                            <i class="fa-star text-2xl mr-1" style="color: #ffd43b" [ngClass]="{
+                  'fa-solid ': i < review?.rating,
+                  'fa-regular ': i >= review?.rating
+                }"></i>
+                        </ng-container>
+                    </div>
+                    <span class="text-gray-500 text-sm">On {{ review?.created_at | date : "MMMM d, y" }}</span>
+                </div>
+            </div>
+            <!-- Review Content -->
+            <div class="flex-1">
+                <div class="flex justify-between items-center mb-2">
+                    <div></div>
+                </div>
+                <p class="text-gray-700">
+                    {{review?.comment}}
+                </p>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+                                        <!-- Dialog Footer -->
+                                        <div
+                                            class="flex flex-col-reverse justify-between gap-2 bg-white p-4 sm:flex-row sm:items-center md:justify-end">
+                                            <button x-on:click="modalIsOpen = false" type="button"
+                                                class="whitespace-nowrap rounded-sm px-4 py-2 text-center text-sm font-medium tracking-wide text-white bg-custom-blue hover:bg-dark-blue transition hover:opacity-75 focus-visible:outline-2 focus-visible:outline-offset-2 active:opacity-100 active:outline-offset-0">
+                                                Close
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                <div x-data="{modalIsOpen: false}">
+                    <div class="">
+                  <div x-on:click="modalIsOpen = true" type="button" 
+                  class="p-2 border-2 rounded-lg hover:bg-gray-200 cursor-pointer"><img src="photo/bin.png" alt=""
+                      class="min-w-5 max-w-5" /></div>
+
+                  <div x-cloak x-show="modalIsOpen" x-transition.opacity.duration.200ms
+                    x-trap.inert.noscroll="modalIsOpen" x-on:keydown.esc.window="modalIsOpen = false"
+                    x-on:click.self="modalIsOpen = false"
+                    class="fixed inset-0 z-30 flex justify-center bg-white/20 p-4 pb-8 backdrop-blur-md items-center lg:p-8"
+                    role="dialog" aria-modal="true" aria-labelledby="defaultModalTitle">
+                    <!-- Modal Dialog -->
+                    <div x-show="modalIsOpen"
+                      x-transition:enter="transition ease-out duration-200 delay-100 motion-reduce:transition-opacity"
+                      x-transition:enter-start="opacity-0 scale-50" x-transition:enter-end="opacity-100 scale-100"
+                      class="flex max-w-lg flex-col gap-4 overflow-hidden rounded-lg bg-white shadow-lg w-full">
+                      <!-- Dialog Header -->
+                      <div class="flex items-center justify-between bg-white p-4">
+                        <h3 id="defaultModalTitle" class="font-bold text-2xl tracking-wide text-neutral-900 p-3 m-auto">
+                          Delete Review
+                        </h3>
+                        <button x-on:click="modalIsOpen = false" aria-label="close modal">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"
+                            stroke="currentColor" fill="none" stroke-width="1.4" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                        </button>
+                      </div>
+                      <!-- Dialog Body -->
+                      <div class="p-8 whitespace-normal text-justify">
+                        <p>
+                          Are You Sure You Want To Delete this Review?
+                        </p>
+                      </div>
+                      <!-- Dialog Footer -->
+                      <div
+                        class="flex flex-col-reverse justify-between gap-2 bg-white p-4 sm:flex-row sm:items-center md:justify-end">
+                        <button x-on:click="modalIsOpen = false" type="button" (click)="onDeleteReview(review.id)"
+                          class="whitespace-nowrap rounded-sm px-4 py-2 text-center text-sm font-medium tracking-wide text-neutral-600 transition hover:opacity-75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black active:opacity-100 active:outline-offset-0 dark:text-neutral-300 dark:focus-visible:outline-white">
+                          Yes Delete It
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+
+
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="pagination-controls mx-auto w-fit md:border-2 md:border-cyan-500 rounded-full py-2 px-10 mt-2 mb-20">
+        @for (item of paginationLinks; track $index) {
+        <button (click)="goToPage(item.label, item.url)" [disabled]="item.active"
+            class="border text-black py-1 px-2 m-1 rounded-full text-sm md:text-xl cursor-pointer hover:bg-gray-100 disabled:bg-cyan-500 disabled:text-white disabled:cursor-auto"
+            [innerHTML]="
+        $index == 0
+          ? '&lt;&lt;'
+          : $index == paginationLinks.length - 1
+          ? '&gt;&gt;'
+          : item.label
+      "></button>
+        }
+    </div>
+</div>
+}

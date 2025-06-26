@@ -41,11 +41,15 @@ export class CompaniesComponent {
     this.routeSubscription = this.route.queryParamMap.subscribe(queryMap => {
       let page = +queryMap.get('page');
       let search = queryMap.get('search');
+      let searchLocation = queryMap.get('searchLocation');
+
       
       if(page == 0){ page = 1 }
       if(search == null){ search = '' }
+      if(searchLocation == null){ searchLocation = '' }
+
       
-      this.fetchCompanyDetails(page, search);
+      this.fetchCompanyDetails(page, search, searchLocation);
     });
 
 
@@ -53,12 +57,12 @@ export class CompaniesComponent {
 
   }
 
-  fetchCompanyDetails(page, search){
+  fetchCompanyDetails(page, search, searchLocation){
     this.loading = true;
 
 
 
-    this.informationService.onGetCompanyByUrl(page, search).subscribe({
+    this.informationService.onGetCompanyByUrl(page, search, searchLocation).subscribe({
       next: (res) => {
         this.loading = false;
         console.log(res);
@@ -121,28 +125,32 @@ export class CompaniesComponent {
       window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to the top of the page
       let pageLabel = +this.route.snapshot.queryParamMap.get('page');
       let search = this.route.snapshot.queryParamMap.get('search');
+      let searchLocation = this.route.snapshot.queryParamMap.get('searchLocation');
+
 
       if(pageLabel == 0){ pageLabel = 1 }
       if(search == null){ search = '' }
+      if(searchLocation == null){ searchLocation = '' }
+
 
       if (label == 'Next &raquo;') {
 
-        this.router.navigate(['/page/companies'], { queryParams: { page: ++pageLabel, search: search } });
+        this.router.navigate(['/page/companies'], { queryParams: { page: ++pageLabel, search: search,searchLocation: searchLocation } });
 
       } else if( label == '&laquo; Previous') {
 
-        this.router.navigate(['/page/companies'], { queryParams: { page: --pageLabel, search: search } });
+        this.router.navigate(['/page/companies'], { queryParams: { page: --pageLabel, search: search, searchLocation: searchLocation } });
 
       } else {
-        this.router.navigate(['/page/companies'], { queryParams: { page: label, search: search } });
+        this.router.navigate(['/page/companies'], { queryParams: { page: label, search: search, searchLocation: searchLocation } });
       }
     }
 
   }
 
-  onSearch(event: any) {
+  onSearch(companyName, searchLocation) {
 
-    this.router.navigate(['/page/companies'], { queryParams: { page: 1 , search : event.value} }); 
+    this.router.navigate(['/page/companies'], { queryParams: { page: 1 , search : companyName.value, searchLocation : searchLocation.value} }); 
 
   }
 

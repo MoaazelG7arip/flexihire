@@ -21,35 +21,35 @@ import { BridgeService } from '../../services/bridge.service';
 })
 export class AccountComponent {
 
-  governorates: string[] = [
-    'Cairo',
-    'Alexandria',
-    'Giza',
-    'Sharkia',
-    'Dakahlia',
-    'Red Sea',
-    'Beheira',
-    'Fayoum',
-    'Gharbia',
-    'Ismailia',
-    'Menofia',
-    'Minya',
-    'Qaliubiya',
-    'New Valley',
-    'Suez',
-    'Aswan',
-    'Assiut',
-    'Beni Suef',
-    'Port Said',
-    'Damietta',
-    'South Sinai',
-    'Kafr El Sheikh',
-    'Matrouh',
-    'Luxor',
-    'Qena',
-    'North Sinai',
-    'Sohag'
-  ];
+  // governorates: string[] = [
+  //   'Cairo',
+  //   'Alexandria',
+  //   'Giza',
+  //   'Sharkia',
+  //   'Dakahlia',
+  //   'Red Sea',
+  //   'Beheira',
+  //   'Fayoum',
+  //   'Gharbia',
+  //   'Ismailia',
+  //   'Menofia',
+  //   'Minya',
+  //   'Qaliubiya',
+  //   'New Valley',
+  //   'Suez',
+  //   'Aswan',
+  //   'Assiut',
+  //   'Beni Suef',
+  //   'Port Said',
+  //   'Damietta',
+  //   'South Sinai',
+  //   'Kafr El Sheikh',
+  //   'Matrouh',
+  //   'Luxor',
+  //   'Qena',
+  //   'North Sinai',
+  //   'Sohag'
+  // ];
 
   user= null;
   image_url = null;
@@ -57,6 +57,7 @@ export class AccountComponent {
   first_name = '';
   last_name = '';
   description = '';
+  email = '';
   location = '';
   role = '';
   allJobs = [];
@@ -114,6 +115,7 @@ export class AccountComponent {
       this.background_url = data.user?.background_url;
       this.first_name = data.user?.first_name;
       this.last_name = data.user?.last_name;
+      this.email = data.user?.email;
       this.description = data.user?.description;
       this.location = data.user?.location;
       this.selectedSkills = data.user?.skills;
@@ -355,6 +357,46 @@ export class AccountComponent {
         this.notification = {
           isFound: true, 
           message: err.error.message || "Location Upload Failed",
+          status:'alert'
+        };
+        setTimeout(() => {
+          this.notification = {isFound: false, message: '', status: ''};
+        }, 3500);
+        
+      }
+    });
+  }
+  onUpdateEmail(){
+    this.loading = true;
+    let email = {email: this.email};
+    this.updateInfo.onUpdateEmail(email).subscribe({
+      next: (res) => {
+        this.loading = false;
+        console.log('Email updated successfully:', res)
+
+        const user = localStorage.getItem('user');
+        if(user){
+          const userData = JSON.parse(user);
+          userData.user.email = res['email'];
+          localStorage.setItem('user', JSON.stringify(userData));
+          this.authService.user.next(userData);
+        }
+
+        this.notification = {
+          isFound: true, 
+          message: res['message'] || "Email Changed Successfully",
+          status:'success'
+        };
+        setTimeout(() => {
+          this.notification = {isFound: false, message: '', status: ''};
+        }, 3500);
+  
+      },
+      error: (err) => {
+        this.loading = false;
+        this.notification = {
+          isFound: true, 
+          message: err.error.message || "Email Upload Failed",
           status:'alert'
         };
         setTimeout(() => {

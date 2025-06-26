@@ -40,21 +40,27 @@ export class JobsComponent {
     this.routeSubscription = this.route.queryParamMap.subscribe(queryMap => {
       let page = +queryMap.get('page');
       let search = queryMap.get('search');
+      let searchLocation = queryMap.get('searchLocation');
+      let minSalary = queryMap.get('minSalary');
+      let maxSalary = queryMap.get('maxSalary');
       
       if(page == 0){ page = 1 }
       if(search == null){ search = '' }
+      if(searchLocation == null){ searchLocation = '' }
+      if(minSalary == null){ minSalary = '' }
+      if(maxSalary == null){ maxSalary = '' }
 
-      this.fetchJobsDetails(page, search);
+      this.fetchJobsDetails(page, search, searchLocation, minSalary, maxSalary);
     });
 
 
     
   }
   
-  fetchJobsDetails(page, search){
+  fetchJobsDetails(page, search, searchLocation, minSalary, maxSalary) {
     
         this.loading = true;
-        this.informationService.onGetJobsByUrl(page, search).subscribe({
+        this.informationService.onGetJobsByUrl(page, search, searchLocation, minSalary, maxSalary).subscribe({
           next: (res) => {
             console.log(res);
             this.loading = false;
@@ -123,27 +129,33 @@ export class JobsComponent {
         window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to the top of the page
         let pageLabel = +this.route.snapshot.queryParamMap.get('page');
         let search = this.route.snapshot.queryParamMap.get('search');
+        let searchLocation = this.route.snapshot.queryParamMap.get('searchLocation');
+        let minSalary = this.route.snapshot.queryParamMap.get('minSalary');
+        let maxSalary = this.route.snapshot.queryParamMap.get('maxSalary');
   
         if(pageLabel == 0){ pageLabel = 1 }
         if(search == null){ search = '' }
+        if(searchLocation == null){ searchLocation = '' }
+        if(minSalary == null){ minSalary = '' }
+        if(maxSalary == null){ maxSalary = '' }
   
         if (label == 'Next &raquo;') {
   
-          this.router.navigate(['/page/jobs'], { queryParams: { page: ++pageLabel, search: search } });
+          this.router.navigate(['/page/jobs'], { queryParams: { page: ++pageLabel, search: search, searchLocation: searchLocation, minSalary: minSalary, maxSalary: maxSalary } });
   
         } else if( label == '&laquo; Previous') {
   
-          this.router.navigate(['/page/jobs'], { queryParams: { page: --pageLabel, search: search } });
+          this.router.navigate(['/page/jobs'], { queryParams: { page: --pageLabel, search: search, searchLocation: searchLocation, minSalary: minSalary, maxSalary: maxSalary } });
   
         } else {
-          this.router.navigate(['/page/jobs'], { queryParams: { page: label, search: search } });
+          this.router.navigate(['/page/jobs'], { queryParams: { page: label, search: search,  searchLocation: searchLocation, minSalary: minSalary, maxSalary: maxSalary } });
         }
       }
   
     }
   
-    onSearch(event: any) {
-      this.router.navigate(['/page/jobs'], { queryParams: { page: 1 , search : event.value} }); 
+    onSearch(jobName, searchLocation, minSalary, maxSalary) {
+      this.router.navigate(['/page/jobs'], { queryParams: { page: 1 , search : jobName.value, searchLocation: searchLocation.value, minSalary: minSalary.value, maxSalary: maxSalary.value }}); 
     }
 
     getSafeHtml(html: string) {

@@ -12,14 +12,14 @@ export class InformationService {
   private auth_token;
 
 
-  onGetCompanyByUrl(pageNumber, search){
+  onGetCompanyByUrl(pageNumber, search, searchLocation) {
 
     this.auth_token = JSON.parse(localStorage.getItem('user')).token;
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.auth_token}`,
     });
 
-    return this.http.get(this.baseApi + '/auth-companies' + '?page=' + pageNumber + '&search=' + search, { headers });
+    return this.http.get(this.baseApi + '/auth-companies' + '?page=' + pageNumber + '&search=' + search + '&searchLocation=' + searchLocation, { headers });
   }
   onGetCompanyById(id){
 
@@ -33,8 +33,8 @@ export class InformationService {
 
 
 
-  onGetUsersByUrl(pageNumber, search){
-    return this.http.get(this.baseApi + '/users' + '?page=' + pageNumber + '&search=' + search);
+  onGetUsersByUrl(pageNumber, search, jobSearch){
+    return this.http.get(this.baseApi + '/users' + '?page=' + pageNumber + '&search=' + search + '&jobSearch=' + jobSearch);
   }
   onGetUserById(id){
 
@@ -47,14 +47,14 @@ export class InformationService {
   // onGetJobs(){
     //   return this.http.get(this.baseApi + '/all-jobs');
     // }
-    onGetJobsByUrl(pageNumber, search){
+    onGetJobsByUrl(pageNumber, search, searchLocation, minSalary, maxSalary) {
 
       this.auth_token = JSON.parse(localStorage.getItem('user')).token;
       const headers = new HttpHeaders({
         Authorization: `Bearer ${this.auth_token}`,
       });
 
-      return this.http.get(this.baseApi + '/auth-jobs' + '?page=' + pageNumber + '&search=' + search, { headers });
+      return this.http.get(this.baseApi + '/auth-jobs' + '?page=' + pageNumber + '&search=' + search + '&searchLocation=' + searchLocation  + '&minSalary=' + minSalary + '&maxSalary=' + maxSalary, { headers });
     }
     onGetJobById(id){
       this.auth_token = JSON.parse(localStorage.getItem('user')).token;

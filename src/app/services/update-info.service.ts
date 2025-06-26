@@ -47,6 +47,13 @@ export class UpdateInfoService {
     })
     return this.http.post( this.baseApi + "/update-profile-location", location, {headers})
   }
+  onUpdateEmail(email: object){
+    this.auth_token = JSON.parse(localStorage.getItem('user')).token;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.auth_token}`
+    });
+    return this.http.post( this.baseApi + "/update-email", email, {headers});
+  }
   onUpdatePass(formData){
     this.auth_token = JSON.parse(localStorage.getItem('user')).token;
     const headers = new HttpHeaders({
