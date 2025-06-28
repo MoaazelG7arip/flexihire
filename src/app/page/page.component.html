@@ -12,15 +12,16 @@
 
   
     @if(loading) {
-      <app-loader class="fixed z-10 w-full bg-white flex min-h-screen justify-center items-center"></app-loader>
+      <app-loader></app-loader>
   } @else {
     <div class="content">
       <router-outlet></router-outlet>
     </div>
   }
 
-
+@if(showChatBot){
   <app-chat-bot></app-chat-bot>
+}
 
   @if(showFooter){
     <app-footer></app-footer>

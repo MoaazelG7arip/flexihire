@@ -18,9 +18,15 @@ export const routes: Routes = [
     {path: 'page', loadComponent: ()=> import('./page/page.component').then(m=>m.PageComponent),
         canActivate:[CanActivateMain], canActivateChild: [CanActivateMainChild]
         ,children:[
+        {path: 'home', loadComponent: ()=> import('./page/home/home.component').then(m=>m.HomeComponent)},
+        {path: 'home/savedJobs', loadComponent: ()=> import('./page/home/saved-jobs/saved-jobs.component').then(m=>m.SavedJobsComponent)},
+        {path: 'home/recommendedJobs', loadComponent: ()=> import('./page/home/recommended-jobs/recommended-jobs.component').then(m=>m.RecommendedJobsComponent)},
+        {path: 'aboutUs', loadComponent: ()=> import('./page/about-us/about-us.component').then(m=>m.AboutUsComponent)},
+        {path: 'contactUs', loadComponent: ()=> import('./page/contact-us/contact-us.component').then(m=>m.ContactUsComponent)},
         {path: 'account', loadComponent: ()=> import('./page/account/account.component').then(m=>m.AccountComponent)},
         {path: 'companies', loadComponent: ()=>import('./page/companies/companies.component').then(m=>m.CompaniesComponent)},
         {path: 'companies/:id', loadComponent: ()=>import('./page/companies/company/company.component').then(m=>m.CompanyComponent)},
+        {path: 'companies/:id/jobs', loadComponent: ()=>import('./page/companies/company/jobs/jobs.component').then(m=>m.JobsComponent)},
         {path: 'companies/:id/myReviews', loadComponent: ()=>import('./page/companies/company/my-reviews/my-reviews.component').then(m=>m.MyReviewsComponent)},
         {path: 'companies/:id/reviews', loadComponent: ()=>import('./page/companies/company/reviews/reviews.component').then(m=>m.ReviewsComponent)},
         {path: 'companies/:id/myJobs', loadComponent: ()=>import('./page/companies/company/my-jobs/my-jobs.component').then(m=>m.MyJobsComponent)},

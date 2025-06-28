@@ -11,7 +11,7 @@
     <!-- job-post.component.html -->
     <div class="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md ">
       @if(loading){
-      <app-loader class="fixed top-0 left-0 z-10 w-full bg-white flex min-h-screen justify-center items-center"></app-loader>
+      <app-loader></app-loader>
       } @else {
       <!-- Job Close -->
       <div class="float-end cursor-pointer" (click)="onClose()">

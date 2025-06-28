@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { InformationService } from '../../../services/information.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { LoaderComponent } from "../../../shared/loader/loader.component";
 import { FormsModule } from '@angular/forms';
 import { JobService } from '../../../services/job.service';
@@ -11,7 +11,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'app-job',
   standalone: true,
-  imports: [CommonModule, LoaderComponent, FormsModule, NotificationComponent],
+  imports: [CommonModule, LoaderComponent, FormsModule, NotificationComponent, RouterLink],
   templateUrl: './job.component.html',
   styleUrl: './job.component.css'
 })

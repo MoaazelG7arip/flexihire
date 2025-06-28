@@ -102,6 +102,43 @@ export class CompanyComponent implements OnDestroy {
     return this.sanitizer.bypassSecurityTrustHtml(html);
   }
 
+    saveJob(jobId) {
+    this.loading = true;
+    this.jobService.onSaveJob(jobId).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.loading = false;
+
+        this.company['jobs'].forEach((job) => {
+        if (job.id === jobId) {
+          job.saved = !job.saved; // Update the job's isSaved property
+        }
+      });
+
+        this.notification = {
+          isFound: true,
+          message: res['message'] || 'Job saved successfully',
+          status: 'success',
+        };
+        setTimeout(() => {
+          this.notification = { isFound: false, message: '', status: '' };
+        }, 3500);
+      },
+      error: (err) => {
+        this.loading = false;
+        console.log(err);
+        this.notification = {
+          isFound: true,
+          message: err.error.message || 'Error saving job',
+          status: 'alert',
+        };
+        setTimeout(() => {
+          this.notification = { isFound: false, message: '', status: '' };
+        }, 3500);
+      },
+    });
+  }
+
   onFollow(){
 
     this.loading = true;

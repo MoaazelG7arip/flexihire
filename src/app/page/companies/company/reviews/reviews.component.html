@@ -6,18 +6,17 @@
 
 <div class="bg-gradient-to-b from-custom-blue to-white container max-w-full overflow-hidden">
     @if(loading){
-    <app-loader
-        class="fixed top-0 left-0 z-10 w-full bg-white flex min-h-screen justify-center items-center"></app-loader>
+    <app-loader></app-loader>
     } @else {
 
-    <div class="flex flex-col items-center w-full bg-white rounded-lg shadow-lg my-16 ng-star-inserted">
+    <div class="flex flex-col items-center w-full my-16 ng-star-inserted">
         @for(review of reviews; track $index) {
 
-        <div class="w-full p-10 flex flex-col gap-5 md:gap-0 items-center md:items-start">
+        <div class="w-full p-10 my-5 flex flex-col gap-5 bg-white rounded-lg shadow-lg md:gap-0 items-center md:items-start">
             <!-- Reviewer Info -->
             <div class="flex flex-col-reverse md:flex-row items-center justify-between w-full gap-5 md:mb-7">
                 <div class="flex items-center">
-                    <img [src]="review?.user?.image_url" alt="Eleanor Pena"
+                    <img [src]="review?.user?.image_url" alt=""
                         class="w-16 h-16 rounded-full border-2 border-gray-300 object-cover mr-4" />
                     <div>
                         <div class="font-semibold text-lg">

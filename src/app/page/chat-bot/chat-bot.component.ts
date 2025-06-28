@@ -4,13 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 
 
-import { 
-  trigger,
-  state,
-  style,
-  transition,
-  animate
-} from '@angular/animations';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 import { ChatBotService } from '../../services/chat-bot.service';
 
 
@@ -51,6 +45,7 @@ export class ChatBotComponent {
 
 
   @ViewChild('scrollContainer') private scrollContainer!: ElementRef;
+
   chatBotService: ChatBotService = inject(ChatBotService)
   
   messages: Message[] = [];
@@ -59,17 +54,15 @@ export class ChatBotComponent {
   isTyping = false;
   showInputError = false;
   randomStr = Math.random().toString(36).substring(2, 6); // Random string for session_id
-
-
+  
+  constructor(private elementRef: ElementRef) {}
+  
   ngOnInit(): void {
     this.addBotMessage('Hello! How can I help you today?');
     
   }
-
-  // ngAfterViewChecked(): void {
-  //   this.scrollToBottom();
-  // }
-
+  
+    
   toggleChat(): void {
     this.isOpen = !this.isOpen;
   }
@@ -129,9 +122,11 @@ export class ChatBotComponent {
         this.addBotMessage(response['answer']);
       },
       error: (error) => {
-        console.error('Error:', error);
-        this.isTyping = false;
-        this.addBotMessage('Sorry, I could not process your request.');
+        // console.error('Error:', error);
+        setTimeout(() => {
+          this.isTyping = false;
+          this.addBotMessage('Sorry, I could not process your request.');
+        }, 3000);
       }
     })
 
@@ -175,8 +170,6 @@ export class ChatBotComponent {
       this.isOpen = false;
     }
   }
-
-  constructor(private elementRef: ElementRef) {}
 
 
 

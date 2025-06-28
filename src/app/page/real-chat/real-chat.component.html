@@ -6,7 +6,7 @@
 
 
  @if(loading){
-    <app-loader class="fixed top-0 left-0 z-10 w-full bg-white flex min-h-screen justify-center items-center"></app-loader>
+    <app-loader></app-loader>
  } @else {
 
 <div class="grid grid-cols-1 md:grid-cols-5 lg:grid-cols-4 bg-white rounded h-[calc(100vh-52px)] lg:h-[calc(100vh-72px)]">
@@ -100,11 +100,15 @@
         <div class="text-xs text-gray-500 mt-1" [class.text-end]="chat?.is_mine" [class.text-start]="!chat?.is_mine">{{ chat?.sent_at | date:'dd MMMM - HH:mm' }}</div>
       </div>
     </div>
+
+    @if(userChat) {
     <form (submit)="sendMessage()" class="flex gap-2 p-5 bg-[#F4F9FA] rounded-t-3xl" >
       <input type="text" [(ngModel)]="newMessage" name="message" class="flex-1 !m-0 !border-2 !border-custom-blue !rounded-full"
         placeholder="Type a message...">
       <button type="submit" class="bg-custom-blue rounded-full text-white px-4 py-2  hover:bg-dark-blue">Send</button>
     </form>
+    }
+
   </div>
 </div>
 

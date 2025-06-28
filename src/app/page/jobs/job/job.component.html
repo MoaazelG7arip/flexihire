@@ -10,7 +10,7 @@
 >
   @if(loading){
 
-  <app-loader class="fixed top-0 left-0 z-10 w-full bg-white flex min-h-screen justify-center items-center"></app-loader>
+  <app-loader></app-loader>
 
   } @else {
 
@@ -22,7 +22,7 @@
       <h1 class="font-bold text-2xl">{{ job.title }}</h1>
       <!-- company and Location-->
       <div>
-        <span class="font-semibold text-[#62AFC6]"
+        <span class="font-semibold text-[#62AFC6] hover:underline cursor-pointer" [routerLink]="'/page/companies/'+ job.user.id"
           >{{ job.user.first_name + " " + job.user.last_name }} -
         </span>
         <span class="text-gray-600 inline-block">
@@ -47,14 +47,14 @@
       <!-- job description -->
       <div>
         <h1 class="font-bold mt-2">Job Description</h1>
-        <div class="text-gray-600 my-3" [innerHTML]="getSafeHtml(job.description)">
+        <div class="text-gray-600 my-3 ms-10" [innerHTML]="getSafeHtml(job.description)">
           <!-- {{ job.description }} -->
         </div>
       </div>
       <!-- skills required -->
       <div>
         <h2 class="font-bold">Required Skills</h2>
-        <div class="flex flex-wrap">
+        <div class="flex flex-wrap ms-10">
           @for(skill of job.skills; track $index){
           <span
             class="p-1 md:p-2 m-1 md:m-2 text-sm md:text-base border bg-custom-blue/70 rounded-full  hover:bg-dark-blue"
@@ -65,10 +65,12 @@
         </div>
       </div>
           <!-- company description -->
+           @if(job.user.description) {
         <h1 class="font-bold">About {{job.user.first_name +" "+ job.user.last_name}}</h1>
-        <div class="text-gray-600 my-2">
+        <div class="text-gray-600 my-2 ms-10">
             {{ job.user.description }}
         </div>
+      }
               <!-- apply -->
       <div>
 

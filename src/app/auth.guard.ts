@@ -6,7 +6,7 @@ export const CanActivateAuth = () => {
   let user = localStorage.getItem('user')
   let router: Router = inject(Router);
   if(user){
-    router.navigate(['/page/jobs']);
+    router.navigate(['/page/home']);
     return false;
   } else {
     return true;

@@ -10,7 +10,7 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, LoaderComponent, NotificationComponent],
+  imports: [CommonModule, ReactiveFormsModule, LoaderComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -75,7 +75,7 @@ export class LoginComponent {
         this.authService.user.next(res);
         localStorage.setItem('user', JSON.stringify(res));
         // routing to home page
-        this.router.navigate(['/page/jobs']);
+        this.router.navigate(['/page/home']);
         // end
         this.notification = {
           isFound: true,

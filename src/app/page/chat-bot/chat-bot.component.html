@@ -56,10 +56,12 @@
           </div>
 
           <!-- Typing Indicator -->
-          <div *ngIf="isTyping" class="flex space-x-2 justify-start px-3">
-            <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-100"></div>
+          <div *ngIf="isTyping" class="flex space-x-2 justify-start  w-fit p-3 pt-5 rounded-2xl transition-all duration-200 bg-gray-100">
+            <!-- <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-100"></div>
             <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-200"></div>
-            <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-300"></div>
+            <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-300"></div> -->
+            <div class="loader "></div>
+
           </div>
         </div>
       </div>
@@ -89,3 +91,4 @@
     </div>
   </div>
 </div>
+<div class="dot-elastic"></div>

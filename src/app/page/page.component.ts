@@ -37,6 +37,10 @@ export class PageComponent {
     // Adjust the path as needed for your routing structure
     return !(this.router.url.includes('/page/real-chat') || this.router.url.includes('/rateUs')) ;
   }
+  get showChatBot(): boolean {
+    // Adjust the path as needed for your routing structure
+    return !(this.router.url.includes('/page/real-chat')) ;
+  }
 
   
 
