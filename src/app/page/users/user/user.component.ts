@@ -7,11 +7,12 @@ import { CommonModule } from '@angular/common';
 import { InformationService } from '../../../services/information.service';
 import { Subscription } from 'rxjs';
 import { NotificationComponent } from "../../../shared/notification/notification.component";
+import { ReportComponent } from "../../report/report.component";
 
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [LoaderComponent, CommonModule, RouterLink, NotificationComponent],
+  imports: [LoaderComponent, CommonModule, RouterLink, NotificationComponent, ReportComponent],
   templateUrl: './user.component.html',
   styleUrl: './user.component.css'
 })
@@ -24,6 +25,8 @@ export class UserComponent implements OnDestroy {
   user;
   loading = false;
   mainUser = false;
+  pageState = '';
+
   private routeSubscription: Subscription;
 
   ngOnInit(): void {
@@ -86,5 +89,17 @@ export class UserComponent implements OnDestroy {
     sessionStorage.setItem('chatType', 'user');
     sessionStorage.setItem('chatMobileChange', 'true')
     this.router.navigate(['/page/real-chat']);
+  }
+
+    onReported(res) {
+    this.pageState = '';
+    this.notification = {
+      isFound: true,
+      message: res['message'] || 'User Reported successfully',
+      status: 'success',
+    };
+    setTimeout(() => {
+      this.notification = { isFound: false, message: '', status: '' };
+    }, 3500);
   }
 }

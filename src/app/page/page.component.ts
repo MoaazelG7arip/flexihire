@@ -5,11 +5,12 @@ import { LoaderComponent } from "../shared/loader/loader.component";
 import { ChatBotComponent } from "./chat-bot/chat-bot.component";
 import { BridgeService } from '../services/bridge.service';
 import { FooterComponent } from "./footer/footer.component";
+import { NotificationComponent } from "../shared/notification/notification.component";
 
 @Component({
   selector: 'app-page',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, LoaderComponent, ChatBotComponent, FooterComponent],
+  imports: [RouterOutlet, HeaderComponent, LoaderComponent, ChatBotComponent, FooterComponent, NotificationComponent],
   templateUrl: './page.component.html',
   styleUrl: './page.component.css'
 })

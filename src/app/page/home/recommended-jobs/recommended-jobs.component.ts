@@ -20,6 +20,7 @@ export class RecommendedJobsComponent {
 
 
     recommendedJobs = [];
+    user;
     loading = false;
     notification = {isFound: false, message: '', status: ''};
   
@@ -36,6 +37,7 @@ export class RecommendedJobsComponent {
       //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
       //Add 'implements OnInit' to the class.
       this.fetchRecommendedJobs();
+      this.user = JSON.parse(localStorage.getItem('user'));
     }
 
 

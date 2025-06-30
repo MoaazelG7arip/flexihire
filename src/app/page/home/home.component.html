@@ -14,7 +14,8 @@
     <div class="container max-w-full">
         <header class="text-center p-8 rounded-custom mb-8 shadow-custom">
             <h1 class="text-gray-500 mb-4 text-3xl font-bold">
-                Welcome! <span class="text-xl text-black">{{user.user.first_name +' '+ user.user.last_name || ''}}</span>
+                Welcome! <span class="text-xl text-black">{{user.user.first_name
+                    +' '+ user.user.last_name || ''}}</span>
             </h1>
             <h2 class="text-4xl font-normal mb-4">
                 Find Your Dream Jobs and seekers with FlexiHire
@@ -58,15 +59,15 @@
             Top companies
             <span class="block w-12 h-0.5 bg-accent mx-auto mt-3"></span>
         </h2>
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-10">
+        <div
+            class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-10">
 
-
-            
             @for(company of topCompanies; track $index) { @if($index < 6) {
-                <div
+            <div
                 class="border border-gray-200 rounded-card p-5 text-center bg-white shadow-card transition-transform">
-                
-                    <div class="mx-auto text-center flex items-center justify-center">
+
+                <div
+                    class="mx-auto text-center flex items-center justify-center">
                     @if (company.image_url) {
                     <img
                         [src]="company.image_url"
@@ -83,14 +84,15 @@
                     </div>
                     }
                 </div>
-                <div class="font-bold mt-4 mb-2 hover:underline cursor-pointer" [routerLink]="'/page/companies/'+ company.id">
+                <div class="font-bold mt-4 mb-2 hover:underline cursor-pointer"
+                    [routerLink]="'/page/companies/'+ company.id">
                     {{ company?.first_name + " " + company?.last_name }}
                 </div>
                 <div class="text-gray-600 text-sm">
                     @if(company?.average_rating > 0){
                     <div class="mt-4 text-center text-2xl font-semibold">
                         <p>
-                            {{ company?.average_rating }}
+                            {{ company?.average_rating.toFixed(2) }}
                             <i class="fa-solid fa-star"
                                 style="color: #ffd43b"></i>
                         </p>
@@ -99,124 +101,159 @@
                 </div>
                 <div class="text-gray-600">({{ company?.jobs_count }}
                     Jobs)</div>
-                </div>
+            </div>
             } }
 
-
-
-
-
-            
         </div>
-        <h2
-            class="text-center my-10 text-2xl text-black font-semibold relative">
-            Recommended Jobs
-            <span class="block w-12 h-0.5 bg-accent mx-auto mt-3"></span>
-        </h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8 px-20">
+        @if(user.user.roles[0]== 'user'){
+        <div>
+            <h2
+                class="text-center my-10 text-2xl text-black font-semibold relative">
+                Recommended Jobs
+                <span class="block w-12 h-0.5 bg-accent mx-auto mt-3"></span>
+            </h2>
+            <div
+                class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8 px-20">
 
-            @for(job of recommendedJobs; track $index) {
-            @if($index < 3) {
-            <div class="border border-dark-blue rounded-3xl  p-10 shadow-lg transition-transform relative bg-[#82d9f29e]/20">
-            <!-- save job -->
-                <div class="absolute top-7 right-7">
-                    <button class="text-black/80 hover:text-cyan-500" (click)="saveJob(job.id)">
-                        @if(job.saved){
+                @for(job of recommendedJobs; track $index) {
+                @if($index < 3) {
+                <div
+                    class="border border-dark-blue rounded-3xl  p-10 shadow-lg transition-transform relative bg-[#82d9f29e]/20">
+                    <!-- save job -->
+                    @if(user.user.roles[0] == 'user'){
+                    <div class="absolute top-7 right-7">
+                        <button class="text-black/80 hover:text-cyan-500"
+                            (click)="saveJob(job.id)">
+                            @if(job.saved){
                             <i class="fa-solid fa-bookmark text-3xl"></i>
-                        } @else {
+                            } @else {
                             <i class="fa-regular fa-bookmark text-3xl"></i>
-                        }
-                    </button>
-                </div>
-                <div class="flex mb-4">
-                    <div>
-                        <div class="font-semibold text-2xl mb-1 text-black hover:underline cursor-pointer" [routerLink]="'/page/jobs/'+ job.id">{{job.title}}</div>
-                        <div class="text-gray-600 text-sm">{{job.user.first_name +' '+ job.user.last_name}}</div>
+                            }
+                        </button>
+                    </div>
+                    }
+                    <div class="flex mb-4">
+                        <div>
+                            <div
+                                class="font-semibold text-2xl mb-1 text-black hover:underline cursor-pointer"
+                                [routerLink]="'/page/jobs/'+ job.id">{{job.title}}</div>
+                            <div
+                                class="text-gray-600 text-sm">{{job.user.first_name
+                                +' '+ job.user.last_name}}</div>
+                        </div>
+                    </div>
+                    <div class="font-normal mb-4 line-clamp-3"
+                        [innerHTML]="getSafeHtml(job.description)"></div>
+                    <div class="text-[#62AFC6] font-bold text-sm mb-4">
+                        Salary: {{job.min_salary | currency:'USD'
+                        :'symbol':'1.0-0'
+                        }} - {{ job.max_salary | currency:'USD'
+                        :'symbol':'1.0-0' }}
+                        &nbsp; ({{job.salary_negotiable ? 'Negotiable' :
+                        'Not-Negotiable'}})
+                    </div>
+                    <div class="flex flex-wrap gap-2 mt-4">
+                        @for(skill of job.skills; track $index) {
+                        @if($index < 3) {
+                        <span
+                            class="bg-tag-bg px-4 py-2 rounded-full text-xs bg-custom-blue/70 border border-dark-blue">{{skill}}</span>
+
+                        }}
                     </div>
                 </div>
-                <div class="font-normal mb-4 line-clamp-3"  [innerHTML]="getSafeHtml(job.description)"></div>
-                <div class="text-[#62AFC6] font-bold text-sm mb-4">
-                    Salary: {{job.min_salary | currency:'USD' :'symbol':'1.0-0' }} - {{ job.max_salary |  currency:'USD' :'symbol':'1.0-0' }} &nbsp; ({{job.salary_negotiable ? 'Negotiable' : 'Not-Negotiable'}})
-                </div>
-                <div class="flex flex-wrap gap-2 mt-4">
-                    @for(skill of job.skills; track $index) {
-                    @if($index < 3) {
-                    <span
-                        class="bg-tag-bg px-4 py-2 rounded-full text-xs bg-custom-blue/70 border border-dark-blue">{{skill}}</span>
-                    
-                    }}
-                </div>
-            </div>
-            }}
-      
-        </div>
+                }}
 
-        @if(recommendedJobs.length == 0){
+            </div>
+
+            @if(recommendedJobs.length == 0){
             <div class="flex flex-col items-center justify-center w-full h-52">
-            <i class="fa-solid fa-circle-exclamation text-9xl text-yellow-500"></i>
-            <h2 class="text-4xl font-semibold text-gray-700">No Jobs Found</h2>
+                <i
+                    class="fa-solid fa-circle-exclamation text-9xl text-yellow-500"></i>
+                <h2 class="text-4xl font-semibold text-gray-700">No Jobs
+                    Found</h2>
             </div>
-        } @else {
-        <div class="text-center my-6 mb-10">
-            <a
-                routerLink="recommendedJobs"
-                class="text-gray-400 text-2xl font-normal hover:text-black hover:underline transition-colors">See
-                All</a>
+            } @else {
+            <div class="text-center my-6 mb-10">
+                <a
+                    routerLink="recommendedJobs"
+                    class="text-gray-400 text-2xl font-normal hover:text-black hover:underline transition-colors">See
+                    All</a>
+            </div>
+            }
         </div>
-        }
-        <h2
-            class="text-center my-10 text-2xl text-black font-semibold relative">
-            Saved Jobs
-            <span class="block w-12 h-0.5 bg-accent mx-auto mt-3"></span>
-        </h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8 px-20">
+    
+        <div>
+            <h2
+                class="text-center my-10 text-2xl text-black font-semibold relative">
+                Saved Jobs
+                <span class="block w-12 h-0.5 bg-accent mx-auto mt-3"></span>
+            </h2>
+            <div
+                class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8 px-20">
 
-            @for(job of savedJobs; track $index) {
-            @if($index < 3) {
-            <div class="border border-dark-blue rounded-3xl  p-10 shadow-lg transition-transform relative bg-[#82d9f29e]/20">
-            <!-- save job -->
-                <div class="absolute top-7 right-7">
-                    <button class="text-black/80 hover:text-cyan-500" (click)="saveJob(job.job.id)">
+                @for(job of savedJobs; track $index) {
+                @if($index < 3) {
+                <div
+                    class="border border-dark-blue rounded-3xl  p-10 shadow-lg transition-transform relative bg-[#82d9f29e]/20">
+                    <!-- save job -->
+                    @if(user.user.roles[0] == 'user'){
+                    <div class="absolute top-7 right-7">
+                        <button class="text-black/80 hover:text-cyan-500"
+                            (click)="saveJob(job.job.id)">
                             <i class="fa-solid fa-bookmark text-3xl"></i>
-                    </button>
-                </div>
-                <div class="flex mb-4">
-                    <div>
-                        <div class="font-semibold text-2xl mb-1 text-black hover:underline cursor-pointer" [routerLink]="'/page/jobs/'+ job.job.id">{{job.job.title}}</div>
-                        <div class="text-gray-600 text-sm">{{job.job.user.first_name +' '+ job.job.user.last_name}}</div>
+                        </button>
+                    </div>
+                    }
+                    <div class="flex mb-4">
+                        <div>
+                            <div
+                                class="font-semibold text-2xl mb-1 text-black hover:underline cursor-pointer"
+                                [routerLink]="'/page/jobs/'+ job.job.id">{{job.job.title}}</div>
+                            <div
+                                class="text-gray-600 text-sm">{{job.job.user.first_name
+                                +' '+ job.job.user.last_name}}</div>
+                        </div>
+                    </div>
+                    <div class=" font-normal mb-4 line-clamp-3"
+                        [innerHTML]="getSafeHtml(job.job.description)"></div>
+                    <div class="text-[#62AFC6] font-bold text-sm mb-4">
+                        Salary: {{job.job.min_salary | currency:'USD'
+                        :'symbol':'1.0-0' }} - {{ job.job.max_salary |
+                        currency:'USD' :'symbol':'1.0-0' }} &nbsp;
+                        ({{job.job.salary_negotiable ? 'Negotiable' :
+                        'Not-Negotiable'}})
+                    </div>
+                    <div class="flex flex-wrap gap-2 mt-4">
+                        @for(skill of job.job.skills; track $index) {
+                        @if($index < 3) {
+                        <span
+                            class="bg-tag-bg px-4 py-2 rounded-full text-xs bg-custom-blue/70 border border-dark-blue">{{skill}}</span>
+
+                        }}
                     </div>
                 </div>
-                <div class=" font-normal mb-4 line-clamp-3" [innerHTML]="getSafeHtml(job.job.description)"></div>
-                <div class="text-[#62AFC6] font-bold text-sm mb-4">
-                    Salary: {{job.job.min_salary | currency:'USD' :'symbol':'1.0-0' }} - {{ job.job.max_salary |  currency:'USD' :'symbol':'1.0-0' }} &nbsp; ({{job.job.salary_negotiable ? 'Negotiable' : 'Not-Negotiable'}})
-                </div>
-                <div class="flex flex-wrap gap-2 mt-4">
-                    @for(skill of job.job.skills; track $index) {
-                    @if($index < 3) {
-                    <span
-                        class="bg-tag-bg px-4 py-2 rounded-full text-xs bg-custom-blue/70 border border-dark-blue">{{skill}}</span>
-                    
-                    }}
-                </div>
-            </div>
-            }}
-      
-        </div>
+                }}
 
-        @if(savedJobs.length == 0){
+            </div>
+
+            @if(savedJobs.length == 0){
             <div class="flex flex-col items-center justify-center w-full h-52">
-            <i class="fa-solid fa-circle-exclamation text-9xl text-yellow-500"></i>
-            <h2 class="text-4xl font-semibold text-gray-700">No Jobs Found</h2>
+                <i
+                    class="fa-solid fa-circle-exclamation text-9xl text-yellow-500"></i>
+                <h2 class="text-4xl font-semibold text-gray-700">No Jobs
+                    Found</h2>
             </div>
-        } @else {
+            } @else {
 
-        <div class="text-center my-6 mb-10">
-            <a
-                routerLink="savedJobs"
-                class="text-gray-400 text-2xl font-normal hover:text-black hover:underline transition-colors">See
-                All</a>
+            <div class="text-center my-6 mb-10">
+                <a
+                    routerLink="savedJobs"
+                    class="text-gray-400 text-2xl font-normal hover:text-black hover:underline transition-colors">See
+                    All</a>
+            </div>
+            }
         </div>
-        }
+    }
     </div>
 </div>
 

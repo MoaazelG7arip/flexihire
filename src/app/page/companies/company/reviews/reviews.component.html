@@ -16,8 +16,15 @@
             <!-- Reviewer Info -->
             <div class="flex flex-col-reverse md:flex-row items-center justify-between w-full gap-5 md:mb-7">
                 <div class="flex items-center">
+                    @if(review?.user?.image_url){
                     <img [src]="review?.user?.image_url" alt=""
                         class="w-16 h-16 rounded-full border-2 border-gray-300 object-cover mr-4" />
+                    } @else {
+                        <div class="rounded-full border-2 border-gray-300 object-cover mr-4 min-w-16 min-h-16 max-w-16 max-h-16 bg-gray-200 flex items-center justify-center text-4xl font-semibold text-gray-600">
+                            {{ review?.user?.first_name[0].toUpperCase() + review?.user?.last_name[0].toUpperCase() }}
+                        </div>
+                    }
+
                     <div>
                         <div class="font-semibold text-lg">
                             {{ review?.user?.first_name + " " + review?.user?.last_name }}

@@ -1,0 +1,7 @@
+
+
+::-webkit-scrollbar {
+    width: 10px; /* for vertical scrollbars */
+    background-color: white;
+    display: none;
+}

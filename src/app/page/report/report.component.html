@@ -1,0 +1,99 @@
+
+@if (notification.isFound) {
+<app-notification [attr.role]="notification.status">{{
+  notification.message
+}}</app-notification>
+}
+
+
+<div class="fixed top-0 left-0 w-full h-full bg-white z-10 overflow-y-auto py-20">
+
+    @if(loading){
+      <app-loader></app-loader>
+    } @else {
+
+        <div class="float-end cursor-pointer relative right-10 bottom-10" (click)="onClose()">
+            <i
+              class="fa-solid fa-square-xmark text-2xl text-red-700 hover:text-red-900"
+            ></i>
+          </div>
+    <!-- report-user-form.component.html -->
+    <form [formGroup]="reportForm" (ngSubmit)="onSubmit()"
+
+
+        class="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
+        <h2 class="text-2xl font-bold mb-6 text-gray-800">Report User</h2>
+
+        <!-- Reason Select -->
+        <div class="mb-4">
+            <label for="reason"
+                class="block text-sm font-medium text-gray-700 mb-1">Reason for
+                report</label>
+            <textarea id="reason"
+                formControlName="reason"
+                rows="4"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                placeholder="Please provide more details about your report..."></textarea>
+
+            <div
+                *ngIf="reportForm.get('reason')?.invalid && (reportForm.get('reason')?.dirty || reportForm.get('reason')?.touched)"
+                class="mt-1 text-sm text-red-600">
+                Please select a reason for reporting
+            </div>
+        </div>
+
+        <!-- Image Upload -->
+        <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-1">Upload
+                evidence (optional)</label>
+            <div
+                class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                <div class="space-y-1 text-center">
+                    <div class="flex text-sm text-gray-600">
+                        <label for="file-upload"
+                            class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+                            <span>Upload files</span>
+                            <input
+                                id="file-upload"
+                                name="file-upload"
+                                type="file"
+                                class="sr-only"
+                                multiple
+                                accept="image/*"
+                                (change)="onFileChange($event)">
+                        </label>
+                        <p class="pl-1">or drag and drop</p>
+                    </div>
+                    <p class="text-xs text-gray-500">PNG, JPG, GIF up to
+                        10MB</p>
+                </div>
+            </div>
+
+            <!-- Image Previews -->
+            <div class="mt-4 grid grid-cols-3 gap-2">
+                <div *ngFor="let image of imageControls; let i = index"
+                    class="relative">
+                    <img [src]="image.value.preview"
+                        class="h-24 w-full object-cover rounded">
+                    <button
+                        type="button"
+                        (click)="removeImage(i)"
+                        class="absolute top-0 right-0 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center transform translate-x-1/2 -translate-y-1/2 hover:bg-red-600">
+                        ×
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="mt-6">
+            <button
+                type="submit"
+                [disabled]="reportForm.invalid"
+                class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-custom-blue hover:bg-dark-blue focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed">
+                Submit Report
+            </button>
+        </div>
+    </form>
+      }
+</div>

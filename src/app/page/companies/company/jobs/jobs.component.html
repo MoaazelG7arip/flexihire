@@ -37,13 +37,14 @@ class="page bg-gradient-to-b from-custom-blue to-white min-h-screen overflow-hid
 </figure> -->
 
         <!-- save job -->
+         @if(user.user.roles[0] == 'user'){
         <div class="absolute top-7 right-7">
             <button class="text-black/80 hover:text-cyan-500"
                 (click)="saveJob(job.id)">
                 <i class="fa-solid fa-bookmark text-3xl"></i>
             </button>
         </div>
-
+        }
         <!-- title  -->
         <h1
             class="text-xl font-bold text-black hover:underline cursor-pointer"

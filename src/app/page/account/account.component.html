@@ -24,26 +24,21 @@
 
       <!-- Update your profile Background. -->
 
-      <form (ngSubmit)="onUpdateBackground()" class="col-span-3">
+      <form (ngSubmit)="onUpdateBackground()" class="col-span-3 z-10">
         <div class="text-center">
           <!-- <div class="relative w-full aspect-[16/9] sm:h-96"> -->
           <div class="relative w-full ">
             @if(background_url){
             <div
-              class="w-full aspect-[16/9] md:h-[30rem] bg-cover bg-center rounded-2xl md:w-3/4 h-full object-cover mx-auto border-4 border-indigo-800 mb-4 transition-transform duration-300 hover:scale-105"
+              class="w-full relative aspect-[16/9] md:h-[30rem] bg-cover bg-center rounded-2xl md:w-3/4 h-full object-cover mx-auto border-4 border-indigo-800 mb-4 transition-transform duration-300 hover:scale-105"
               [ngStyle]="{'background-image': 'url(' + background_url + ')'}">
-            </div>
-            } @else {
-            <div
-              class="w-full  aspect-[16/9] md:h-[30rem] bg-cover bg-center rounded-2xl md:w-3/4 h-full object-cover mx-auto border-4 border-indigo-800 mb-4 transition-transform duration-300 hover:scale-105"
-              [ngStyle]="{'background-image': 'url(photo/white-2172682_1920.jpg)'}"></div>
-            }
+
             <input type="file" name="background" id="upload_background" hidden
               (change)="onBackgroundSelect($event)" accept="image/*">
 
             <label for="upload_background"
-              class="inline-flex items-start absolute right-10 bottom-7 sm:right-40 cursor-pointer">
-              <svg data-slot="icon" class="w-7 h-7 text-white"
+              class="inline-flex items-start absolute right-10 bottom-7 cursor-pointer">
+              <svg data-slot="icon" class="w-10 h-10 text-white"
                 fill="blue" stroke-width="1.5"
                 stroke="currentColor" viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
@@ -56,6 +51,35 @@
                 </path>
               </svg>
             </label>
+
+
+            </div>
+            } @else {
+            <div
+              class="w-full relative aspect-[16/9] md:h-[30rem] bg-cover bg-center rounded-2xl md:w-3/4 h-full object-cover mx-auto border-4 border-indigo-800 mb-4 transition-transform duration-300 hover:scale-105"
+              [ngStyle]="{'background-image': 'url(photo/white-2172682_1920.jpg)'}">
+            
+                        <input type="file" name="background" id="upload_background" hidden
+              (change)="onBackgroundSelect($event)" accept="image/*">
+
+            <label for="upload_background"
+              class="inline-flex items-start absolute right-10 bottom-7 cursor-pointer">
+              <svg data-slot="icon" class="w-10 h-10 text-white"
+                fill="blue" stroke-width="1.5"
+                stroke="currentColor" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M6.827 6.175A2.31 2.31 0 0 1 5.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 0 0-1.134-.175 2.31 2.31 0 0 1-1.64-1.055l-.822-1.316a2.192 2.192 0 0 0-1.736-1.039 48.774 48.774 0 0 0-5.232 0 2.192 2.192 0 0 0-1.736 1.039l-.821 1.316Z">
+                </path>
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M16.5 12.75a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM18.75 10.5h.008v.008h-.008V10.5Z">
+                </path>
+              </svg>
+            </label>
+            </div>
+            }
+
           </div>
         </div>
       </form>
@@ -63,7 +87,7 @@
       <!-- Update your profile picture. -->
       <!-- <form (ngSubmit)="onSubmit()" class="col-span-1 relative -top-20 left-5 sm:left-20"> -->
       <form (ngSubmit)="onSubmit()" class="z-10 py-10 col-span-3">
-        <div class="text-center">
+        <div class="text-center w-fit mx-auto">
           <div class="flex justify-center sm:justify-start -mt-36">
             @if (image_url) {
             <img

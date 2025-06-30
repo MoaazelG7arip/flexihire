@@ -24,6 +24,7 @@ export class JobsComponent {
   locationChange = false;
   userLocation;
   list;
+  user;
   routeSubscription: any;
   notification = {isFound: false, message: '', status: ''};
 
@@ -35,8 +36,10 @@ export class JobsComponent {
 
 
   ngOnInit(): void {
-    sessionStorage.removeItem('addInfo');
 
+    sessionStorage.removeItem('addInfo');
+    this.user = JSON.parse(localStorage.getItem('user'));
+    
     this.routeSubscription = this.route.queryParamMap.subscribe(queryMap => {
       let page = +queryMap.get('page');
       let search = queryMap.get('search');

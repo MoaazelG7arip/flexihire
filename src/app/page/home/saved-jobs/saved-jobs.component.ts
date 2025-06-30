@@ -17,6 +17,7 @@ import { LoaderComponent } from "../../../shared/loader/loader.component";
 export class SavedJobsComponent {
 
   savedJobs = [];
+  user;
   loading = false;
   notification = { isFound: false, message: '', status: '' };
 
@@ -28,6 +29,7 @@ export class SavedJobsComponent {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     this.fetchSavedJobs();
+    this.user = JSON.parse(localStorage.getItem('user'));
   }
 
  fetchSavedJobs() {

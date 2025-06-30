@@ -27,7 +27,7 @@ export const routes: Routes = [
         {path: 'companies', loadComponent: ()=>import('./page/companies/companies.component').then(m=>m.CompaniesComponent)},
         {path: 'companies/:id', loadComponent: ()=>import('./page/companies/company/company.component').then(m=>m.CompanyComponent)},
         {path: 'companies/:id/jobs', loadComponent: ()=>import('./page/companies/company/jobs/jobs.component').then(m=>m.JobsComponent)},
-        {path: 'companies/:id/myReviews', loadComponent: ()=>import('./page/companies/company/my-reviews/my-reviews.component').then(m=>m.MyReviewsComponent)},
+        // {path: 'companies/:id/myReviews', loadComponent: ()=>import('./page/companies/company/my-reviews/my-reviews.component').then(m=>m.MyReviewsComponent)},
         {path: 'companies/:id/reviews', loadComponent: ()=>import('./page/companies/company/reviews/reviews.component').then(m=>m.ReviewsComponent)},
         {path: 'companies/:id/myJobs', loadComponent: ()=>import('./page/companies/company/my-jobs/my-jobs.component').then(m=>m.MyJobsComponent)},
         {path: 'companies/:id/myJobs/applicants/:jobId', loadComponent: ()=>import('./page/companies/company/my-jobs/applicants/applicants.component').then(m=>m.ApplicantsComponent)},
@@ -38,6 +38,7 @@ export const routes: Routes = [
         {path: 'users/:id/myReviews', loadComponent: ()=>import('./page/users/user/my-reviews/my-reviews.component').then(m=>m.MyReviewsComponent)},
         {path: 'users/:id/myJobs', loadComponent: ()=>import('./page/users/user/my-jobs/my-jobs.component').then(m=>m.MyJobsComponent)},
         {path: 'real-chat', loadComponent: ()=>import('./page/real-chat/real-chat.component').then(m=>m.RealChatComponent)},
+        // {path: 'report/:reportedId', loadComponent: ()=>import('./page/report/report.component').then(m=>m.ReportComponent)},
  
     ]},
 ];

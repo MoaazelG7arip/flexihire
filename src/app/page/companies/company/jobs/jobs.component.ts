@@ -18,6 +18,7 @@ export class JobsComponent {
 
   
     myJobs = [];
+    user
     loading = false;
     notification = { isFound: false, message: '', status: '' };
     routeSubscription: any;
@@ -34,6 +35,7 @@ export class JobsComponent {
       const id = +paramMap.get('id')!;
       this.fetchCompanyDetails(id);
     });
+    this.user = JSON.parse(localStorage.getItem('user'));
     }
 
 
