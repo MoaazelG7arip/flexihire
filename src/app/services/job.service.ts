@@ -135,5 +135,14 @@ export class JobService {
     return this.http.post(this.baseApi + '/reviews/delete/' + reviewId, null, { headers });
   }
 
+  onRankJobs(jobId){
+    this.auth_token = JSON.parse(localStorage.getItem('user')).token;
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.auth_token}`,
+    });
+
+    return this.http.get(this.baseApi + '/dashboard/company/rank-job-proposals/' + jobId, { headers });
+  }
+
 
 }

@@ -157,4 +157,41 @@ export class ApplicantsComponent {
       sessionStorage.setItem('chatMobileChange', 'true')
       this.router.navigate(['/page/real-chat']);
   }
+
+
+  onAiRanking(){
+
+    this.loading = true;
+    this.jobService.onRankJobs(this.jobId).subscribe({
+      next: (res) => {
+        this.loading = false;
+        console.log(res);
+        // this.fetchMyApplicants(this.jobId,1); // Refresh the applicants list
+
+        this.notification = {
+          isFound: true,
+          message: res['message'] || "Proposal ranking updated successfully",
+          status:'success'
+        };
+        setTimeout(() => {
+          this.notification = {isFound: false, message: '', status: ''};
+        }, 3500);
+
+      },
+      error: (err) => {
+        this.loading = false;
+        console.log(err);
+
+        this.notification = {
+          isFound: true,
+          message: err.error.message || "Error updating proposal ranking",
+          status:'alert'
+        };
+        setTimeout(() => {
+          this.notification = {isFound: false, message: '', status: ''};
+        }, 3500);
+
+      }
+    })
+  }
 }

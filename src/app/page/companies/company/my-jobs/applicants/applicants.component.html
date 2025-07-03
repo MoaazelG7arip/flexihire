@@ -13,9 +13,12 @@
   
   } @else {
 
-<div class="min-h-screen py-10 bg-gradient-to-b from-custom-blue to-white">
+<div class="min-h-screen py-10 bg-gradient-to-b from-custom-blue to-30% to-white">
     <div class="container mx-auto px-4">
       <h1 class="text-2xl font-bold text-gray-800 mb-6">My Job Application</h1>
+      <div class="flex justify-end">
+        <button class="px-8 py-2 my-4 bg-custom-blue hover:bg-dark-blue text-white rounded-full" (click)="onAiRanking()">AI Ranks</button>
+      </div>
       <div class="overflow-x-auto bg-white shadow-md rounded-lg">
           <table class="min-w-full border-collapse overflow-x-scroll whitespace-nowrap">
               <thead class="bg-custom-blue/40 text-gray-600 font-semibold uppercase text-lg ">
@@ -31,7 +34,28 @@
             <tr class="border-b hover:bg-gray-50">
               <td class="px-6 py-4 text-gray-800">
                 <div class="flex gap-2">
-                    <img [src]="applicant.user.image_url" class="w-7 rounded-full" alt="">
+
+
+            @if (applicant.user.image_url) {
+            <img
+              [src]="applicant.user.image_url"
+              alt="{{ applicant.user.first_name }} {{ applicant.user.last_name }}"
+              class="w-7 rounded-full "
+            />
+            }
+            @else {
+                <!-- <img src="photo/user.png" alt="Profile Picture" class="w-24 h-24 rounded-full border-4 border-white"> -->
+                <div class="min-w-7 min-h-7 max-w-7 max-h-7 rounded-full text-xs bg-gray-200 flex items-center justify-center font-semibold text-gray-600"
+                >{{applicant.user.first_name[0].toUpperCase() + applicant.user.last_name[0].toUpperCase()}}</div>
+            }
+
+
+
+
+
+
+
+                    <!-- <img [src]="applicant.user.image_url" class="w-7 rounded-full" alt=""> -->
                     <p>{{applicant.user.first_name + " " + applicant.user.last_name}}</p>
                 </div>
             </td>

@@ -260,6 +260,16 @@ export class HeaderComponent {
         error: err => {
           console.error(err);
           this.loading = false;
+
+
+          localStorage.removeItem('user');
+          this.authService.user.next(null);
+          this.loggedIn = false;
+          this.router.navigate(['/auth/welcome']);
+
+
+
+
           this.onloading.emit(this.loading);
           this.notification = {
             isFound: true,

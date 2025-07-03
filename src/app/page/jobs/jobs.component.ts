@@ -3,7 +3,7 @@ import { InformationService } from '../../services/information.service';
 import { ProgressBarComponent } from "../../shared/progress-bar/progress-bar.component";
 import { LoaderComponent } from "../../shared/loader/loader.component";
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { CurrencyPipe, DatePipe } from '@angular/common';
+import { CommonModule, CurrencyPipe, DatePipe } from '@angular/common';
 import { NotificationComponent } from "../../shared/notification/notification.component";
 import { DomSanitizer } from '@angular/platform-browser';
 import { JobService } from '../../services/job.service';
@@ -11,7 +11,7 @@ import { JobService } from '../../services/job.service';
 @Component({
   selector: 'app-jobs',
   standalone: true,
-  imports: [ProgressBarComponent, LoaderComponent, RouterLink, CurrencyPipe, DatePipe, NotificationComponent],
+  imports: [ProgressBarComponent, LoaderComponent, RouterLink, CurrencyPipe, DatePipe, NotificationComponent, CommonModule],
   templateUrl: './jobs.component.html',
   styleUrl: './jobs.component.css'
 })
@@ -25,6 +25,7 @@ export class JobsComponent {
   userLocation;
   list;
   user;
+  filter = false;
   routeSubscription: any;
   notification = {isFound: false, message: '', status: ''};
 
@@ -158,6 +159,7 @@ export class JobsComponent {
     }
   
     onSearch(jobName, searchLocation, minSalary, maxSalary) {
+      this.filter = false;
       this.router.navigate(['/page/jobs'], { queryParams: { page: 1 , search : jobName.value, searchLocation: searchLocation.value, minSalary: minSalary.value, maxSalary: maxSalary.value }}); 
     }
 
