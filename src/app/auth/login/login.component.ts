@@ -94,7 +94,7 @@ export class LoginComponent {
         this.bridgeService.getLoading(this.loading)
         this.notification = {
           isFound: true,
-          message: err?.error?.message,
+          message: err?.error?.message || 'Login Failed',
           status: 'alert',
         };
         this.bridgeService.getNotification(this.notification);

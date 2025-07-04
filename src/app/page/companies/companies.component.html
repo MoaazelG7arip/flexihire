@@ -32,7 +32,7 @@
 
 
   <div
-    class="w-full bg-white rounded-lg shadow-lg my-16 p-10">
+    class="w-full bg-white rounded-lg shadow-lg my-16 p-5 sm:p-10">
     <!-- <h1 class="text-3xl font-semibold p-5 pb-0">Company</h1> -->
     <div class="flex flex-col md:flex-row items-center justify-between gap-5 md:gap-0 scale-90">
       <div class="w-full relative flex-1 border border-cyan-500 rounded-full md:rounded-s-full md:rounded-e-none p-2">
@@ -45,7 +45,7 @@
       </div>
             <div class="">
         <button class=" text-white bg-custom-blue hover:bg-dark-blue rounded-full md:rounded-e-full md:rounded-s-none px-8 py-[1.4rem] font-semibold"
-        (click)="onSearch(companyName, searchLocation)">Find Jobs</button>
+        (click)="onSearch(companyName, searchLocation)">Find Company</button>
       </div>
     </div>
   </div>
@@ -112,7 +112,7 @@
         </div>
   
         <!-- Description -->
-        <p class="mt-4 text-gray-700 text-center md:text-left">
+        <p class="mt-4 text-gray-700 text-justify md:text-left">
           {{ company.description }}
         </p>
       </div>
@@ -127,7 +127,7 @@
 @if(companies.length == 0){
     <div class="flex flex-col items-center justify-center w-full h-52">
       <i class="fa-solid fa-circle-exclamation text-9xl text-yellow-500"></i>
-      <h2 class="text-4xl font-semibold text-gray-700">No Companies Found</h2>
+      <h2 class="text-4xl font-semibold text-gray-700 text-center">No Companies Found</h2>
     </div>
 } @else {
 

@@ -17,7 +17,13 @@
     <div class="container mx-auto px-4">
       <h1 class="text-2xl font-bold text-gray-800 mb-6">My Job Application</h1>
       <div class="flex justify-end">
-        <button class="px-8 py-2 my-4 bg-custom-blue hover:bg-dark-blue text-white rounded-full" (click)="onAiRanking()">AI Ranks</button>
+        @if(aiRank == 'false'){
+          <button class="px-8 py-2 my-4 bg-custom-blue hover:bg-dark-blue text-white rounded-full" 
+          (click)="onAiRanking(jobId, 1)">AI Ranks</button>
+        } @else if(aiRank == 'true'){
+          <button class="px-8 py-2 my-4 border-custom-blue bg-white text-dark-blue rounded-full cursor-auto" 
+          >Ranked</button>
+        }
       </div>
       <div class="overflow-x-auto bg-white shadow-md rounded-lg">
           <table class="min-w-full border-collapse overflow-x-scroll whitespace-nowrap">

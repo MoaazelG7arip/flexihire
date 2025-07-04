@@ -24,6 +24,7 @@ export class RateUsComponent {
   notification = { isFound: false, message: '', status: '' };
 
   @Output() reviewSubmitted : EventEmitter<boolean> = new EventEmitter();
+  @Output() onClose : EventEmitter<boolean> = new EventEmitter();
     
 
   route: ActivatedRoute = inject(ActivatedRoute);
@@ -112,7 +113,7 @@ export class RateUsComponent {
   }
   
   close(){
-    this.reviewSubmitted.emit(false);
+    this.onClose.emit(false);
   }
   
   

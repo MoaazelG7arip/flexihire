@@ -241,12 +241,8 @@
             alt
             loading="lazy" />
           }@else {
-          <img
-            src="photo/user.png"
-            class="rounded-full"
-            style="height: 25px; width: 25px"
-            alt
-            loading="lazy" />
+          <div class="min-w-[25px] min-h-[25px] max-w-[25px] max-h-[25px] rounded-full bg-gray-200 flex items-center justify-center text-sm font-semibold text-gray-600"
+                >{{user.user.first_name[0].toUpperCase() + user.user.last_name[0].toUpperCase()}}</div>
           }
         </a>
         <!-- Second dropdown menu -->

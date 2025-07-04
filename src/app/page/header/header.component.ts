@@ -46,6 +46,7 @@ export class HeaderComponent {
         }
       })
     }
+    console.log(user)
 
     this.fetchNotifications();
   }
