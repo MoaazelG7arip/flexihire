@@ -1,12 +1,14 @@
+
+
+
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, HostListener, inject, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, inject, ViewChild, OnDestroy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
-
-
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { ChatBotService } from '../../services/chat-bot.service';
+import { WebsocketService } from '../../services/websocket.service';
+import { Subscription } from 'rxjs';
 
+import { KeepHTMLPipe } from '../../validators/keep-html.pipe';
 
 interface Message {
   text: string;
@@ -14,11 +16,10 @@ interface Message {
   timestamp: Date;
 }
 
-
 @Component({
   selector: 'app-chat-bot',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, KeepHTMLPipe],
   templateUrl: './chat-bot.component.html',
   styleUrl: './chat-bot.component.css',
   animations: [
@@ -41,30 +42,65 @@ interface Message {
     ])
   ]
 })
-export class ChatBotComponent {
 
 
+
+
+export class ChatBotComponent implements OnDestroy {
   @ViewChild('scrollContainer') private scrollContainer!: ElementRef;
 
-  chatBotService: ChatBotService = inject(ChatBotService)
-  
   messages: Message[] = [];
   newMessage = '';
   isOpen = false;
   isTyping = false;
   showInputError = false;
-  randomStr = Math.random().toString(36).substring(2, 6); // Random string for session_id
+  randomStr = Math.random().toString(36).substring(2, 6);
   
-  constructor(private elementRef: ElementRef) {}
-  
+  private currentBotMessage: Message | null = null;
+  private wsSubscriptions: Subscription[] = [];
+
+
+
+  constructor(
+    private elementRef: ElementRef,
+    private websocketService: WebsocketService
+  ) {}
+
   ngOnInit(): void {
     this.addBotMessage('Hello! How can I help you today?');
-    
+    this.setupWebSocketListeners();
   }
-  
-    
+
+  ngOnDestroy(): void {
+    this.wsSubscriptions.forEach(sub => sub.unsubscribe());
+    this.websocketService.disconnect();
+  }
+
+  private setupWebSocketListeners(): void {
+    this.wsSubscriptions.push(
+      this.websocketService.onThinking.subscribe(() => {
+        this.isTyping = true;
+        this.scrollToBottom();
+      }),
+
+      this.websocketService.onMessage.subscribe(content => {
+        this.handleBotResponse(content);
+      }),
+
+      this.websocketService.onError.subscribe(error => {
+        this.isTyping = false;
+        this.addBotMessage(error);
+        this.currentBotMessage = null;
+        this.scrollToBottom();
+      })
+    );
+  }
+
   toggleChat(): void {
     this.isOpen = !this.isOpen;
+    if (this.isOpen) {
+      setTimeout(() => this.scrollToBottom(), 100);
+    }
   }
 
   sendMessage(): void {
@@ -76,8 +112,9 @@ export class ChatBotComponent {
     }
 
     this.addUserMessage(msg);
-    this.simulateBotResponse();
-
+    this.websocketService.sendMessage(msg);
+    this.isTyping = true;
+    this.currentBotMessage = null;
     this.newMessage = '';
   }
 
@@ -87,7 +124,6 @@ export class ChatBotComponent {
       sender: 'user',
       timestamp: new Date()
     });
-
     this.scrollToBottom();
   }
 
@@ -97,52 +133,23 @@ export class ChatBotComponent {
       sender: 'bot',
       timestamp: new Date()
     });
-
     this.scrollToBottom();
-
   }
 
-  private simulateBotResponse(): void {
-    this.isTyping = true;
-
-    const msg = this.newMessage.trim();
-
-    const body = {
-      input: msg,
-      // session_id: 'session_5'
-      session_id: this.randomStr
+  private handleBotResponse(content: string): void {
+    if (!this.currentBotMessage) {
+      this.currentBotMessage = {
+        text: content,
+        sender: 'bot',
+        timestamp: new Date()
+      };
+      this.messages.push(this.currentBotMessage);
+    } else {
+      this.currentBotMessage.text += content;
     }
-
-    console.log(body);
-
-    this.chatBotService.getResponse(body).subscribe({
-      next: (response) => {
-        console.log(response);
-        this.isTyping = false;
-        this.addBotMessage(response['answer']);
-      },
-      error: (error) => {
-        // console.error('Error:', error);
-        setTimeout(() => {
-          this.isTyping = false;
-          this.addBotMessage('Sorry, I could not process your request.');
-        }, 3000);
-      }
-    })
-
-
-
-
-    // setTimeout(() => {
-    //   this.addBotMessage('This is a sample response. Implement your bot logic here.');
-    //   this.isTyping = false;
-
-
-    //   // Scroll to the bottom after the bot message is added
-    //   this.scrollToBottom();
-
-    // }, 1500);
-
+    
+    this.isTyping = false;
+    this.scrollToBottom();
   }
 
   private scrollToBottom(): void {
@@ -153,7 +160,9 @@ export class ChatBotComponent {
             this.scrollContainer.nativeElement.scrollHeight;
         }
       }, 100);
-    } catch(err) { /* Handle error */ }
+    } catch(err) { 
+      console.error('Scroll error:', err); 
+    }
   }
 
   @HostListener('document:click', ['$event'])
@@ -171,9 +180,5 @@ export class ChatBotComponent {
     }
   }
 
-
-
-
-
-
+  
 }

@@ -197,6 +197,8 @@ export class ApplicantsComponent {
         this.applicants = res['data']['data'];
         this.paginationLinks = res['data']['links'];
         this.aiRank = 'true';
+
+        console.log(this.applicants)
         
 
 

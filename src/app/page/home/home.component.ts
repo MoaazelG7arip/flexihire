@@ -35,8 +35,8 @@ export class HomeComponent {
 
     this.user = JSON.parse(localStorage.getItem('user'));
     
-    this.fetchTopCompanies();
     this.fetchRecommendedJobs();
+    this.fetchTopCompanies();
     this.fetchSavedJobs();
     
   }
