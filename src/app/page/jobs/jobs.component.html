@@ -57,36 +57,24 @@
                         class="!border-cyan-500 !rounded-3xl !m-0"
                         (keyup.enter)="onSearch(jobName, jobLocation, minSalary, maxSalary)"
                         #jobName />
-                    <!-- <i
-                        class="fa-solid fa-magnifying-glass absolute top-1/2 -translate-y-1/2 right-16 text-2xl text-gray-600 cursor-pointer"
-                        (click)="onSearch(jobName, jobLocation, minSalary, maxSalary)"></i> -->
                 </div>
                 <div class="w-full p-2 md:p-5 relative">
                     <input type="text" placeholder="Search By Job Location.."
                         class="!border-cyan-500 !rounded-3xl !m-0"
                         (keyup.enter)="onSearch(jobName, jobLocation, minSalary, maxSalary)"
                         #jobLocation />
-                    <!-- <i
-                        class="fa-solid fa-magnifying-glass absolute top-1/2 -translate-y-1/2 right-16 text-2xl text-gray-600 cursor-pointer"
-                        (click)="onSearch(jobName, jobLocation, minSalary, maxSalary)"></i> -->
                 </div>
                 <div class="w-full p-2 md:p-5 relative">
                     <input type="text" placeholder="Search By MinSalary..."
                         class="!border-cyan-500 !rounded-3xl !m-0"
                         (keyup.enter)="onSearch(jobName, jobLocation, minSalary, maxSalary)"
                         #minSalary />
-                    <!-- <i
-                        class="fa-solid fa-magnifying-glass absolute top-1/2 -translate-y-1/2 right-16 text-2xl text-gray-600 cursor-pointer"
-                        (click)="onSearch(jobName, jobLocation, minSalary, maxSalary)"></i> -->
                 </div>
                 <div class="w-full p-2 md:p-5 relative">
                     <input type="text" placeholder="Search By MaxSalary..."
                         class="!border-cyan-500 !rounded-3xl !m-0"
                         (keyup.enter)="onSearch(jobName, jobLocation, minSalary, maxSalary)"
                         #maxSalary />
-                    <!-- <i
-                        class="fa-solid fa-magnifying-glass absolute top-1/2 -translate-y-1/2 right-16 text-2xl text-gray-600 cursor-pointer"
-                        (click)="onSearch(jobName, jobLocation, minSalary, maxSalary)"></i> -->
                 </div>
             </div>
             <div class="flex justify-center">
@@ -95,6 +83,12 @@
                     class=" py-2 px-8 bg-custom-blue hover:bg-dark-blue text-white rounded-xl">Apply
                     Filters</button>
             </div>
+
+
+
+
+
+
         </div>
 
         <!-- @if(paginatedJobs.length <= 0 && locationChange){

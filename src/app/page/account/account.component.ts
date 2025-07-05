@@ -6,7 +6,7 @@ import { LoaderComponent } from "../../shared/loader/loader.component";
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { PasswordMatchValidator } from '../../validators/confimPassword.validator';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ProgressBarComponent } from "../../shared/progress-bar/progress-bar.component";
 import { BridgeService } from '../../services/bridge.service';
 
@@ -15,7 +15,7 @@ import { BridgeService } from '../../services/bridge.service';
 @Component({
   selector: 'app-account',
   standalone: true,
-  imports: [FormsModule, NotificationComponent, LoaderComponent, CommonModule, ReactiveFormsModule, RouterLink, ProgressBarComponent],
+  imports: [FormsModule, NotificationComponent, LoaderComponent, CommonModule, ReactiveFormsModule, ProgressBarComponent],
   templateUrl: './account.component.html',
   styleUrl: './account.component.css'
 })
@@ -76,6 +76,7 @@ export class AccountComponent {
   updateInfo : UpdateInfoService = inject(UpdateInfoService);
   authService: AuthService = inject(AuthService);
   bridgeService: BridgeService = inject(BridgeService);
+  router: Router = inject(Router);
   changePasswordForm: FormGroup;
   
   fb : FormBuilder = inject(FormBuilder);
@@ -576,6 +577,21 @@ export class AccountComponent {
     });
   }
 
+  updateAllForUser(){
+    
+    this.onUpdateSkillsAndJob();
+    this.onUpdateLocation();
+    this.onUpdateDesc();
+    if(this.cvFile){
+      this.onUpdateCV();
+    }
+    this.router.navigate(['/page/home']);
+  }
+  updateAllForCompany(){
+    this.onUpdateLocation();
+    this.onUpdateDesc();
+    this.router.navigate(['/page/home']);
+  }
 
 
 

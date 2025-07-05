@@ -22,11 +22,11 @@
     <!-- Background Image -->
     @if(company?.background_url){
     <div
-      class="w-full aspect-[16/9] sm:h-[30rem] bg-cover bg-center rounded-2xl sm:w-3/4 h-full object-cover mx-auto border-4 border-indigo-800 mb-4 transition-transform duration-300 hover:scale-105"
+      class="w-full aspect-[16/9] sm:h-[30rem] bg-cover bg-center rounded-2xl sm:w-3/4 h-full object-cover mx-auto border-4 border-dark-blue mb-4 transition-transform duration-300 hover:scale-105"
       [ngStyle]="{ 'background-image': 'url(' + company?.background_url + ')' }"></div>
     } @else {
     <div
-      class="w-full aspect-[16/9] sm:h-[30rem] bg-cover bg-center rounded-2xl sm:w-3/4 h-full object-cover mx-auto border-4 border-indigo-800 mb-4 transition-transform duration-300 hover:scale-105"
+      class="w-full aspect-[16/9] sm:h-[30rem] bg-cover bg-center rounded-2xl sm:w-3/4 h-full object-cover mx-auto border-4 border-dark-blue mb-4 transition-transform duration-300 hover:scale-105"
       [ngStyle]="{ 'background-image': 'url(photo/white-2172682_1920.jpg)' }"></div>
     }
     <!-- Profile Content -->
@@ -39,11 +39,11 @@
         @if (company?.image_url) {
         <img [src]="company?.image_url"
           alt="{{ company?.first_name }} {{ company?.last_name }}"
-          class="w-32 h-32 rounded-full border-4 shadow-lg z-[5] md:w-32 md:h-32 mx-auto border-indigo-800 mb-4 transition-transform duration-300 hover:scale-105" />
+          class="w-32 h-32 bg-white rounded-full border-4 shadow-lg z-[5] md:w-32 md:h-32 mx-auto border-dark-blue mb-4 transition-transform duration-300 hover:scale-105" />
         } @else {
         <!-- <img src="photo/company.png" alt="Profile Picture" class="w-24 h-24 rounded-full border-4 border-white"> -->
         <div
-          class="w-32 h-32 rounded-full border-4 shadow-lg z-[5] sm:w-32 sm:h-32 mx-auto border-indigo-800 mb-4 transition-transform duration-300 hover:scale-105 bg-gray-200 flex items-center justify-center text-4xl font-semibold text-gray-600">
+          class="w-32 h-32 rounded-full border-4 shadow-lg z-[5] sm:w-32 sm:h-32 mx-auto border-dark-blue mb-4 transition-transform duration-300 hover:scale-105 bg-gray-200 flex items-center justify-center text-4xl font-semibold text-gray-600">
           {{
           company?.first_name[0].toUpperCase() +
           company?.last_name[0].toUpperCase()
@@ -69,14 +69,17 @@
       </div>
 
       <!-- Follow + Review -->
-      @if(company?.reviews?.average_rating > 0){
       <div class="mt-4 text-center text-2xl font-semibold">
         <p>
+          @if(company?.reviews?.average_rating > 0){
           {{ company?.reviews?.average_rating.toFixed(2) }}
+          } @else {
+            -
+          }
           <i class="fa-solid fa-star" style="color: #ffd43b"></i>
         </p>
       </div>
-      } @if(!mainUser && user.user.roles[0] == 'user'){
+      @if(!mainUser && user.user.roles[0] == 'user'){
       <!-- Follow -->
       <div
         class="p-5 my-8 rounded-lg text-center flex flex-col md:flex-row gap-5">

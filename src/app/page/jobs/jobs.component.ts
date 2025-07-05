@@ -35,6 +35,9 @@ export class JobsComponent {
 
   paginationLinks = [];
 
+  allSkills = [];
+  selectedSkills = [];
+
 
   ngOnInit(): void {
 
@@ -207,4 +210,9 @@ export class JobsComponent {
         }
       });
     }
+
+
+
+
+
 }
