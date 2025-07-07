@@ -44,5 +44,4 @@ export class AuthService {
     console.log(data);
     return this.http.post(this.baseApi + '/reset-password', data);
   }
-  
 }

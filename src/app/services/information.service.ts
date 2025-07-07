@@ -13,21 +13,18 @@ export class InformationService {
 
 
   onGetCompanyByUrl(pageNumber, search, searchLocation) {
-
     this.auth_token = JSON.parse(localStorage.getItem('user')).token;
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.auth_token}`,
     });
-
     return this.http.get(this.baseApi + '/auth-companies' + '?page=' + pageNumber + '&search=' + search + '&searchLocation=' + searchLocation, { headers });
   }
+  
   onGetCompanyById(id){
-
     this.auth_token = JSON.parse(localStorage.getItem('user')).token;
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.auth_token}`,
     });
-    
     return this.http.get(this.baseApi + '/auth-company/' + id, { headers });
   }
 
@@ -37,16 +34,11 @@ export class InformationService {
     return this.http.get(this.baseApi + '/users' + '?page=' + pageNumber + '&search=' + search + '&jobSearch=' + jobSearch);
   }
   onGetUserById(id){
-
-    
     return this.http.get(this.baseApi + '/user/' + id);
   }
   
   
   
-  // onGetJobs(){
-    //   return this.http.get(this.baseApi + '/all-jobs');
-    // }
     onGetJobsByUrl(pageNumber, search, searchLocation, minSalary, maxSalary) {
 
       this.auth_token = JSON.parse(localStorage.getItem('user')).token;

@@ -9,6 +9,7 @@ import { WebsocketService } from '../../services/websocket.service';
 import { Subscription } from 'rxjs';
 
 import { KeepHTMLPipe } from '../../validators/keep-html.pipe';
+import { AnimatedTextComponent } from "../../shared/animated-text/animated-text.component";
 
 interface Message {
   text: string;
@@ -19,7 +20,7 @@ interface Message {
 @Component({
   selector: 'app-chat-bot',
   standalone: true,
-  imports: [CommonModule, FormsModule, KeepHTMLPipe],
+  imports: [CommonModule, FormsModule, KeepHTMLPipe, AnimatedTextComponent],
   templateUrl: './chat-bot.component.html',
   styleUrl: './chat-bot.component.css',
   animations: [
@@ -114,6 +115,7 @@ export class ChatBotComponent implements OnDestroy {
     this.addUserMessage(msg);
     this.websocketService.sendMessage(msg);
     this.isTyping = true;
+
     this.currentBotMessage = null;
     this.newMessage = '';
   }
@@ -152,7 +154,7 @@ export class ChatBotComponent implements OnDestroy {
     this.scrollToBottom();
   }
 
-  private scrollToBottom(): void {
+  public scrollToBottom(): void {
     try {
       setTimeout(() => {
         if (this.scrollContainer?.nativeElement) {

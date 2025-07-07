@@ -58,10 +58,7 @@ export class UsersComponent {
           console.log(res);
           this.users = res['data']['data'];
           this.paginationLinks = res['data']['links'];          
-          
           this.MainUser = JSON.parse(localStorage.getItem('user'));
-
-
           this.notification = {
             isFound: true,
             message: res['message'] || 'Users fetched successfully',

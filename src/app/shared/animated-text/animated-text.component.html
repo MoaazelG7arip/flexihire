@@ -1,0 +1,11 @@
+<!-- 
+
+<div class="animated-text">
+  <span>{{displayedText}}</span>
+  <span class="cursor" *ngIf="currentIndex < words.length">|</span>
+</div> -->
+
+<div class="animated-text">
+  <span @wordAnimation *ngFor="let word of displayedText.split(' '); let i = index">{{word}} </span>
+  <span class="cursor" *ngIf="currentIndex < words.length">|</span>
+</div>

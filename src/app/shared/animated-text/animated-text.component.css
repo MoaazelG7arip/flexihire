@@ -1,0 +1,17 @@
+
+
+
+/* animated-text.component.css */
+/* .animated-text {
+  font-size: 1.2rem;
+  line-height: 1.5;
+} */
+
+.cursor {
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  from, to { opacity: 1; }
+  50% { opacity: 0; }
+}

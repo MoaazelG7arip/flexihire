@@ -115,43 +115,38 @@ export class HomeComponent {
 
   saveJob(jobId) {
 
-  this.loading = true;
-  this.jobService.onSaveJob(jobId).subscribe({
-    next: (res) => {
-      console.log(res);
-      this.loading = false;
-
-
-      this.fetchSavedJobs(); // Refresh saved jobs after saving a new one
-
-      this.recommendedJobs.forEach((job) => {
-        if (job.id === jobId) {
-          job.saved = !job.saved; // Update the job's isSaved property
-        }
-      });
-
-
-      this.notification = {
-        isFound: true,
-        message: res['message'] || 'Job saved successfully',
-        status: 'success',
-      };
-      setTimeout(() => {
-        this.notification = { isFound: false, message: '', status: '' };
-      }, 3500);
-    },
-    error: (err) => {
-      this.loading = false;
-      console.log(err);
-      this.notification = {
-        isFound: true,
-        message: err.error.message || 'Error saving job',
-        status: 'alert',
-      };
-      setTimeout(() => {
-        this.notification = { isFound: false, message: '', status: '' };
-      }, 3500);
-    }
+    this.loading = true;
+    this.jobService.onSaveJob(jobId).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.loading = false;
+        this.fetchSavedJobs(); // Refresh saved jobs after saving a new one
+        this.recommendedJobs.forEach((job) => {
+          if (job.id === jobId) {
+            job.saved = !job.saved; // Update the job's isSaved property
+          }
+        });
+        this.notification = {
+          isFound: true,
+          message: res['message'] || 'Job saved successfully',
+          status: 'success',
+        };
+        setTimeout(() => {
+          this.notification = { isFound: false, message: '', status: '' };
+        }, 3500);
+      },
+      error: (err) => {
+        this.loading = false;
+        console.log(err);
+        this.notification = {
+          isFound: true,
+          message: err.error.message || 'Error saving job',
+          status: 'alert',
+        };
+        setTimeout(() => {
+          this.notification = { isFound: false, message: '', status: '' };
+        }, 3500);
+      }
   });
 }
 

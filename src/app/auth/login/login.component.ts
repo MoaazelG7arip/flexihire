@@ -55,11 +55,9 @@ export class LoginComponent {
     }
   }  
   goToRegisterPage(){
-    // this.authStatus.emit('register')
     this.router.navigate(['/auth/register'])
   }
   goToForgetPassword(){
-    // this.authStatus.emit('forget')
     this.router.navigate(['/auth/forget-password'])
   }
 

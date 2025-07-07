@@ -10,10 +10,9 @@ interface ChatMessage {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class WebsocketService {
-
   private ws!: WebSocket;
   private reconnectAttempts = 0;
   private maxReconnectAttempts = 5;
@@ -30,8 +29,10 @@ export class WebsocketService {
 
   private connect(): void {
     try {
-      this.ws = new WebSocket(`wss://7252-197-53-14-243.ngrok-free.app/ws/user_${Date.now()}`);
-
+      // this.ws = new WebSocket(`wss://7252-197-53-14-243.ngrok-free.app/ws/user_${Date.now()}`);
+      this.ws = new WebSocket(
+        `wss://31d9-197-53-14-243.ngrok-free.app/ws/user_${Date.now()}`
+      );
       this.ws.onopen = () => {
         console.log('Connected to chatbot');
         this.reconnectAttempts = 0;
@@ -40,7 +41,9 @@ export class WebsocketService {
       this.ws.onmessage = (event: MessageEvent) => {
         try {
           const data: ChatMessage = JSON.parse(event.data);
-          this.handleMessage(data);
+          console.log(data)
+          this.onMessage.next(data.content);
+          // this.handleMessage(data);
         } catch (error) {
           this.onError.next('Failed to parse server response');
         }
@@ -65,10 +68,10 @@ export class WebsocketService {
         this.onThinking.next();
         break;
       case 'stream_chunk':
-        case 'stream_end':
-          if (data.content) this.onMessage.next(data.content);
-          if (data.message?.content) this.onMessage.next(data.message.content);
-          break;
+      case 'stream_end':
+        if (data.content) this.onMessage.next(data.content);
+        if (data.message?.content) this.onMessage.next(data.message.content);
+        break;
       case 'error':
         this.onError.next(data.content || 'Unknown error occurred');
         break;
@@ -79,7 +82,9 @@ export class WebsocketService {
     if (this.reconnectAttempts < this.maxReconnectAttempts) {
       this.reconnectAttempts++;
       setTimeout(() => {
-        console.log(`Reconnecting... (${this.reconnectAttempts}/${this.maxReconnectAttempts})`);
+        console.log(
+          `Reconnecting... (${this.reconnectAttempts}/${this.maxReconnectAttempts})`
+        );
         this.connect();
       }, this.reconnectDelay * this.reconnectAttempts);
     } else {

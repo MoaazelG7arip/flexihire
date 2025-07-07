@@ -60,8 +60,6 @@ export class CompaniesComponent {
   fetchCompanyDetails(page, search, searchLocation){
     this.loading = true;
 
-
-
     this.informationService.onGetCompanyByUrl(page, search, searchLocation).subscribe({
       next: (res) => {
         this.loading = false;

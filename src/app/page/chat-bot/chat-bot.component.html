@@ -61,9 +61,20 @@
             <div class="max-w-[80%] p-3 rounded-2xl transition-all duration-200 bg-custom-blue"
                 [class.bg-gray-200]="message.sender === 'user'"
                 [class.shadow-sm]="message.sender === 'bot'">
-              <div class="text-sm">
-                
-                <span [innerHTML]="message.text | keepHTML"></span>
+              <div class="text-sm leading-relaxed">
+                @if(message.sender === 'user'){
+
+                  <span [innerHTML]="message.text | keepHTML"></span>
+                }@else if(message.sender === 'bot') {
+
+                  
+                  <app-animated-text
+                  [text]="message.text"
+                  [speed]="150"
+                  [delay]="500"
+                  (contentUpdated)="scrollToBottom()">
+                </app-animated-text>
+              }
               </div>
               <div class="mt-1 text-xs opacity-70">{{ message.timestamp | date:'shortTime' }}</div>
             </div>
