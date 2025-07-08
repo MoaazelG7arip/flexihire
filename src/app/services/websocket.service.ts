@@ -23,15 +23,16 @@ export class WebsocketService {
   public onError = new Subject<string>();
   public onThinking = new Subject<void>();
 
+  private baseApi = '31d9-197-53-14-243.ngrok-free.app';
+
   constructor() {
     this.connect();
   }
 
   private connect(): void {
     try {
-      // this.ws = new WebSocket(`wss://7252-197-53-14-243.ngrok-free.app/ws/user_${Date.now()}`);
       this.ws = new WebSocket(
-        `wss://31d9-197-53-14-243.ngrok-free.app/ws/user_${Date.now()}`
+        `wss://${this.baseApi}/ws/user_${Date.now()}`
       );
       this.ws.onopen = () => {
         console.log('Connected to chatbot');

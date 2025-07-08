@@ -65,45 +65,39 @@ export class JobsComponent {
   }
   
   fetchJobsDetails(page, search, searchLocation, minSalary, maxSalary) {
-    
-        this.loading = true;
-        this.informationService.onGetJobsByUrl(page, search, searchLocation, minSalary, maxSalary).subscribe({
-          next: (res) => {
-            console.log(res);
-            this.loading = false;
-            this.jobs = res['data']['data'];
-            this.paginationLinks = res['data']['links'];            
+    this.loading = true;
+    this.informationService.onGetJobsByUrl(page, search, searchLocation, minSalary, maxSalary).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.loading = false;
+        this.jobs = res['data']['data'];
+        this.paginationLinks = res['data']['links'];            
 
-            
-            // this.userLocation = JSON.parse(localStorage.getItem('user')).user.location;
-            // console.log(this.userLocation);
+        this.notification = {
+          isFound: true,
+          message: res['message'] || 'Jobs fetched successfully',
+          status: 'success',
+        };
+        setTimeout(() => {
+          this.notification = { isFound: false, message: '', status: '' };
+        }, 3500);
 
-            this.notification = {
-              isFound: true,
-              message: res['message'] || 'Jobs fetched successfully',
-              status: 'success',
-            };
-            setTimeout(() => {
-              this.notification = { isFound: false, message: '', status: '' };
-            }, 3500);
-    
-          },
-          error: (err) => {
-            this.loading = false;
-            console.log(err);
+      },
+      error: (err) => {
+        this.loading = false;
+        console.log(err);
 
 
-            this.notification = {
-              isFound: true,
-              message: err.error.message || 'Error fetching jobs',
-              status: 'alert',
-            };
-            setTimeout(() => {
-              this.notification = { isFound: false, message: '', status: '' };
-            }, 3500);
-          }
-        });
-
+        this.notification = {
+          isFound: true,
+          message: err.error.message || 'Error fetching jobs',
+          status: 'alert',
+        };
+        setTimeout(() => {
+          this.notification = { isFound: false, message: '', status: '' };
+        }, 3500);
+      }
+    });
   }
 
 

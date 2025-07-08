@@ -32,7 +32,6 @@ export class JobComponent {
   mainUser;
 
   ngOnInit(): void {
-    
     this.loading = true;
     const id = +this.route.snapshot.paramMap.get('id')!;
     this.informationService.onGetJobById(id).subscribe({
@@ -68,7 +67,6 @@ export class JobComponent {
         }, 3500);
       }
     });
-
   }
 
   ApplyForJob(jobId){
@@ -77,8 +75,6 @@ export class JobComponent {
       job_id: jobId,
       proposal: this.proposal
     };
-
-    console.log(data);
     this.jobService.onApplyForJob(data).subscribe({
       next: (res) => {
         this.loading = false;

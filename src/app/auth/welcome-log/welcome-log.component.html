@@ -1,13 +1,15 @@
 
 <div class="body relative h-screen w-full overflow-hidden">
-    <video src="video/3D-Background(2).mp4" autoplay muted loop
+    <div #lottieContainer class="absolute top-0 left-0 w-full h-full object-cover"></div>
+
+    <!-- <video src="video/vid2.mp4" autoplay muted loop
       class="absolute top-0 left-0 w-full h-full object-cover">
-    </video>
+    </video> -->
     <div class="absolute top-32 left-10 z-10 text-white">
       <h1 class="font-bold text-xl w-[75vw] sm:text-4xl sm:w-[50vw] leading-snug">Welcome to <span class="text-sky-500">FlexiHire</span> – Your Gateway to Flexible Hiring Solutions</h1>
       <div class="my-5 btns flex flex-col xs:flex-row">
-        <button (click)="onUpdatePageStatus('register')" class="p-3 m-3 text-sky-500 rounded-sm border border-sky-500 hover:bg-sky-900 transition">Create an account</button>
-        <button (click)="onUpdatePageStatus('login')" class="p-3 m-3  bg-sky-500 text-sky-950 rounded-sm hover:bg-sky-700 transition">Sign In</button>
+        <button (click)="onUpdatePageStatus('register')" class="p-3 m-3 text-sky-500 bg-gray-300/70 font-semibold rounded-sm border border-sky-500 hover:bg-sky-900 transition">Create an account</button>
+        <button (click)="onUpdatePageStatus('login')" class="p-3 m-3  bg-sky-500 text-sky-950 font-semibold rounded-sm hover:bg-sky-700 transition">Sign In</button>
       </div>
     </div>
   </div>

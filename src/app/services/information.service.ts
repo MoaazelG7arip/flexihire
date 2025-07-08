@@ -55,6 +55,8 @@ export class InformationService {
       });
       return this.http.get(this.baseApi + '/company/get-job/' + id, { headers });
     }
+
+    
     onGetTopCompanies() {
       return this.http.get(this.baseApi + '/top-companies');
     }
