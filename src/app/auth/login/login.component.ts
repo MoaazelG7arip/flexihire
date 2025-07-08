@@ -20,6 +20,8 @@ export class LoginComponent {
   authService: AuthService = inject(AuthService);
   loading: boolean = false;
   notification: any = { isFound:false, message:'', status : ''};
+  
+  seePassword:boolean = false;
 
   router: Router = inject(Router);
 
@@ -103,4 +105,6 @@ export class LoginComponent {
       }
     })
   }
+
+
 }

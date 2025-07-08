@@ -44,9 +44,16 @@
         </div>
 
         <!-- Password Field -->
-        <div class="col-span-2">
+        <div class="col-span-2 relative">
+          <div class="absolute top-3 right-4 text-dark-blue cursor-pointer" (click)="seePassword = !seePassword">
+            @if(!seePassword){
+              <i class="fa-solid fa-eye"></i>
+            } @else {
+              <i class="fa-solid fa-eye-slash"></i>
+            }
+          </div>
           <input
-            id="password" type="password" formControlName="password" required />
+            id="password" [type]="seePassword ? 'text': 'password'" formControlName="password" required />
           <label alt="Password" placeholder="Password"></label>
           <div
             *ngIf="loginForm.get('password')?.errors?.['required'] && loginForm.get('password')?.touched"

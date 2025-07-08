@@ -3,6 +3,7 @@ import { Tooltip, initTWE } from 'tw-elements';
 import { AuthComponent } from './auth/auth.component';
 import { NotificationComponent } from "./shared/notification/notification.component";
 import { BridgeService } from './services/bridge.service';
+import Lenis from 'lenis'
 
 @Component({
   selector: 'app-root',
@@ -29,5 +30,19 @@ export class AppComponent {
         }, 3500);
     }
     });
+
+
+// Initialize Lenis
+const lenis = new Lenis();
+
+// Use requestAnimationFrame to continuously update the scroll
+function raf(time) {
+  lenis.raf(time);
+  requestAnimationFrame(raf);
+}
+
+requestAnimationFrame(raf);
+
   }
+
 }
