@@ -7,16 +7,25 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class AuthService {
   http: HttpClient = inject(HttpClient);
-  user = new BehaviorSubject(null);
+  user = new BehaviorSubject(null);y
 
+
+  
+  
   private baseApi = 'https://c.jordanwebmaster.com/flexihire/public/api';
   // private baseApi = 'http://www.flexihire.me/api';
   private auth_token;
-  constructor() {
+  
+  
+  constructor(
+
+  ) {
     if (localStorage.getItem('user')) {
       this.user.next(JSON.parse(localStorage.getItem('user')));
     }
   }
+
+  
   onRegister(data) {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -26,7 +35,7 @@ export class AuthService {
   }
 
   onLogin(data) {
-    return this.http.post(this.baseApi + '/login', data);
+    return this.http.post(this.baseApi + '/login', data, {withCredentials:false});
   }
 
   onLogout() {
