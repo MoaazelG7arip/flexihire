@@ -8,7 +8,8 @@ export class JobService {
 
   http: HttpClient = inject(HttpClient);
 
-  private baseApi = "http://www.flexihire.me/api";
+  private baseApi = "https://c.jordanwebmaster.com/flexihire/public/api";
+  // private baseApi = "http://www.flexihire.me/api";
   private auth_token;
 
 
