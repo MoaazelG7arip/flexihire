@@ -137,7 +137,9 @@
         <button
         (click)="goToPage(item.label, item.url)"
         [disabled]="item.active"
-        class="border text-black py-1 px-2 m-1 rounded-full text-sm md:text-xl cursor-pointer hover:bg-gray-100 disabled:bg-cyan-500 disabled:text-white disabled:cursor-auto" [innerHTML]="$index == 0 ? '&lt;&lt;' : $index == paginationLinks.length - 1? '&gt;&gt;' :item.label"></button>
+        class="border text-black py-1 px-2 m-1 rounded-full text-sm md:text-xl cursor-pointer hover:bg-gray-100 
+        disabled:bg-cyan-500 disabled:text-white disabled:cursor-auto" 
+        [innerHTML]="$index == 0 ? '&lt;&lt;' : $index == paginationLinks.length - 1? '&gt;&gt;' :item.label"></button>
       }     
   </div>
 }

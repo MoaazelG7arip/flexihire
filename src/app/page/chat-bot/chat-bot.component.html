@@ -1,38 +1,47 @@
-
-<div *ngIf="isOpen" class="fixed inset-0 bg-black/10 backdrop-blur-sm z-40"></div>
+<div
+  *ngIf="isOpen"
+  class="fixed inset-0 bg-black/10 backdrop-blur-sm z-40"></div>
 
 <div class="fixed bottom-16 right-8 z-50">
   <!-- Floating Button -->
-  <button 
+  <button
     (click)="toggleChat()"
-    class="fab-button w-16 h-16 rounded-full bg-custom-blue text-white flex items-center justify-center 
-          shadow-lg hover:bg-dark-blue transition-all duration-300 hover:scale-110
-          [&.open]:scale-90 [&.open]:bg-white [&.open]:hover:bg-gray-100 [&.open]:text-black [&.open]:opacity-100 opacity-75"
+    class="fab-button w-16 h-16 rounded-full bg-custom-blue text-white flex items-center justify-center shadow-lg hover:bg-dark-blue transition-all duration-300 hover:scale-110 [&.open]:scale-90 [&.open]:bg-white [&.open]:hover:bg-gray-100 [&.open]:text-black [&.open]:opacity-100 opacity-75"
     [class.open]="isOpen">
     <!-- <svg *ngIf="!isOpen" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
             d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
     </svg> -->
-    <svg *ngIf="isOpen" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-            d="M6 18L18 6M6 6l12 12"/>
+    <svg
+      *ngIf="isOpen"
+      class="w-8 h-8"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24">
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M6 18L18 6M6 6l12 12" />
     </svg>
     <figure *ngIf="!isOpen" class="w-8 h-8">
-      <img src="photo/chatbot.png" alt="">
+      <img src="photo/chatbot.png" alt />
     </figure>
   </button>
 
   <!-- Chat Window -->
-  <div 
-    *ngIf="isOpen"  
+  <div
+    *ngIf="isOpen"
     @chatWindow
     class="chat-window fixed bottom-32 right-8 w-3/4 sm:w-96 max-w-full h-[550px] max-h-[70vh] bg-[#F4F9FA] rounded-xl shadow-xl border border-gray-100"
     (click)="$event.stopPropagation()">
-    
     <div class="flex flex-col h-full">
       <!-- Header -->
       <div class="flex items-center p-4 bg-custom-blue text-white rounded-t-xl">
-        <img src="photo/chatbot2.jpg" class="inline-block object-cover w-10 h-10 rounded-full" alt="">
+        <img
+          src="photo/chatbot2.jpg"
+          class="inline-block object-cover w-10 h-10 rounded-full"
+          alt />
         <div class="ml-4 flex flex-col">
           <!-- <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span> -->
           <h2 class="text-xl font-semibold">FlexiBot</h2>
@@ -43,75 +52,58 @@
       <!-- Messages -->
       <div #scrollContainer class="flex-1 p-4 overflow-y-auto bg-[#F4F9FA]">
         <div class="space-y-3">
-          <!-- <div *ngFor="let message of messages" 
-               @messageAnimation
-               class="flex"
-               [class.justify-end]="message.sender === 'user'">
-            <div class="max-w-[80%] p-3 rounded-2xl transition-all duration-200 bg-custom-blue"
-                 [class.bg-gray-200]="message.sender === 'user'"
-                 [class.shadow-sm]="message.sender === 'bot'">
-              <div class="text-sm">{{ message.text }}</div>
-              <div class="mt-1 text-xs opacity-70">{{ message.timestamp | date:'shortTime' }}</div>
-            </div>
-          </div> -->
-          <div *ngFor="let message of messages" 
-              @messageAnimation
-              class="flex"
-              [class.justify-end]="message.sender === 'user'">
-            <div class="max-w-[80%] p-3 rounded-2xl transition-all duration-200 bg-custom-blue"
-                [class.bg-gray-200]="message.sender === 'user'"
-                [class.shadow-sm]="message.sender === 'bot'">
+          <div
+            *ngFor="let message of messages"
+            @messageAnimation
+            class="flex"
+            [class.justify-end]="message.sender === 'user'">
+            <div
+              class="max-w-[80%] p-3 rounded-2xl transition-all duration-200 bg-custom-blue"
+              [class.bg-gray-200]="message.sender === 'user'"
+              [class.shadow-sm]="message.sender === 'bot'">
               <div class="text-sm leading-relaxed">
                 @if(message.sender === 'user'){
 
-                  <span [innerHTML]="message.text | keepHTML"></span>
+                <span [innerHTML]="message.text | keepHTML"></span>
                 }@else if(message.sender === 'bot') {
 
-                  
-                  <app-animated-text
+                <app-animated-text
                   [text]="message.text"
                   [speed]="150"
                   [delay]="500"
                   (contentUpdated)="scrollToBottom()">
                 </app-animated-text>
-              }
+                }
               </div>
-              <div class="mt-1 text-xs opacity-70">{{ message.timestamp | date:'shortTime' }}</div>
+              <div class="mt-1 text-xs opacity-70">
+                {{ message.timestamp | date : "shortTime" }}
+              </div>
             </div>
           </div>
           <!-- Typing Indicator -->
-          <div *ngIf="isTyping" class="flex space-x-2 justify-start  w-fit p-3 pt-5 rounded-2xl transition-all duration-200 bg-gray-100">
-            <!-- <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-100"></div>
-            <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-200"></div>
-            <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-300"></div> -->
-            <div class="loader "></div>
-
+          <div
+            *ngIf="isTyping"
+            class="flex space-x-2 justify-start w-fit p-3 pt-5 rounded-2xl transition-all duration-200 bg-gray-100">
+            <div class="loader"></div>
           </div>
         </div>
       </div>
 
-      <!-- Input -->
-      <!-- <div class="p-4 border-t border-gray-100 flex relative">
-        <input 
+      <div
+        class="flex bg-white m-3 rounded-[3rem] border-2 border-custom-blue focus:outline-none transition-all"
+        [class.animate-shake]="showInputError">
+        <input
           type="text"
-          [(ngModel)]="newMessage"
-          (keyup.enter)="sendMessage()"
+          class="!border-none !p-0 !m-0 !ms-4"
           placeholder="Type your message..."
-          class="flex-1 px-4 py-2 !rounded-3xl !border-2 !border-custom-blue focus:outline-none 
-                focus:ring-2 focus:ring-indigo-500 transition-all"
-          [class.animate-shake]="showInputError">
-          <button class="text-white py-3 px-7 rounded-3xl bg-custom-blue hover:bg-dark-blue absolute right-4"
-          (click)="sendMessage()">➤</button>
-      </div> -->
-
-      <div class="flex bg-white m-3 rounded-[3rem] border-2 border-custom-blue focus:outline-none transition-all"
-      [class.animate-shake]="showInputError">
-        <input type="text" class="!border-none !p-0 !m-0 !ms-4" placeholder="Type your message..."
-          [(ngModel)]="newMessage"  (keyup.enter)="sendMessage()">
-        <button class="text-white w-28  rounded-[3rem] bg-custom-blue hover:bg-dark-blue"
-          (click)="sendMessage()">➤</button>
+          [(ngModel)]="newMessage"
+          (keyup.enter)="sendMessage()" />
+        <button
+          class="text-white w-28 rounded-[3rem] bg-custom-blue hover:bg-dark-blue"
+          (click)="sendMessage()">
+          ➤
+        </button>
       </div>
-      
     </div>
   </div>
 </div>

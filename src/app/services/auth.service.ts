@@ -9,7 +9,7 @@ export class AuthService {
   http: HttpClient = inject(HttpClient);
   user = new BehaviorSubject(null);
 
-  private baseApi = 'https://c.jordanwebmaster.com/flexihire/public/api';
+  private baseApi = 'http://www.flexihire.me/api';
   private auth_token;
   constructor() {
     if (localStorage.getItem('user')) {

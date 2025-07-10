@@ -8,7 +8,8 @@ export class UpdateInfoService {
 
   http: HttpClient = inject(HttpClient);
 
-  private baseApi = "https://c.jordanwebmaster.com/flexihire/public/api/profile";
+  // private baseApi = "https://c.jordanwebmaster.com/flexihire/public/api/profile";
+  private baseApi = "http://www.flexihire.me/api/profile";
   private auth_token; 
   
   onUpdateImage(formData:object){

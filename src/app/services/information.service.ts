@@ -8,7 +8,7 @@ export class InformationService {
 
   http: HttpClient = inject(HttpClient);
 
-  private baseApi = 'https://c.jordanwebmaster.com/flexihire/public/api';
+  private baseApi = 'http://www.flexihire.me/api';
   private auth_token;
 
 
@@ -46,7 +46,8 @@ export class InformationService {
         Authorization: `Bearer ${this.auth_token}`,
       });
 
-      return this.http.get(this.baseApi + '/auth-jobs' + '?page=' + pageNumber + '&search=' + search + '&searchLocation=' + searchLocation  + '&minSalary=' + minSalary + '&maxSalary=' + maxSalary, { headers });
+      return this.http.get(this.baseApi + '/auth-jobs' + '?page=' + pageNumber + '&search=' + search + 
+        '&searchLocation=' + searchLocation  + '&minSalary=' + minSalary + '&maxSalary=' + maxSalary, { headers });
     }
     onGetJobById(id){
       this.auth_token = JSON.parse(localStorage.getItem('user')).token;

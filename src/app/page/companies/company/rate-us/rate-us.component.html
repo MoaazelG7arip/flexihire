@@ -45,22 +45,22 @@
 
     <!-- Review Form -->
     <form [formGroup]="reviewForm" (ngSubmit)="onSubmit()" class="max-w-3xl mx-auto">
-
       <div class="mb-6">
         <label for="reviewContent" class="block font-bold text-lg mb-2">Review</label>
         <textarea id="reviewContent" formControlName="comment" 
-                  class="w-full p-4 border border-gray-300 rounded-lg h-40 resize-none focus:border-blue-300 focus:outline-none transition-colors"
+                  class="w-full p-4 border border-gray-300 rounded-lg h-40 resize-none focus:border-blue-300 
+                  focus:outline-none transition-colors"
                   placeholder="EX. Lorem ipsum dolor sit amet..."></textarea>
         <div *ngIf="reviewForm.get('content')?.invalid && reviewForm.get('comment')?.touched" 
              class="text-red-500 mt-1">
           Review content is required
         </div>
       </div>
-
       <div class="text-center mt-8">
         <button type="submit" 
                 [disabled]="reviewForm.invalid || selectedRating === 0"
-                class="bg-custom-blue text-white w-full py-3 rounded-lg font-medium hover:bg-dark-blue transition duration-300 disabled:bg-gray-300 disabled:cursor-not-allowed">
+                class="bg-custom-blue text-white w-full py-3 rounded-lg font-medium hover:bg-dark-blue 
+                transition duration-300 disabled:bg-gray-300 disabled:cursor-not-allowed">
           Submit Review
         </button>
       </div>
