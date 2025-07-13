@@ -23,7 +23,7 @@ export class WebsocketService {
   public onError = new Subject<string>();
   public onThinking = new Subject<void>();
 
-  private baseApi = '7dc0ebd1a413.ngrok-free.app';
+  private baseApi = 'd3daa4bddb18.ngrok-free.app';
 
   constructor() {
     this.connect();
@@ -62,22 +62,6 @@ export class WebsocketService {
       this.onError.next('Failed to establish connection');
     }
   }
-
-  // private handleMessage(data: ChatMessage): void {
-  //   switch (data.type) {
-  //     case 'thinking':
-  //       this.onThinking.next();
-  //       break;
-  //     case 'stream_chunk':
-  //     case 'stream_end':
-  //       if (data.content) this.onMessage.next(data.content);
-  //       if (data.message?.content) this.onMessage.next(data.message.content);
-  //       break;
-  //     case 'error':
-  //       this.onError.next(data.content || 'Unknown error occurred');
-  //       break;
-  //   }
-  // }
 
   private handleReconnect(): void {
     if (this.reconnectAttempts < this.maxReconnectAttempts) {
