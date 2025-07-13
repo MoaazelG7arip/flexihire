@@ -23,7 +23,7 @@ export class WebsocketService {
   public onError = new Subject<string>();
   public onThinking = new Subject<void>();
 
-  private baseApi = '9eeb25cb81f5.ngrok-free.app';
+  private baseApi = '31d40e3d973c.ngrok-free.app';
 
   constructor() {
     this.connect();
