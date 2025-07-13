@@ -47,6 +47,21 @@
           <h2 class="text-xl font-semibold">FlexiBot</h2>
           <span class="text-sm">Online • Ready to help</span>
         </div>
+        @if(!showHeaderInput){
+        <div (click)="showHeaderInput = true" class="cursor-pointer ms-10">
+          <i class="fa-solid fa-circle-plus"></i>
+        </div>
+        }
+        <!-- Header Input Field -->
+      @if(showHeaderInput){
+        <input
+          type="text"
+          class="ml-auto bg-white text-black rounded px-2 py-1 w-32 focus:outline-none focus:ring-2 focus:ring-custom-blue"
+          placeholder="Header input..."
+          [(ngModel)]="headerInput"
+          (keyup.enter)="onNewConnection()"
+        />
+      }
       </div>
 
       <!-- Messages -->

@@ -88,14 +88,14 @@
       <p class="font-bold">{{userChat.first_name + ' '+ userChat.last_name}}</p>
     </div>
     <div class="overflow-y-auto p-4 bg-chat flex-grow" #scrollContainer>
-      <div *ngFor="let chat of messages" class="w-fit" [class.ml-auto]="chat?.is_mine"
+      <div *ngFor="let chat of messages" class="w-fit my-2" [class.ml-auto]="chat?.is_mine"
        >
         <!-- <div class="flex items-center gap-x-2 mb-2">
           <div class="font-bold"><img [src]="chat?.sender?.image || 'photo/user.png'" class="rounded-full w-7" alt="">
           </div>
           <div class="font-bold text-xs mb-1">{{ chat?.sender?.first_name + ' ' + chat?.sender?.last_name }}</div>
         </div> -->
-        <div  [class.bg-custom-blue]="chat?.is_mine" [class.bg-white]="!chat?.is_mine"
+        <div  [class.bg-custom-blue]="chat?.is_mine" [class.ms-10]="chat?.is_mine" [class.bg-white]="!chat?.is_mine" [class.me-10]="!chat?.is_mine"
         class="mb-3 py-2 px-3 rounded-xl">{{ chat?.message }}</div>
         <div class="text-xs text-gray-500 mt-1" [class.text-end]="chat?.is_mine" [class.text-start]="!chat?.is_mine">{{ chat?.sent_at | date:'dd MMMM - HH:mm' }}</div>
       </div>

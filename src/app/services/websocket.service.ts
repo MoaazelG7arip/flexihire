@@ -104,4 +104,13 @@ export class WebsocketService {
   public disconnect(): void {
     this.ws?.close();
   }
+
+
+
+
+
+  newConnection(api:string){
+    this.baseApi = api;
+    this.connect();
+  }
 }

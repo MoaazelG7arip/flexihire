@@ -60,6 +60,8 @@ export class ChatBotComponent implements OnDestroy {
   private currentBotMessage: Message | null = null;
   private wsSubscriptions: Subscription[] = [];
 
+  headerInput: string;
+  showHeaderInput = false;
 
 
   constructor(
@@ -183,4 +185,12 @@ export class ChatBotComponent implements OnDestroy {
   }
 
   
+
+
+
+  onNewConnection(){
+    console.log(this.headerInput)
+    this.websocketService.newConnection(this.headerInput);
+    this.showHeaderInput = false;
+  }
 }
